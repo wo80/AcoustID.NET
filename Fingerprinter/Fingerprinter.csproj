@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Audio\BassDecoder.cs" />
     <Compile Include="Audio\NAudioDecoder.cs" />
-    <Compile Include="Fpclac.cs" />
+    <Compile Include="Fpcalc.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
