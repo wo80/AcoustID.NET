@@ -69,9 +69,11 @@ namespace Fingerprinter
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
                         Fpcalc.Path = dlg.FileName;
-                        ProcessFileFpcalc(lbFile.Text);
                     }
+					else return; // Do nothing ...
                 }
+
+                ProcessFileFpcalc(lbFile.Text);
             }
             else
             {
