@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD42116C-FCD9-4FA5-947E-9170B4B276DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AcoustID.Tests</RootNamespace>
+    <AssemblyName>AcoustId.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AudioBuffer.cs" />
+    <Compile Include="TestChromaprint.cs" />
+    <Compile Include="Chromaprint\AudioProcessorTest.cs" />
+    <Compile Include="Chromaprint\ChromaFilterTest.cs" />
+    <Compile Include="Chromaprint\ChromaResamplerTest.cs" />
+    <Compile Include="Chromaprint\ChromaTest.cs" />
+    <Compile Include="Chromaprint\CombinedBufferTest.cs" />
+    <Compile Include="Chromaprint\FilterTest.cs" />
+    <Compile Include="Chromaprint\FingerprintCalculatorTest.cs" />
+    <Compile Include="Chromaprint\FingerprintCompressorTest.cs" />
+    <Compile Include="Chromaprint\FingerprintDecompressorTest.cs" />
+    <Compile Include="Chromaprint\LloydsTest.cs" />
+    <Compile Include="Chromaprint\MovingAverageTest.cs" />
+    <Compile Include="Chromaprint\QuantizerTest.cs" />
+    <Compile Include="FeatureVectorBuffer.cs" />
+    <Compile Include="TestsHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestChromaContext.cs" />
+    <Compile Include="Util\Base64Test.cs" />
+    <Compile Include="Util\BitStringReaderTest.cs" />
+    <Compile Include="Util\BitStringWriterTest.cs" />
+    <Compile Include="Util\HelperTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcoustId\AcoustID.csproj">
+      <Project>{F7E4A234-3744-4A6C-B000-1CBDD5CACCDD}</Project>
+      <Name>AcoustID</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="data\test_mono_11025.raw" />
+    <None Include="data\test_mono_44100.raw" />
+    <None Include="data\test_mono_8000.raw" />
+    <None Include="data\test_stereo_44100.raw" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
