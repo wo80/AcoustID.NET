@@ -69,10 +69,16 @@ namespace AcoustID.Chromaprint
 
         public void Consume(FFTFrame frame)
         {
-            for (int i = 0; i < m_features.Length; i++)
-            {
-                m_features[i] = 0.0;
-            }
+            // TODO: do we really need to create a new instance here
+            m_features = new double[NUM_BANDS];
+
+            // Yes, we do. See ChromaFilter: m_buffer[i][] would reference
+            // the same array for all i.
+
+            //for (int i = 0; i < m_features.Length; i++)
+            //{
+            //    m_features[i] = 0.0;
+            //}
 
             for (int i = m_min_index; i < m_max_index; i++)
             {

@@ -16,7 +16,7 @@ namespace Fingerprinter.Audio
     /// </summary>
     public class NAudioDecoder : IDecoder, IDisposable
     {
-        private static readonly int BUFFER_SIZE = 4 * 256 * 256;
+        private static readonly int BUFFER_SIZE = 2 * 192000;
 
         Mp3FileReader reader;
         
@@ -76,20 +76,20 @@ namespace Fingerprinter.Audio
             }
 
             int remaining, length, size;
-            byte[] buffer = new byte[BUFFER_SIZE];
-            short[] data = new short[BUFFER_SIZE / 2];
+            byte[] buffer = new byte[2 * BUFFER_SIZE];
+            short[] data = new short[BUFFER_SIZE];
 
-            // Samples to read to get MAX_LENGTH seconds of audio
+            // Samples to read to get maxLength seconds of audio
             remaining = maxLength * Channels * SampleRate;
 
             // Bytes to read
-            length = 2 * Math.Min(remaining, BUFFER_SIZE / 2);
+            length = 2 * Math.Min(remaining, BUFFER_SIZE);
 
             while ((size = reader.Read(buffer, 0, length)) > 0)
             {
-                Buffer.BlockCopy(buffer, 0, data, 0, buffer.Length);
+                Buffer.BlockCopy(buffer, 0, data, 0, size);
 
-                consumer.Consume(data, BUFFER_SIZE / 2);
+                consumer.Consume(data, size / 2);
 
                 remaining -= size / 2;
                 if (remaining <= 0)
@@ -97,7 +97,7 @@ namespace Fingerprinter.Audio
                     break;
                 }
 
-                length = 2 * Math.Min(remaining, BUFFER_SIZE / 2);
+                length = 2 * Math.Min(remaining, BUFFER_SIZE);
             }
 
             return true;
