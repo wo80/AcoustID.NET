@@ -27,7 +27,7 @@ namespace Fingerprinter
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "MP3 files (*.mp3)|*.mp3";
+            dlg.Filter = "MP3 files (*.mp3)|*.mp3|WAV files (*.wav)|*.wav";
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {

@@ -10,6 +10,7 @@ namespace Fingerprinter.Audio
     using AcoustID.Audio;
     using AcoustID.Chromaprint;
     using NAudio.Wave;
+    using System.IO;
 
     /// <summary>
     /// Decode using the NAudio library. Great audio library, but the MP3 decoder is kinda slow.
@@ -18,7 +19,9 @@ namespace Fingerprinter.Audio
     {
         private static readonly int BUFFER_SIZE = 2 * 192000;
 
-        Mp3FileReader reader;
+        WaveStream reader;
+
+        string extension;
         
         int sampleRate;
         int bitsPerSample;
@@ -54,15 +57,25 @@ namespace Fingerprinter.Audio
 
         public NAudioDecoder(string file)
         {
+            extension = Path.GetExtension(file).ToLowerInvariant();
+
             ready = false;
 
-            reader = new Mp3FileReader(file);
+            if (extension.Equals(".wav"))
+            {
+                reader = new WaveFileReader(file);
+            }
+            else
+            {
+                reader = new Mp3FileReader(file);
+            }
+
             var format = reader.WaveFormat;
 
             bitsPerSample = format.BitsPerSample;
             sampleRate = format.SampleRate;
             channels = format.Channels;
-
+            
             duration = (int)reader.TotalTime.TotalSeconds;
 
             ready = (format.BitsPerSample == 16);
