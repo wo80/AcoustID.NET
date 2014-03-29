@@ -13,15 +13,20 @@ namespace Fingerprinter
 {
     public partial class MainForm : Form
     {
-        NAudioDecoder decoder;
+        IAudioDecoder decoder;
 
         public MainForm()
         {
             InitializeComponent();
+
+            decoder = new NAudioDecoder();
+            //decoder = new BassDecoder();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Fpcalc.Path = @"D:\Projekte\Desktop\Media\AcoustId\extern\fpcalc.exe";
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -33,27 +38,27 @@ namespace Fingerprinter
             {
                 lbFile.Text = dlg.FileName;
 
-                if (decoder != null)
-                {
-                    decoder.Dispose();
-                }
+                ResetAll();
 
-                decoder = new NAudioDecoder(dlg.FileName);
+                decoder.Load(dlg.FileName);
 
-                lbAudio.Text = String.Format("{0}Hz, {1}bit{2}, {3}", 
-                    decoder.SampleRate, 
-                    decoder.BitsPerSample, 
-                    decoder.BitsPerSample != 16 ? " (not supported)" : "",
-                    decoder.Channels == 2 ? "stereo" : (decoder.Channels == 1 ? "mono" : "multi-channel"));
-
-                lbDuration.Text = decoder.Duration.ToString();
+                int bits = decoder.SourceBitDepth;
+                int channels = decoder.SourceChannels;
 
                 if (decoder.Ready)
                 {
+                    lbAudio.Text = String.Format("{0}Hz, {1}bit{2}, {3}",
+                        decoder.SourceSampleRate, bits, bits != 16 ? " (not supported)" : "",
+                        channels == 2 ? "stereo" : (channels == 1 ? "mono" : "multi-channel"));
+
+                    lbDuration.Text = decoder.Duration.ToString();
+
                     btnFingerPrint.Enabled = true;
                 }
-
-                ResetAll();
+                else
+                {
+                    lbAudio.Text = "failed to load audio";
+                }
             }
         }
 
@@ -132,6 +137,29 @@ namespace Fingerprinter
             }
         }
 
+        private void listView2_DoubleClick(object sender, EventArgs e)
+        {
+            var selection = listView2.SelectedItems;
+
+            if (selection.Count <= 0)
+            {
+                return;
+            }
+
+            try
+            {
+                var pos = listView2.PointToClient(Control.MousePosition);
+                var hit = listView2.HitTest(pos);
+
+                int index = hit.Item.SubItems.IndexOf(hit.SubItem);
+
+                Clipboard.SetText(selection[0].SubItems[index].Text);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         private void ResetAll()
         {
             lbBenchmark.Text = String.Empty;
@@ -192,7 +220,7 @@ namespace Fingerprinter
             {
                 if (decoder.Ready)
                 {
-                    btnOpen.Enabled = false;
+                    //btnOpen.Enabled = false;
                     btnFingerPrint.Enabled = false;
                     btnRequest.Enabled = false;
 
@@ -218,12 +246,13 @@ namespace Fingerprinter
         {
             if (File.Exists(file))
             {
-                btnOpen.Enabled = false;
+                //btnOpen.Enabled = false;
                 btnFingerPrint.Enabled = false;
                 btnRequest.Enabled = false;
 
                 Task.Factory.StartNew(() =>
                 {
+
                     Stopwatch stopwatch = new Stopwatch();
                     stopwatch.Start();
 
@@ -254,6 +283,9 @@ namespace Fingerprinter
 
                 btnOpen.Enabled = true;
                 btnRequest.Enabled = true;
+
+                // Release audio file handle.
+                decoder.Dispose();
             };
 
             if (tbFingerprint.InvokeRequired)
