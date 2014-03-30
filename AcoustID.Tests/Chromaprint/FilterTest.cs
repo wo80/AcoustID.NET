@@ -70,19 +70,24 @@ namespace AcoustID.Tests.Chromaprint
         public void TestStaticFilter1()
         {
             double[] data = {
-		        1.0, 2.0, 3.0,
-		        3.0, 4.0, 5.0,
-		        6.0, 7.0, 8.0,
+		        1.0, 2.1, 3.4,
+		        3.1, 4.1, 5.1,
+		        6.0, 7.1, 8.0
 	        };
             Image image = new Image(3, data);
             IntegralImage integral_image = new IntegralImage(image);
             double res;
+
             res = Filter.Filter1(integral_image, 0, 0, 1, 1, Filter.Subtract);
-            Assert.AreEqual(1.0, res, TestsHelper.EPS); // 2 - 1
+            Assert.AreEqual(1.0 - 0.0, res);
+            res = Filter.Filter1(integral_image, 1, 1, 1, 1, Filter.Subtract);
+            Assert.AreEqual(4.1 - 0.0, res);
+            res = Filter.Filter1(integral_image, 0, 0, 1, 2, Filter.Subtract);
+            Assert.AreEqual(2.1 - 1.0, res);
             res = Filter.Filter1(integral_image, 0, 0, 2, 2, Filter.Subtract);
-            Assert.AreEqual(2.0, res, TestsHelper.EPS); // 2+4 - 1+3
+            Assert.AreEqual((2.1 + 4.1) - (1.0 + 3.1), res);
             res = Filter.Filter1(integral_image, 0, 0, 3, 2, Filter.Subtract);
-            Assert.AreEqual(3.0, res, TestsHelper.EPS); // 2+4+7 - 1+3+6
+            Assert.AreEqual((2.1 + 4.1 + 7.1) - (1.0 + 3.1 + 6.0), res);
         }
 
         [TestMethod]

@@ -94,5 +94,18 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
+
+        [TestMethod]
+        public void TestInvalid1()
+        {
+            byte[] data = { 0, 255, 255, 255 };
+
+            FingerprintDecompressor decompressor = new FingerprintDecompressor();
+
+            int algorithm = -1;
+            int[] value = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            Assert.AreEqual(value.Length, 0);
+            Assert.AreEqual(0, algorithm);
+        }
     }
 }

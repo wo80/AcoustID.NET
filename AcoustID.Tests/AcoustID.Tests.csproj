@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioBuffer.cs" />
+    <Compile Include="Chromaprint\SilenceRemoverTest.cs" />
+    <Compile Include="Chromaprint\IntegralImageTest.cs" />
     <Compile Include="TestChromaprint.cs" />
     <Compile Include="Chromaprint\AudioProcessorTest.cs" />
     <Compile Include="Chromaprint\ChromaFilterTest.cs" />
