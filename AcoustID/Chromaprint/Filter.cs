@@ -95,6 +95,11 @@ namespace AcoustID.Chromaprint
         // oooooooooooooooo
         public static double Filter0(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             double a = image.Area(x, y, x + w - 1, y + h - 1);
             double b = 0;
             return cmp(a, b);
@@ -106,6 +111,11 @@ namespace AcoustID.Chromaprint
         // oooooooooooooooo
         public static double Filter1(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             int h_2 = h / 2;
 
             double a = image.Area(x, y + h_2, x + w - 1, y + h - 1);
@@ -120,6 +130,11 @@ namespace AcoustID.Chromaprint
         // .......ooooooooo
         public static double Filter2(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             int w_2 = w / 2;
 
             double a = image.Area(x + w_2, y, x + w - 1, y + h - 1);
@@ -134,6 +149,11 @@ namespace AcoustID.Chromaprint
         // ooooooo.........
         public static double Filter3(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             int w_2 = w / 2;
             int h_2 = h / 2;
 
@@ -150,6 +170,11 @@ namespace AcoustID.Chromaprint
         // ................
         public static double Filter4(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             int h_3 = h / 3;
 
             double a = image.Area(x, y + h_3, x + w - 1, y + 2 * h_3 - 1);
@@ -165,6 +190,11 @@ namespace AcoustID.Chromaprint
         // .....oooooo.....
         public static double Filter5(IntegralImage image, int x, int y, int w, int h, Func<double, double, double> cmp)
         {
+            //Debug.Assert(x >= 0);
+            //Debug.Assert(y >= 0);
+            //Debug.Assert(w >= 1);
+            //Debug.Assert(h >= 1);
+
             int w_3 = w / 3;
 
             double a = image.Area(x + w_3, y, x + 2 * w_3 - 1, y + h - 1);

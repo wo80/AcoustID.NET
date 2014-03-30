@@ -23,6 +23,12 @@ namespace AcoustID.Chromaprint
 
         public int[] Decompress(string data, ref int algorithm)
         {
+            if (data.Length < 4)
+            {
+                // Invalid fingerprint (shorter than 4 bytes)
+                return new int[0];
+            }
+
             // TODO: this is not exactly what the C++ version does
             if (algorithm <= 0)
             {
@@ -37,6 +43,12 @@ namespace AcoustID.Chromaprint
             reader.Read(8);
             reader.Read(8);
 
+            if (reader.AvailableBits() < length * kNormalBits)
+            {
+                // Invalid fingerprint (too short)
+                return new int[0];
+            }
+
             m_result = new List<int>(length);
 
             for (int i = 0; i < length; i++)
@@ -45,9 +57,17 @@ namespace AcoustID.Chromaprint
             }
 
             reader.Reset();
-            ReadNormalBits(reader);
+            if (!ReadNormalBits(reader))
+            {
+                return new int[0];
+            }
+
             reader.Reset();
-            ReadExceptionBits(reader);
+            if (!ReadExceptionBits(reader))
+            {
+                return new int[0];
+            }
+
             UnpackBits();
 
             // TODO: no list needed?
@@ -74,7 +94,7 @@ namespace AcoustID.Chromaprint
             }
         }
 
-        void ReadNormalBits(BitStringReader reader)
+        bool ReadNormalBits(BitStringReader reader)
         {
             int i = 0;
             while (i < m_result.Count)
@@ -86,17 +106,27 @@ namespace AcoustID.Chromaprint
                 }
                 m_bits.Add((byte)bit);
             }
+
+            return true;
         }
 
-        void ReadExceptionBits(BitStringReader reader)
+        bool ReadExceptionBits(BitStringReader reader)
         {
             for (int i = 0; i < m_bits.Count; i++)
             {
                 if (m_bits[i] == kMaxNormalValue)
                 {
+                    if (reader.Eof)
+                    {
+                        // Invalid fingerprint (reached EOF while reading exception bits)
+                        return false;
+                    }
+
                     m_bits[i] += (byte)reader.Read(kExceptionBits);
                 }
             }
+
+            return true;
         }
     }
 }

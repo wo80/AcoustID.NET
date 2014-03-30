@@ -42,7 +42,7 @@ namespace AcoustID.Chromaprint
 
         public void Consume(short[] input, int length)
         {
-            int offset = 0;
+            int offset = 0, n = length;
             if (m_start)
             {
                 while (length > 0)
@@ -57,6 +57,22 @@ namespace AcoustID.Chromaprint
                     length--;
                 }
             }
+
+            // TODO: workaround pointer magic: shift array data.
+            if (offset > 0)
+            {
+                for (int i = 0; i < n - offset; i++)
+                {
+                    input[i] = input[i + offset];
+                }
+
+                // Not necessary?
+                for (int i = n - offset; i < n; i++)
+                {
+                    input[i] = 0;
+                }
+            }
+
             if (length > 0)
             {
                 m_consumer.Consume(input, length);

@@ -47,8 +47,8 @@ namespace AcoustID.Chromaprint
 		}
 	
 		public double Area(int x1, int y1, int x2, int y2)
-		{
-            if (x2 < 0 || y2 < 0)
+        {
+            if (x2 < x1 || y2 < y1)
             {
                 // TODO: throw?
                 return 0.0;

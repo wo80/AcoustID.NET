@@ -21,7 +21,7 @@ namespace AcoustID
         /// <summary>
         /// Return the version number of Chromaprint.
         /// </summary>
-        public static readonly string Version = "0.7.0";
+        public static readonly string Version = "1.1.0";
 
         Fingerprinter fingerprinter;
         int algorithm;
