@@ -8,13 +8,12 @@ namespace AcoustID.Web
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Net;
     using System.IO;
     using System.IO.Compression;
-    using System.Threading.Tasks;
+    using System.Net;
+    using System.Text;
     using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Calls the AcoustID webservice to lookup audio data for a given fingerprint.
@@ -61,7 +60,7 @@ namespace AcoustID.Web
         /// WARNING: Don't use this in a console app. An exception concerning the
         /// SynchronizationContext will be thrown.
         /// </remarks>
-        public void GetAsync(Action<List<LookupResult>> callback, string fingerprint, int duration)
+        public void GetAsync(Action<List<LookupResult>, Exception> callback, string fingerprint, int duration)
         {
             GetAsync(callback, fingerprint, duration, null);
         }
@@ -77,17 +76,27 @@ namespace AcoustID.Web
         /// WARNING: Don't use this in a console app. An exception concerning the
         /// SynchronizationContext will be thrown.
         /// </remarks>
-        public void GetAsync(Action<List<LookupResult>> callback, string fingerprint, int duration, string[] meta)
+        public void GetAsync(Action<List<LookupResult>, Exception> callback, string fingerprint, int duration, string[] meta)
         {
             TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             Task.Factory.StartNew(() =>
             {
-                var result = Get(fingerprint, duration, meta);
+                List<LookupResult> result = null;
+                Exception exception = null;
+
+                try
+                {
+                    result = Get(fingerprint, duration, meta);
+                }
+                catch (Exception e)
+                {
+                    exception = e;
+                }
 
                 var progress = Task.Factory.StartNew(() =>
                 {
-                    callback(result);
+                    callback(result, exception);
                 },
                 CancellationToken.None,
                 TaskCreationOptions.None,
@@ -143,7 +152,7 @@ namespace AcoustID.Web
             {
                 request.Append("&meta=" + String.Join("+", meta));
             }
-            
+
             request.Append("&format=" + parser.Format);
             request.Append("&duration=" + duration);
             request.Append("&fingerprint=" + fingerprint);
@@ -156,7 +165,7 @@ namespace AcoustID.Web
             WebClient client = new WebClient();
             client.Headers.Add("User-Agent", "AcoustId.Net/" + ChromaContext.Version);
             client.Proxy = null;
-            
+
             // For small data size, gzip will increase number of bytes to send.
             if (this.CompressData && request.Length > 1800)
             {
