@@ -18,15 +18,14 @@ namespace Fingerprinter
         public MainForm()
         {
             InitializeComponent();
-
-            decoder = new NAudioDecoder();
-            //decoder = new BassDecoder();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Fpcalc.Path = @"D:\Projekte\Desktop\Media\AcoustId\extern\fpcalc.exe";
+            Fpcalc.Path = @"D:\Projects\AcoustId\extern\fpcalc.exe";
 
+            decoder = new NAudioDecoder();
+            //decoder = new BassDecoder();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -57,7 +56,8 @@ namespace Fingerprinter
                 }
                 else
                 {
-                    lbAudio.Text = "failed to load audio";
+                    lbAudio.Text = "Failed to load audio";
+                    lbDuration.Text = String.Empty;
                 }
             }
         }
@@ -177,9 +177,15 @@ namespace Fingerprinter
 
             LookupService service = new LookupService();
 
-            service.GetAsync((results) =>
+            service.GetAsync((results, e) =>
             {
                 btnOpen.Enabled = true;
+
+                if (e != null)
+                {
+                    MessageBox.Show(e.Message, "Webservice error");
+                    return;
+                }
 
                 if (results.Count == 0)
                 {

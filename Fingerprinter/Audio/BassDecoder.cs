@@ -12,7 +12,6 @@ namespace Fingerprinter.Audio
     // from http://www.un4seen.com/
 
     using System;
-    using AcoustID.Audio;
     using AcoustID.Chromaprint;
     using Un4seen.Bass;
     using Un4seen.Bass.AddOn.Mix;
@@ -136,8 +135,6 @@ namespace Fingerprinter.Audio
         {
             Dispose(true);
 
-            Bass.BASS_Free();
-
             GC.SuppressFinalize(this);
         }
 
@@ -164,6 +161,8 @@ namespace Fingerprinter.Audio
         ~BassDecoder()
         {
             Dispose(true);
+
+            Bass.BASS_Free();
         }
 
         #endregion
