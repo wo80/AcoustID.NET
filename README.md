@@ -1,11 +1,9 @@
 AcoustID.NET
 ============
 
-AcoustID fingerprinter and webservice access for the .NET ecosystem.
+AcoustID fingerprinter and webservice access for the .NET ecosystem. See http://acoustid.org/ for information about the AcoustID project.
 
-See http://acoustid.org/ for information about the AcoustID project.
-
-The orginal code this project is based on can be found at https://bitbucket.org/acoustid.
+The orginal code of this project is based on can be found at https://bitbucket.org/acoustid.
 
 ##Features.
 * AcoustID fingerprint calculation.
