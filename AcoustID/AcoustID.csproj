@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Audio\IDecoder.cs" />
     <Compile Include="Audio\LomontFFTService.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Util\Chromagram.cs" />
     <Compile Include="Util\Spectrogram.cs" />
     <Compile Include="Util\Base64.cs" />

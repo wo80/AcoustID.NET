@@ -20,7 +20,6 @@ namespace AcoustID.Web
     /// </summary>
     public class LookupService
     {
-        static string CLIENT = "8XaBELgH";
         static string URL = "http://api.acoustid.org/v2/lookup";
 
         IResponseParser parser;
@@ -146,7 +145,7 @@ namespace AcoustID.Web
         {
             StringBuilder request = new StringBuilder();
 
-            request.Append("client=" + CLIENT);
+            request.Append("client=" + Configuration.ApiKey);
 
             if (meta != null)
             {
