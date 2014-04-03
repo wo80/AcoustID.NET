@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="LomontFFTService.cs" company="">
-// Original C++ implementation by Lukas Lalinsky, http://acoustid.org/chromaprint
+// Original code by Chris Lomont, 2010-2012, http://www.lomont.org/Software/
 // </copyright>
 // -----------------------------------------------------------------------
 

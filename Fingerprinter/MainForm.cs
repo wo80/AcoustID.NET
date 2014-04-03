@@ -6,7 +6,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AcoustID;
-using AcoustID.Audio;
 using AcoustID.Web;
 using Fingerprinter.Audio;
 
@@ -23,7 +22,7 @@ namespace Fingerprinter
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Fpcalc.Path = @"D:\Projekte\Desktop\Media\AcoustId\extern\fpcalc.exe";
+            Fpcalc.Path = @"D:\Projects\AcoustId\extern\fpcalc.exe";
 
             decoder = new NAudioDecoder();
             //decoder = new BassDecoder();
@@ -60,9 +59,6 @@ namespace Fingerprinter
                     lbAudio.Text = "Failed to load audio";
                     lbDuration.Text = String.Empty;
                 }
-
-                //ProcessFile(dlg.FileName);
-                //ProcessFileFpcalc(dlg.FileName);
             }
         }
 
@@ -253,11 +249,6 @@ namespace Fingerprinter
                         stopwatch.Stop();
 
                         ProcessFileCallback(context.GetFingerprint(), stopwatch.ElapsedMilliseconds);
-                        //var stream = new StreamWriter("fp.txt", true);
-                        //stream.Write(context.GetFingerprint());
-                        //stream.WriteLine();
-                        //stream.WriteLine();
-                        //stream.Close();
                     });
                 }
             }
@@ -284,11 +275,6 @@ namespace Fingerprinter
                     if (result.ContainsKey("fingerprint"))
                     {
                         ProcessFileCallback(result["fingerprint"], stopwatch.ElapsedMilliseconds);
-                        //var stream = new StreamWriter("fp.txt", true);
-                        //stream.Write(result["fingerprint"]);
-                        //stream.WriteLine();
-                        //stream.WriteLine();
-                        //stream.Close();
                     }
                     else
                     {
