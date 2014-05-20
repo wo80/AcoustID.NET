@@ -1,7 +1,7 @@
 AcoustID.NET
 ============
 
-AcoustID fingerprinter and webservice access the .NET. See http://acoustid.org/ for information about the AcoustID project.
+AcoustID fingerprinter and webservice access in C#. See http://acoustid.org/ for information about the AcoustID project.
 
 The original code for this project can be found at https://bitbucket.org/acoustid.
 
