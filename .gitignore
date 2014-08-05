@@ -1,0 +1,29 @@
+# Build and Object Folders
+bin/
+obj/
+
+#User Specific Files
+*.user
+*.suo
+*.userprefs
+
+#Resource Caches
+_ReSharper.*
+_TeamCity.*
+*.sln.cache
+*.DotSettings
+
+#deploy
+sitefiles/
+=======
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin
+obj
+
+#logs
+logs/
+logs
+*.log
+
+*.nupkg
+packages/*/**
