@@ -90,8 +90,8 @@ namespace Fingerprinter
         {
             if (String.IsNullOrEmpty(AcoustID.Configuration.ApiKey))
             {
-                // TODO: display a prompt for api key.
-                AcoustID.Configuration.ApiKey = "8XaBELgH";
+                // To get your own api key, visit https://acoustid.org/.
+                AcoustID.Configuration.ApiKey = "CImoilnU";
             }
 
             Lookup(tbFingerprint.Text, int.Parse(lbDuration.Text));
