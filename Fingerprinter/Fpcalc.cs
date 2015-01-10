@@ -8,8 +8,6 @@ namespace Fingerprinter
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Diagnostics;
 
     /// <summary>
@@ -19,6 +17,11 @@ namespace Fingerprinter
     {
         public static string Path;
 
+        /// <summary>
+        /// Executes fpcalc.exe to get the fingerprint for given audio file.
+        /// </summary>
+        /// <param name="file">The audio file.</param>
+        /// <returns>The audio fingerprint.</returns>
         public static Dictionary<string, string> Execute(string file)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
