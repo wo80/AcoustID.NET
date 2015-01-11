@@ -20,5 +20,10 @@ namespace Fingerprinter.Audio
 
         int Duration { get; }
         bool Ready { get; }
+
+        /// <summary>
+        /// Load an audio file.
+        /// </summary>
+        void Load(string file);
     }
 }

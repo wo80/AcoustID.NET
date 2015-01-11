@@ -31,11 +31,6 @@ namespace AcoustID.Audio
         int Channels { get; }
 
         /// <summary>
-        /// Load an audio file.
-        /// </summary>
-        void Load(string file);
-
-        /// <summary>
         /// Decode audio file.
         /// </summary>
         bool Decode(IAudioConsumer consumer, int maxLength);
