@@ -8,18 +8,16 @@ namespace AcoustID.Web
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Xml.Linq;
     using System.Globalization;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Parses lookup and submit responses from the webservice (XML format).
     /// </summary>
     public class XmlResponseParser : IResponseParser
     {
-        static NumberFormatInfo numberFormat = CultureInfo.InvariantCulture.NumberFormat;
-        static string format = "xml";
+        private static NumberFormatInfo numberFormat = CultureInfo.InvariantCulture.NumberFormat;
+        private static string format = "xml";
 
         public string Format
         {
@@ -40,7 +38,7 @@ namespace AcoustID.Web
         {
             try
             {
-                this.Error = String.Empty;
+                this.Error = string.Empty;
 
                 var root = XDocument.Parse(response).Element("response");
 
@@ -88,7 +86,7 @@ namespace AcoustID.Web
         private LookupResult ParseLookupResult(XElement el)
         {
             double score = 0.0;
-            string id = String.Empty;
+            string id = string.Empty;
 
             XElement element = el.Element("score");
 
@@ -124,8 +122,8 @@ namespace AcoustID.Web
         private Recording ParseRecording(XElement el)
         {
             int duration = 0;
-            string id = String.Empty;
-            string title = String.Empty;
+            string id = string.Empty;
+            string title = string.Empty;
 
             XElement element = el.Element("duration");
 
@@ -180,8 +178,8 @@ namespace AcoustID.Web
 
         private Artist ParseArtist(XElement el)
         {
-            string id = String.Empty;
-            string name = String.Empty;
+            string id = string.Empty;
+            string name = string.Empty;
 
             XElement element = el.Element("name");
 
@@ -202,9 +200,9 @@ namespace AcoustID.Web
 
         private ReleaseGroup ParseReleaseGroup(XElement el)
         {
-            string id = String.Empty;
-            string title = String.Empty;
-            string type = String.Empty;
+            string id = string.Empty;
+            string title = string.Empty;
+            string type = string.Empty;
 
             XElement element = el.Element("id");
 

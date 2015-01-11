@@ -6,23 +6,13 @@
 
 namespace AcoustID.Web
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents a recording.
     /// </summary>
     public class Recording
     {
-        public int Duration { get; private set; }
-        public string Id { get; private set; }
-        public string Title { get; private set; }
-
-        public List<Artist> Artists { get; private set; }
-        public List<ReleaseGroup> ReleaseGroups { get; private set; }
-
         public Recording(int duration, string id, string title)
         {
             this.Duration = duration;
@@ -32,6 +22,31 @@ namespace AcoustID.Web
             this.Artists = new List<Artist>();
             this.ReleaseGroups = new List<ReleaseGroup>();
         }
+
+        /// <summary>
+        /// Gets the duration of the recording (seconds).
+        /// </summary>
+        public int Duration { get; private set; }
+
+        /// <summary>
+        /// Gets the MusicBrainz recording id.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the title of the recording.
+        /// </summary>
+        public string Title { get; private set; }
+
+        /// <summary>
+        /// Gets the artists associated with the recording.
+        /// </summary>
+        public List<Artist> Artists { get; private set; }
+
+        /// <summary>
+        /// Gets the release groups associated with the recording.
+        /// </summary>
+        public List<ReleaseGroup> ReleaseGroups { get; private set; }
 
         public override string ToString()
         {

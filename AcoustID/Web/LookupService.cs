@@ -20,22 +20,9 @@ namespace AcoustID.Web
     /// </summary>
     public class LookupService
     {
-        static string URL = "http://api.acoustid.org/v2/lookup";
+        private const string URL = "http://api.acoustid.org/v2/lookup";
 
-        IResponseParser parser;
-
-        /// <summary>
-        /// Gets or sets if gzip compression is used to compress request data.
-        /// </summary>
-        public bool CompressData { get; set; }
-
-        /// <summary>
-        /// Gets the last error message (check this if parse methods return empty lists).
-        /// </summary>
-        public string Error
-        {
-            get { return parser.Error; }
-        }
+        private IResponseParser parser;
 
         public LookupService()
             : this(new XmlResponseParser())
@@ -46,7 +33,20 @@ namespace AcoustID.Web
         {
             this.parser = parser;
 
-            CompressData = true;
+            UseCompression = true;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to compress the data before submit.
+        /// </summary>
+        public bool UseCompression { get; set; }
+
+        /// <summary>
+        /// Gets the last error message (check this if parse methods return empty lists).
+        /// </summary>
+        public string Error
+        {
+            get { return parser.Error; }
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace AcoustID.Web
 
             if (meta != null)
             {
-                request.Append("&meta=" + String.Join("+", meta));
+                request.Append("&meta=" + string.Join("+", meta));
             }
 
             request.Append("&format=" + parser.Format);
@@ -166,7 +166,7 @@ namespace AcoustID.Web
             client.Proxy = null;
 
             // For small data size, gzip will increase number of bytes to send.
-            if (this.CompressData && request.Length > 1800)
+            if (this.UseCompression && request.Length > 1800)
             {
                 // The stream to hold the gzipped bytes.
                 using (var stream = new MemoryStream())

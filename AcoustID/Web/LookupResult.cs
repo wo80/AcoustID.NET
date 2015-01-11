@@ -6,21 +6,13 @@
 
 namespace AcoustID.Web
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Result of a lookup request.
     /// </summary>
     public class LookupResult
     {
-        public string Id { get; private set; }
-        public double Score { get; private set; }
-
-        public List<Recording> Recordings { get; private set; }
-
         public LookupResult(string id, double score)
         {
             this.Id = id;
@@ -28,5 +20,20 @@ namespace AcoustID.Web
 
             this.Recordings = new List<Recording>();
         }
+
+        /// <summary>
+        /// Gets the AcoustID of the lookup result.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the score of the lookup result (between 0 and 1).
+        /// </summary>
+        public double Score { get; private set; }
+
+        /// <summary>
+        /// Gets the recordings of the lookup result.
+        /// </summary>
+        public List<Recording> Recordings { get; private set; }
     }
 }

@@ -13,14 +13,9 @@ namespace AcoustID.Web
     /// </summary>
     public class SubmitService
     {
-        static string URL = "http://api.acoustid.org/v2/submit";
+        private const string URL = "http://api.acoustid.org/v2/submit";
 
-        IResponseParser parser;
-
-        /// <summary>
-        /// Gets or sets if gzip compression is used to compress data before submit.
-        /// </summary>
-        public bool CompressData { get; set; }
+        private IResponseParser parser;
 
         public SubmitService()
             : this(new XmlResponseParser())
@@ -31,8 +26,13 @@ namespace AcoustID.Web
         {
             this.parser = parser;
 
-            CompressData = true;
+            UseCompression = true;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to compress the data before submit.
+        /// </summary>
+        public bool UseCompression { get; set; }
 
         // TODO: implement submit
     }
