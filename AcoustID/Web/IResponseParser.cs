@@ -19,22 +19,24 @@ namespace AcoustID.Web
         string Format { get; }
 
         /// <summary>
-        /// Gets an error message (will be null for successful requests).
+        /// Indicates if the parser can read the given text format.
         /// </summary>
-        string Error { get; }
+        /// <param name="text">The webservice response.</param>
+        /// <returns>Returns true, if the parser can parse the given content.</returns>
+        bool CanParse(string text);
 
         /// <summary>
         /// Parse the content of a lookup response.
         /// </summary>
-        /// <param name="response">The webservice response.</param>
+        /// <param name="text">The webservice response.</param>
         /// <returns>A list of <see cref="LookupResult"/>.</returns>
-        List<LookupResult> ParseLookupResponse(string response);
+        LookupResponse ParseLookupResponse(string text);
 
         /// <summary>
         /// Parse the content of a submit response.
         /// </summary>
-        /// <param name="response">The webservice response.</param>
+        /// <param name="text">The webservice response.</param>
         /// <returns>A list of <see cref="SubmitResult"/>.</returns>
-        List<SubmitResult> ParseSubmitResponse(string response);
+        SubmitResponse ParseSubmitResponse(string text);
     }
 }

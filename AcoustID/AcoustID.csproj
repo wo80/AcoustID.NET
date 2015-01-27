@@ -79,10 +79,12 @@
     <Compile Include="Util\Helper.cs" />
     <Compile Include="Web\Artist.cs" />
     <Compile Include="Web\IResponseParser.cs" />
+    <Compile Include="Web\LookupResponse.cs" />
     <Compile Include="Web\LookupResult.cs" />
     <Compile Include="Web\LookupService.cs" />
     <Compile Include="Web\Recording.cs" />
     <Compile Include="Web\ReleaseGroup.cs" />
+    <Compile Include="Web\SubmitResponse.cs" />
     <Compile Include="Web\SubmitResult.cs" />
     <Compile Include="Web\SubmitService.cs" />
     <Compile Include="Web\XmlResponseParser.cs" />

@@ -7,12 +7,10 @@
 namespace AcoustID.Web
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Net;
     using System.Text;
-    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -42,20 +40,12 @@ namespace AcoustID.Web
         public bool UseCompression { get; set; }
 
         /// <summary>
-        /// Gets the last error message (check this if parse methods return empty lists).
-        /// </summary>
-        public string Error
-        {
-            get { return parser.Error; }
-        }
-
-        /// <summary>
         /// Calls the webservice on a worker thread.
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
-        /// <returns>A task which, on success, returns a list of lookup results.</returns>
-        public Task<List<LookupResult>> GetAsync(string fingerprint, int duration)
+        /// <returns>A task which returns a <see cref="LookupResponse"/>.</returns>
+        public Task<LookupResponse> GetAsync(string fingerprint, int duration)
         {
             return GetAsync(fingerprint, duration, null);
         }
@@ -66,19 +56,12 @@ namespace AcoustID.Web
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
         /// <param name="meta">Request meta information.</param>
-        /// <returns>A task which, on success, returns a list of lookup results.</returns>
-        public Task<List<LookupResult>> GetAsync(string fingerprint, int duration, string[] meta)
+        /// <returns>A task which returns a <see cref="LookupResponse"/>.</returns>
+        public Task<LookupResponse> GetAsync(string fingerprint, int duration, string[] meta)
         {
-            return Task.Factory.StartNew<List<LookupResult>>(() =>
+            return Task.Factory.StartNew<LookupResponse>(() =>
             {
-                try
-                {
-                    return Get(fingerprint, duration, meta);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                return Get(fingerprint, duration, meta);
             });
         }
 
@@ -87,8 +70,8 @@ namespace AcoustID.Web
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
-        /// <returns>List of lookup results.</returns>
-        public List<LookupResult> Get(string fingerprint, int duration)
+        /// <returns>A <see cref="LookupResponse"/>.</returns>
+        public LookupResponse Get(string fingerprint, int duration)
         {
             return Get(fingerprint, duration, null);
         }
@@ -99,21 +82,48 @@ namespace AcoustID.Web
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
         /// <param name="meta">Request meta information.</param>
-        /// <returns>List of lookup results.</returns>
-        public List<LookupResult> Get(string fingerprint, int duration, string[] meta)
+        /// <returns>A <see cref="LookupResponse"/>.</returns>
+        public LookupResponse Get(string fingerprint, int duration, string[] meta)
         {
             try
             {
                 string request = BuildRequestString(fingerprint, duration, meta);
+
+                // If the request contains invalid parameters, the server will return "400 Bad Request" and
+                // we'll end up in the first catch block.
                 string response = RequestService(request);
 
-                // TODO: server might return an error message as json.
-                //       Should probably add a json parser anyway ...
                 return parser.ParseLookupResponse(response);
             }
-            catch (Exception)
+            catch (WebException e)
             {
-                throw;
+                // Handle bad requests gracefully.
+                return CreateErrorResponse(e.Response as HttpWebResponse);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private LookupResponse CreateErrorResponse(HttpWebResponse response)
+        {
+            if (response == null)
+            {
+                return new LookupResponse(HttpStatusCode.BadRequest, "Unknown error.");
+            }
+
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                var text = reader.ReadToEnd();
+
+                if (parser.CanParse(text))
+                {
+                    return parser.ParseLookupResponse(text);
+                }
+
+                // TODO: parse error message (JSON).
+                return new LookupResponse(response.StatusCode, text);
             }
         }
 
@@ -175,6 +185,7 @@ namespace AcoustID.Web
                     client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
                     data = client.UploadData(URL, data);
+
                     return encoding.GetString(data);
                 }
             }

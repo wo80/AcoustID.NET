@@ -203,20 +203,21 @@ namespace Fingerprinter
             {
                 btnOpen.Enabled = true;
 
-                var results = t.Result;
+                var response = t.Result;
 
-                if (results.Count == 0)
+                if (!string.IsNullOrEmpty(response.ErrorMessage))
                 {
-                    if (String.IsNullOrEmpty(service.Error))
-                    {
-                        MessageBox.Show("No results for given fingerprint.");
-                    }
-                    else MessageBox.Show(service.Error, "Webservice error");
-
+                    MessageBox.Show(response.ErrorMessage, "Webservice error");
                     return;
                 }
 
-                foreach (var result in results)
+                if (response.Results.Count == 0)
+                {
+                    MessageBox.Show("No results for given fingerprint.");
+                    return;
+                }
+
+                foreach (var result in response.Results)
                 {
                     var item = new ListViewItem(new string[]
                     {

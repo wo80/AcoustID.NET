@@ -7,8 +7,8 @@
 namespace AcoustID.Web
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
+    using System.Net;
     using System.Xml.Linq;
 
     /// <summary>
@@ -19,50 +19,49 @@ namespace AcoustID.Web
         private static NumberFormatInfo numberFormat = CultureInfo.InvariantCulture.NumberFormat;
         private static string format = "xml";
 
+        /// <inheritdoc />
         public string Format
         {
             get { return format; }
         }
+        
+        /// <inheritdoc />
+        public bool CanParse(string text)
+        {
+            return !string.IsNullOrEmpty(text) && text.StartsWith("<?xml");
+        }
 
-        /// <summary>
-        /// Gets the last error message.
-        /// </summary>
-        public string Error { get; private set; }
-
-        /// <summary>
-        /// Parse the response of a lookup request.
-        /// </summary>
-        /// <param name="response">The response string.</param>
-        /// <returns>List of lookup results.</returns>
-        public List<LookupResult> ParseLookupResponse(string response)
+        /// <inheritdoc />
+        public LookupResponse ParseLookupResponse(string text)
         {
             try
             {
-                this.Error = string.Empty;
-
-                var root = XDocument.Parse(response).Element("response");
+                var root = XDocument.Parse(text).Element("response");
 
                 var status = root.Element("status");
 
-                List<LookupResult> results = new List<LookupResult>();
-
                 if (status.Value == "ok")
                 {
+                    var response = new LookupResponse();
+
                     var list = root.Element("results").Descendants("result");
 
                     foreach (var item in list)
                     {
-                        results.Add(ParseLookupResult(item));
+                        response.Results.Add(ParseLookupResult(item));
                     }
+
+                    return response;
                 }
-                else if (status.Value == "error")
+                
+                if (status.Value == "error")
                 {
                     var error = root.Element("error");
 
-                    this.Error = error.Element("message").Value;
+                    return new LookupResponse(HttpStatusCode.BadRequest, error.Element("message").Value);
                 }
 
-                return results;
+                return null;
             }
             catch (Exception e)
             {
@@ -75,7 +74,7 @@ namespace AcoustID.Web
         /// </summary>
         /// <param name="response">The response string.</param>
         /// <returns>List of submit results.</returns>
-        public List<SubmitResult> ParseSubmitResponse(string response)
+        public SubmitResponse ParseSubmitResponse(string response)
         {
             // TODO: implement submit response parsing
             throw new NotImplementedException();
