@@ -6,14 +6,15 @@
 
 namespace AcoustID.Util
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
 
     /// <summary>
     /// Encode and decode Base64 data.
     /// </summary>
+    /// <remarks>
+    /// This is a custom base64 implementation. Using Convert.ToBase64String and Convert.FromBase64String
+    /// is not an option here.
+    /// </remarks>
     internal static class Base64
     {
         internal static Encoding ByteEncoding = Encoding.GetEncoding("Latin1");

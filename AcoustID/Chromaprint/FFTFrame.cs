@@ -16,30 +16,30 @@ namespace AcoustID.Chromaprint
         private double[] m_data;
         private int m_size;
 
-		public int Size
+        public int Size
         {
             get { return m_size; }
-		}
+        }
 
-		public double[] Data
-		{
+        public double[] Data
+        {
             get { return m_data; }
-		}
+        }
 
-		public FFTFrame(int size)
-		{
-            m_size=size;
-			m_data = new double[size];
-		}
+        public FFTFrame(int size)
+        {
+            m_size = size;
+            m_data = new double[size];
+        }
 
-		public double Magnitude(int i)
-		{
-			return Math.Sqrt(Energy(i));					
-		}
+        public double Magnitude(int i)
+        {
+            return Math.Sqrt(Energy(i));
+        }
 
-		public double Energy(int i)
-		{
-			return m_data[i];
-		}
+        public double Energy(int i)
+        {
+            return m_data[i];
+        }
     }
 }

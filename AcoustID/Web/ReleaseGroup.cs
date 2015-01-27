@@ -23,7 +23,7 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Gets the MusicBrainz release group id.
+        /// Gets the MusicBrainz id of the release group.
         /// </summary>
         public string Id { get; private set; }
 

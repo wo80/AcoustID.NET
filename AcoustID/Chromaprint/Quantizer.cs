@@ -29,18 +29,22 @@ namespace AcoustID.Chromaprint
 
         public int Quantize(double value)
         {
-			if (value < m_t1) {
-				if (value < m_t0) {
-					return 0;
-				}
-				return 1;
-			}
-			else {
-				if (value < m_t2) {
-					return 2;
-				}
-				return 3;
-			}
-		}
+            if (value < m_t1)
+            {
+                if (value < m_t0)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+            else
+            {
+                if (value < m_t2)
+                {
+                    return 2;
+                }
+                return 3;
+            }
+        }
     }
 }

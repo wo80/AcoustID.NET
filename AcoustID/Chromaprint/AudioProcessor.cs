@@ -28,13 +28,13 @@ namespace AcoustID.Chromaprint
         private static readonly bool kResampleLinear = false;
         private static readonly double kResampleCutoff = 0.8;
 
-		private short[] m_buffer;
-		private short[] m_resample_buffer;
-		private int m_buffer_offset;
-		private int m_buffer_size;
-		private int m_target_sample_rate;
-		private int m_num_channels;
-		private IAudioConsumer m_consumer;
+        private short[] m_buffer;
+        private short[] m_resample_buffer;
+        private int m_buffer_offset;
+        private int m_buffer_size;
+        private int m_target_sample_rate;
+        private int m_num_channels;
+        private IAudioConsumer m_consumer;
 
         private Resampler m_resample_ctx;
 
@@ -63,7 +63,7 @@ namespace AcoustID.Chromaprint
 
         #region Public methods
 
-		//! Prepare for a new audio stream
+        //! Prepare for a new audio stream
         public bool Reset(int sample_rate, int num_channels)
         {
             if (num_channels <= 0)
@@ -71,12 +71,14 @@ namespace AcoustID.Chromaprint
                 Debug.WriteLine("Chromaprint::AudioProcessor::Reset() -- No audio channels.");
                 return false;
             }
+
             if (sample_rate <= kMinSampleRate)
             {
                 Debug.WriteLine("Chromaprint::AudioProcessor::Reset() -- Sample rate less than {0} ({1}).",
                     kMinSampleRate, sample_rate);
                 return false;
             }
+
             m_buffer_offset = 0;
 
             if (m_resample_ctx != null)
@@ -101,7 +103,7 @@ namespace AcoustID.Chromaprint
             return true;
         }
 
-		//! Process a chunk of data from the audio stream
+        //! Process a chunk of data from the audio stream
         public void Consume(short[] input, int length)
         {
             if (length < 0 || length % m_num_channels != 0)
@@ -129,7 +131,7 @@ namespace AcoustID.Chromaprint
             }
         }
 
-		//! Process any buffered input that was not processed before and clear buffers
+        //! Process any buffered input that was not processed before and clear buffers
         public void Flush()
         {
             if (m_buffer_offset > 0)

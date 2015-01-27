@@ -133,6 +133,8 @@ namespace AcoustID.Web
                 string request = BuildRequestString(fingerprint, duration, meta);
                 string response = RequestService(request);
 
+                // TODO: server might return an error message as json.
+                //       Should probably add a json parser anyway ...
                 return parser.ParseLookupResponse(response);
             }
             catch (Exception e)

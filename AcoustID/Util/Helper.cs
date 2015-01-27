@@ -63,14 +63,14 @@ namespace AcoustID.Util
             {
                 for (int i = 0; i < vector.Length; i++)
                 {
-                    vector[i] =  0.0;
+                    vector[i] = 0.0;
                 }
             }
             else
             {
                 for (int i = 0; i < vector.Length; i++)
                 {
-                    vector[i] /=  norm;
+                    vector[i] /= norm;
                 }
             }
         }

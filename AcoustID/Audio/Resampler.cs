@@ -27,7 +27,7 @@ namespace AcoustID.Audio
             public int phase_mask;
             public bool linear;
         }
-        
+
         static int FILTER_SHIFT = 15;
         static int WINDOW_TYPE = 9;
 
@@ -44,7 +44,7 @@ namespace AcoustID.Audio
         /// <param name="linear">If true then the used FIR filter will be linearly interpolated between 
         /// the 2 closest, if false the closest will be used</param>
         /// <param name="cutoff">Cutoff frequency, 1.0 corresponds to half the output sampling rate</param>
-        public void Init(int out_rate, int in_rate, int filter_size, int phase_shift, 
+        public void Init(int out_rate, int in_rate, int filter_size, int phase_shift,
             bool linear, double cutoff)
         {
             ctx = default(ResampleContext);
@@ -252,22 +252,22 @@ namespace AcoustID.Audio
 
         #region Math helper
 
-        static int Abs(int a) 
+        static int Abs(int a)
         {
             return ((a) >= 0 ? (a) : (-(a)));
         }
 
-        static int Sign(int a) 
+        static int Sign(int a)
         {
             return ((a) > 0 ? 1 : -1);
         }
 
-        static double Max(double a, double b) 
+        static double Max(double a, double b)
         {
             return ((a) > (b) ? (a) : (b));
         }
 
-        static double Min(double a, double b) 
+        static double Min(double a, double b)
         {
             return ((a) > (b) ? (b) : (a));
         }

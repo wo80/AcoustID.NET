@@ -33,6 +33,9 @@ namespace AcoustID.Audio
         /// <summary>
         /// Decode audio file.
         /// </summary>
+        /// <param name="consumer">The <see cref="IAudioConsumer"/> that consumes the decoded audio.</param>
+        /// <param name="maxLength">The number of seconds to decode.</param>
+        /// <returns>Returns true, if decoding was successful.</returns>
         bool Decode(IAudioConsumer consumer, int maxLength);
     }
 }

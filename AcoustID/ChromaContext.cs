@@ -26,20 +26,23 @@ namespace AcoustID
         Fingerprinter fingerprinter;
         int algorithm;
 
+        int[] fingerprint;
+
         /// <summary>
-        /// Return the fingerprint algorithm this context is configured to use.
+        /// Gets the fingerprint algorithm this context is configured to use.
         /// </summary>
         public int Algorithm
         {
             get { return algorithm; }
         }
 
+        /// <summary>
+        /// Gets the <see cref="IAudioConsumer"/> which consumes the decoded audio.
+        /// </summary>
         public IAudioConsumer Consumer
         {
             get { return fingerprinter; }
         }
-
-        int[] fingerprint;
 
         public ChromaContext()
             : this(ChromaprintAlgorithm.TEST2)

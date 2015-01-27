@@ -64,7 +64,7 @@ namespace AcoustID.Audio
         /// Call this with the size before using the FFT
         /// Fills in tables for speed
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size">The table size.</param>
         public void ComputeTable(int size)
         {
             forwardCos = new double[size];
@@ -86,7 +86,7 @@ namespace AcoustID.Audio
                     forwardCos[i] = wr;
                     forwardSin[i] = wi;
                     i++;
-                    
+
                     double t = wr;
                     wr = wr * wpr - wi * wpi;
                     wi = wi * wpr + t * wpi;
@@ -100,7 +100,7 @@ namespace AcoustID.Audio
         /// complex valued items, stored in alternating real and 
         /// imaginary real numbers. The length must be a power of 2.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The audio data (time domain).</param>
         public void FFT(double[] data)
         {
             int n = data.Length;
@@ -171,6 +171,10 @@ namespace AcoustID.Audio
             }
         }
 
+        /// <summary>
+        /// Computes the real FFT.
+        /// </summary>
+        /// <param name="data">The audio data (time domain).</param>
         public void RealFFT(double[] data)
         {
             FFT(data); // do packed FFT

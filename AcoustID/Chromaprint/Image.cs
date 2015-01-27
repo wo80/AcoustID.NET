@@ -13,17 +13,17 @@ namespace AcoustID.Chromaprint
     /// </summary>
     public class Image
     {
-		private int m_columns;
+        private int m_columns;
         private double[] m_data;
 
         public int Columns
         {
-             get { return m_columns;}
+            get { return m_columns; }
         }
 
         public int Rows
         {
-             get { return m_data.Length / m_columns;}
+            get { return m_data.Length / m_columns; }
         }
 
         public double this[int i, int j]
@@ -42,17 +42,17 @@ namespace AcoustID.Chromaprint
         {
         }
 
-		public Image(int columns, int rows)
-		{
+        public Image(int columns, int rows)
+        {
             m_columns = columns;
             m_data = new double[columns * rows];
-		}
+        }
 
         public Image(int columns, double[] data)
-		{
+        {
             m_columns = columns;
             m_data = data;
-		}
+        }
 
         internal double Get(int i, int j)
         {
@@ -65,7 +65,7 @@ namespace AcoustID.Chromaprint
         }
 
         internal void AddRow(double[] row)
-		{
+        {
             int n = m_data.Length;
             Array.Resize(ref m_data, n + m_columns);
 
@@ -73,7 +73,7 @@ namespace AcoustID.Chromaprint
             {
                 m_data[n + i] = row[i];
             }
-		}
+        }
 
         internal double[] Row(int i)
         {

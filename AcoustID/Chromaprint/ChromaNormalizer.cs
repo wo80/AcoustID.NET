@@ -32,7 +32,7 @@ namespace AcoustID.Chromaprint
         {
             Helper.NormalizeVector(features, Helper.EuclideanNorm(features), 0.01);
 
-			m_consumer.Consume(features);
+            m_consumer.Consume(features);
         }
     }
 }

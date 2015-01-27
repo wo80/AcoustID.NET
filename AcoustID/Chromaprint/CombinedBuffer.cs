@@ -16,36 +16,36 @@ namespace AcoustID.Chromaprint
     /// </summary>
     internal class CombinedBuffer
     {
-		short[][] m_buffer = new short[3][];
-		int[] m_size = new int[3];
-		int m_offset;
+        short[][] m_buffer = new short[3][];
+        int[] m_size = new int[3];
+        int m_offset;
 
-		public CombinedBuffer(short[] buffer1, int size1, short[] buffer2, int size2)
-		{
+        public CombinedBuffer(short[] buffer1, int size1, short[] buffer2, int size2)
+        {
             m_offset = 0;
-			m_buffer[0] = buffer1;
-			m_buffer[1] = buffer2;
-			m_buffer[2] = null;
-			m_size[0] = size1;
-			m_size[1] = size2;
-			m_size[2] = -1;
-		}
-        
+            m_buffer[0] = buffer1;
+            m_buffer[1] = buffer2;
+            m_buffer[2] = null;
+            m_size[0] = size1;
+            m_size[1] = size2;
+            m_size[2] = -1;
+        }
+
         /// <summary>
         /// Gets the size of the combined buffer.
         /// </summary>
-		public int Size
-		{
+        public int Size
+        {
             get { return m_size[0] + m_size[1] - m_offset; }
-		}
+        }
 
         /// <summary>
         /// Gets the current offset of the combined buffer.
         /// </summary>
-		public int Offset
-		{
+        public int Offset
+        {
             get { return m_offset; }
-		}
+        }
 
         /// <summary>
         /// Gets the element at given position.
@@ -69,11 +69,11 @@ namespace AcoustID.Chromaprint
         /// </summary>
         /// <param name="shift">Places to shift.</param>
         /// <returns>The new buffer offset.</returns>
-		public int Shift(int shift)
-		{
-			m_offset += shift;
-			return m_offset;
-		}
+        public int Shift(int shift)
+        {
+            m_offset += shift;
+            return m_offset;
+        }
 
         /// <summary>
         /// Read a number of values from the combined buffer.

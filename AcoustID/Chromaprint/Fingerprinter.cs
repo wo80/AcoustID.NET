@@ -74,7 +74,9 @@ namespace AcoustID.Chromaprint
             return false;
         }
 
-		// Initialize the fingerprinting process.
+        /// <summary>
+        /// Initialize the fingerprinting process.
+        /// </summary>
         public bool Start(int sample_rate, int num_channels)
         {
             if (!m_audio_processor.Reset(sample_rate, num_channels))
@@ -92,8 +94,10 @@ namespace AcoustID.Chromaprint
             return true;
         }
 
-		// Process a block of raw audio data. Call this method as many times
-		// as you need.
+        /// <summary>
+        /// Process a block of raw audio data. Call this method as many times
+        /// as you need.
+        /// </summary>
         public void Consume(short[] samples, int length)
         {
             if (length < 0)
@@ -104,7 +108,9 @@ namespace AcoustID.Chromaprint
             m_audio_processor.Consume(samples, length);
         }
 
-		// Calculate the fingerprint based on the provided audio data.
+        /// <summary>
+        /// Calculate the fingerprint based on the provided audio data.
+        /// </summary>
         public int[] Finish()
         {
             m_audio_processor.Flush();

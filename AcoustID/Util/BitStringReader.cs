@@ -16,9 +16,9 @@ namespace AcoustID.Util
     /// </summary>
     internal class BitStringReader
     {
-		byte[] m_value;
-		int m_value_iter;
-		uint m_buffer;
+        byte[] m_value;
+        int m_value_iter;
+        uint m_buffer;
         int m_buffer_size;
         bool m_eof;
 
@@ -37,45 +37,45 @@ namespace AcoustID.Util
 
         public BitStringReader(string input)
             : this(Base64.ByteEncoding.GetBytes(input))
-		{
-		}
+        {
+        }
 
-		public uint Read(int bits)
-		{
-			if (m_buffer_size < bits)
+        public uint Read(int bits)
+        {
+            if (m_buffer_size < bits)
             {
-				if (m_value_iter < m_value.Length)
+                if (m_value_iter < m_value.Length)
                 {
                     m_buffer |= (uint)(m_value[m_value_iter++] << m_buffer_size);
-					m_buffer_size += 8;
+                    m_buffer_size += 8;
                 }
                 else
                 {
                     m_eof = true;
                 }
-			}
+            }
 
-			uint result = (uint)(m_buffer & ((1 << bits) - 1));
-			m_buffer >>= bits;
-			m_buffer_size -= bits;
+            uint result = (uint)(m_buffer & ((1 << bits) - 1));
+            m_buffer >>= bits;
+            m_buffer_size -= bits;
 
             if (m_buffer_size <= 0 && m_value_iter == m_value.Length)
             {
                 m_eof = true;
             }
 
-			return result;
-		}
+            return result;
+        }
 
         public void Reset()
-		{
-			m_buffer = 0;
-			m_buffer_size = 0;
-		}
+        {
+            m_buffer = 0;
+            m_buffer_size = 0;
+        }
 
-		public int AvailableBits()
-		{
-			return m_eof ? 0 : m_buffer_size + 8 * (m_value.Length - m_value_iter);
-		}
+        public int AvailableBits()
+        {
+            return m_eof ? 0 : m_buffer_size + 8 * (m_value.Length - m_value_iter);
+        }
     }
 }

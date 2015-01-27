@@ -18,7 +18,7 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Gets the MusicBrainz artist id.
+        /// Gets the MusicBrainz id of the artist.
         /// </summary>
         public string Id { get; private set; }
 

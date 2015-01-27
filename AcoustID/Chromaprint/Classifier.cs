@@ -25,17 +25,17 @@ namespace AcoustID.Chromaprint
             : this(new Filter(), new Quantizer(0.0, 0.0, 0.0))
         {
         }
-	
-		public Classifier(Filter filter, Quantizer quantizer)
-		{
-            m_filter=filter;
-            m_quantizer=quantizer;
-		}
 
-		public int Classify(IntegralImage image, int offset)
-		{
-			double value = m_filter.Apply(image, offset);
-			return m_quantizer.Quantize(value);
-		}
+        public Classifier(Filter filter, Quantizer quantizer)
+        {
+            m_filter = filter;
+            m_quantizer = quantizer;
+        }
+
+        public int Classify(IntegralImage image, int offset)
+        {
+            double value = m_filter.Apply(image, offset);
+            return m_quantizer.Quantize(value);
+        }
     }
 }

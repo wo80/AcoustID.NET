@@ -29,7 +29,7 @@ namespace AcoustID.Web
         public int Duration { get; private set; }
 
         /// <summary>
-        /// Gets the MusicBrainz recording id.
+        /// Gets the MusicBrainz id of the recording.
         /// </summary>
         public string Id { get; private set; }
 

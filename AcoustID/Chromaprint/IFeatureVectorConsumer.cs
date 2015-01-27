@@ -11,6 +11,6 @@ namespace AcoustID.Chromaprint
     /// </summary>
     interface IFeatureVectorConsumer
     {
-		void Consume(double[] features);
+        void Consume(double[] features);
     }
 }
