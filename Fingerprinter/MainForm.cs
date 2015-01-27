@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using AcoustID;
 using AcoustID.Web;
 using Fingerprinter.Audio;
+using System.Threading;
 
 namespace Fingerprinter
 {
@@ -75,7 +76,7 @@ namespace Fingerprinter
                     {
                         Fpcalc.Path = dlg.FileName;
                     }
-					else return; // Do nothing ...
+                    else return; // Do nothing ...
                 }
 
                 ProcessFileFpcalc(lbFile.Text);
@@ -183,15 +184,26 @@ namespace Fingerprinter
 
             LookupService service = new LookupService();
 
-            service.GetAsync((results, e) =>
+            var context = TaskScheduler.FromCurrentSynchronizationContext();
+
+            var task = service.GetAsync(fingerprint, duration, new string[] { "recordings", "compress" });
+
+            // Error handling:
+            task.ContinueWith(t =>
+            {
+                foreach (var e in t.Exception.InnerExceptions)
+                {
+                    MessageBox.Show(e.Message, "Webservice error");
+                }
+            },
+            CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, context);
+
+            // On success:
+            task.ContinueWith(t =>
             {
                 btnOpen.Enabled = true;
 
-                if (e != null)
-                {
-                    MessageBox.Show(e.Message, "Webservice error");
-                    return;
-                }
+                var results = t.Result;
 
                 if (results.Count == 0)
                 {
@@ -217,7 +229,8 @@ namespace Fingerprinter
 
                     listView1.Items.Add(item);
                 }
-            }, fingerprint, duration, new string[] { "recordings", "compress" });
+            },
+            CancellationToken.None, TaskContinuationOptions.OnlyOnRanToCompletion, context);
         }
 
         private void ExportImage(string file)

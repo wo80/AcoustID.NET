@@ -50,61 +50,35 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Calls the webservice on a background thread.
+        /// Calls the webservice on a worker thread.
         /// </summary>
-        /// <param name="callback">Callback function.</param>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
-        /// <remarks>
-        /// WARNING: Don't use this in a console app. An exception concerning the
-        /// SynchronizationContext will be thrown.
-        /// </remarks>
-        public void GetAsync(Action<List<LookupResult>, Exception> callback, string fingerprint, int duration)
+        /// <returns>A task which, on success, returns a list of lookup results.</returns>
+        public Task<List<LookupResult>> GetAsync(string fingerprint, int duration)
         {
-            GetAsync(callback, fingerprint, duration, null);
+            return GetAsync(fingerprint, duration, null);
         }
 
         /// <summary>
-        /// Calls the webservice on a background thread.
+        /// Calls the webservice on a worker thread.
         /// </summary>
-        /// <param name="callback">Callback function.</param>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
         /// <param name="meta">Request meta information.</param>
-        /// <remarks>
-        /// WARNING: Don't use this in a console app. An exception concerning the
-        /// SynchronizationContext will be thrown.
-        /// </remarks>
-        public void GetAsync(Action<List<LookupResult>, Exception> callback, string fingerprint, int duration, string[] meta)
+        /// <returns>A task which, on success, returns a list of lookup results.</returns>
+        public Task<List<LookupResult>> GetAsync(string fingerprint, int duration, string[] meta)
         {
-            TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-
-            Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew<List<LookupResult>>(() =>
             {
-                List<LookupResult> result = null;
-                Exception exception = null;
-
                 try
                 {
-                    result = Get(fingerprint, duration, meta);
+                    return Get(fingerprint, duration, meta);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    exception = e;
+                    throw;
                 }
-
-                var progress = Task.Factory.StartNew(() =>
-                {
-                    callback(result, exception);
-                },
-                CancellationToken.None,
-                TaskCreationOptions.None,
-                scheduler);
-
-                // TODO: pass exceptions to callback
-
-                // Report progress on UI thread
-                progress.Wait();
             });
         }
 
@@ -137,9 +111,9 @@ namespace AcoustID.Web
                 //       Should probably add a json parser anyway ...
                 return parser.ParseLookupResponse(response);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
