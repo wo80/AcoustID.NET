@@ -13,6 +13,9 @@ namespace AcoustID.Chromaprint
     /// </summary>
     public class Image
     {
+        private const int BUFFER_BLOCK_SIZE = 2048;
+
+        private int m_rows;
         private int m_columns;
         private double[] m_data;
 
@@ -23,7 +26,7 @@ namespace AcoustID.Chromaprint
 
         public int Rows
         {
-            get { return m_data.Length / m_columns; }
+            get { return m_rows; }
         }
 
         public double this[int i, int j]
@@ -44,12 +47,14 @@ namespace AcoustID.Chromaprint
 
         public Image(int columns, int rows)
         {
+            m_rows = rows;
             m_columns = columns;
-            m_data = new double[columns * rows];
+            m_data = new double[Math.Max(columns * rows, BUFFER_BLOCK_SIZE)];
         }
-
+        
         public Image(int columns, double[] data)
         {
+            m_rows = data.Length / columns;
             m_columns = columns;
             m_data = data;
         }
@@ -66,13 +71,21 @@ namespace AcoustID.Chromaprint
 
         internal void AddRow(double[] row)
         {
-            int n = m_data.Length;
-            Array.Resize(ref m_data, n + m_columns);
+            int n = m_rows * m_columns;
+
+            int size = m_data.Length;
+
+            if (n + m_columns > size)
+            {
+                Array.Resize(ref m_data, size + BUFFER_BLOCK_SIZE);
+            }
 
             for (int i = 0; i < m_columns; i++)
             {
                 m_data[n + i] = row[i];
             }
+
+            m_rows++;
         }
 
         internal double[] Row(int i)

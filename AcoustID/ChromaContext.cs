@@ -6,12 +6,9 @@
 
 namespace AcoustID
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using AcoustID.Chromaprint;
     using AcoustID.Util;
+    using System;
 
     /// <summary>
     /// The main Chromaprint API.
@@ -21,7 +18,7 @@ namespace AcoustID
         /// <summary>
         /// Return the version number of Chromaprint.
         /// </summary>
-        public static readonly string Version = "1.1.0";
+        public static readonly string Version = "1.2.0";
 
         Fingerprinter fingerprinter;
         int algorithm;
