@@ -14,16 +14,6 @@ namespace Fingerprinter.Audio
     /// </summary>
     public interface IAudioDecoder : IDecoder, IDisposable
     {
-        int SourceSampleRate { get; }
-        int SourceBitDepth { get; }
-        int SourceChannels { get; }
-
-        int Duration { get; }
-        bool Ready { get; }
-
-        /// <summary>
-        /// Load an audio file.
-        /// </summary>
-        void Load(string file);
+        AudioProperties Format { get; }
     }
 }

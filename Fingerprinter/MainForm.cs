@@ -1,14 +1,14 @@
-﻿using System;
+﻿using AcoustID;
+using AcoustID.Web;
+using Fingerprinter.Audio;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AcoustID;
-using AcoustID.Web;
-using Fingerprinter.Audio;
-using System.Threading;
 
 namespace Fingerprinter
 {
@@ -24,9 +24,6 @@ namespace Fingerprinter
         private void MainForm_Load(object sender, EventArgs e)
         {
             Fpcalc.Path = @"D:\Projects\AcoustId\extern\fpcalc.exe";
-
-            decoder = new NAudioDecoder();
-            //decoder = new BassDecoder();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -36,26 +33,32 @@ namespace Fingerprinter
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                lbFile.Text = dlg.FileName;
-
-                ResetAll();
-
-                decoder.Load(dlg.FileName);
-
-                int bits = decoder.SourceBitDepth;
-                int channels = decoder.SourceChannels;
-
-                if (decoder.Ready)
+                if (decoder != null)
                 {
+                    decoder.Dispose();
+                }
+
+                try
+                {
+                    decoder = new NAudioDecoder(dlg.FileName);
+                    //decoder = new BassDecoder();
+
+                    lbFile.Text = dlg.FileName;
+
+                    ResetAll();
+
+                    int bits = decoder.Format.BitDepth;
+                    int channels = decoder.Format.Channels;
+
                     lbAudio.Text = String.Format("{0}Hz, {1}bit{2}, {3}",
-                        decoder.SourceSampleRate, bits, bits != 16 ? " (not supported)" : "",
+                        decoder.Format.SampleRate, bits, bits != 16 ? " (not supported)" : "",
                         channels == 2 ? "stereo" : (channels == 1 ? "mono" : "multi-channel"));
 
-                    lbDuration.Text = decoder.Duration.ToString();
+                    lbDuration.Text = decoder.Format.Duration.ToString();
 
                     btnFingerPrint.Enabled = true;
                 }
-                else
+                catch
                 {
                     lbAudio.Text = "Failed to load audio";
                     lbDuration.Text = String.Empty;
@@ -244,7 +247,7 @@ namespace Fingerprinter
         {
             if (File.Exists(file))
             {
-                if (decoder.Ready)
+                if (decoder != null)
                 {
                     //btnOpen.Enabled = false;
                     btnFingerPrint.Enabled = false;

@@ -36,9 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NAudio, Version=1.7.2.19, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NAudio.1.7.2\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioDecoder.cs" />
+    <Compile Include="Audio\AudioProperties.cs" />
     <Compile Include="Audio\BassDecoder.cs" />
     <Compile Include="Audio\IAudioDecoder.cs" />
     <Compile Include="Audio\NAudioDecoder.cs" />

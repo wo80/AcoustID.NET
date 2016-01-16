@@ -12,53 +12,32 @@ namespace Fingerprinter.Audio
     using NAudio.Wave;
 
     /// <summary>
-    /// Decode using the NAudio library. Great audio library, but the MP3 decoder is kinda slow.
+    /// Decode using the NAudio library..
     /// </summary>
     public class NAudioDecoder : AudioDecoder
     {
         WaveStream reader;
-        string extension;
-        
-        public override void Load(string file)
+        string file;
+
+        public NAudioDecoder(string file)
         {
-            // Dispose on every new load
-            Dispose(false);
+            this.file = file;
 
-            ready = false;
-
-            extension = Path.GetExtension(file).ToLowerInvariant();
-
-            if (extension.Equals(".wav"))
-            {
-                reader = new WaveFileReader(file);
-            }
-            else
-            {
-                reader = new Mp3FileReader(file);
-            }
-
-            var format = reader.WaveFormat;
-
-            this.sampleRate = format.SampleRate;
-            this.channels = format.Channels;
-
-            this.sourceSampleRate = format.SampleRate;
-            this.sourceBitDepth = format.BitsPerSample;
-            this.sourceChannels = format.Channels;
-            this.duration = (int)reader.TotalTime.TotalSeconds;
-            this.ready = (format.BitsPerSample == 16);
+            // Open the WaveStream and keep it open until Dispose() is called. This might lock
+            // the file. A better approach would be to open the stream only when needed.
+            Initialize();
         }
 
         public override bool Decode(IAudioConsumer consumer, int maxLength)
         {
-            if (!ready) return false;
+            if (reader == null) return false;
 
             int remaining, length, size;
             byte[] buffer = new byte[2 * BUFFER_SIZE];
             short[] data = new short[BUFFER_SIZE];
 
             // Samples to read to get maxLength seconds of audio
-            remaining = maxLength * this.sourceChannels * this.sampleRate;
+            remaining = maxLength * this.Format.Channels * this.sampleRate;
 
             // Bytes to read
             length = 2 * Math.Min(remaining, BUFFER_SIZE);
@@ -81,6 +60,33 @@ namespace Fingerprinter.Audio
             return true;
         }
 
+        private void Initialize()
+        {
+            var extension = Path.GetExtension(file).ToLowerInvariant();
+
+            if (extension.Equals(".wav"))
+            {
+                reader = new WaveFileReader(file);
+            }
+            else
+            {
+                reader = new Mp3FileReader(file);
+            }
+
+            var format = reader.WaveFormat;
+
+            this.sampleRate = format.SampleRate;
+            this.channels = format.Channels;
+
+            this.Format = new AudioProperties(format.SampleRate, format.BitsPerSample,
+                format.Channels, (int)reader.TotalTime.TotalSeconds);
+
+            if (format.BitsPerSample != 16)
+            {
+                Dispose(true);
+            }
+        }
+
         #region IDisposable implementation
 
         private bool hasDisposed = false;
@@ -99,6 +105,7 @@ namespace Fingerprinter.Audio
                 {
                     reader.Close();
                     reader.Dispose();
+                    reader = null;
                 }
             }
 

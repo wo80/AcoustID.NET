@@ -18,38 +18,6 @@ namespace Fingerprinter.Audio
         protected int sampleRate;
         protected int channels;
 
-        protected int sourceSampleRate;
-        protected int sourceBitDepth;
-        protected int sourceChannels;
-        protected int duration;
-
-        protected bool ready;
-
-        public int SourceSampleRate
-        {
-            get { return sourceSampleRate; }
-        }
-
-        public int SourceBitDepth
-        {
-            get { return sourceBitDepth; }
-        }
-
-        public int SourceChannels
-        {
-            get { return sourceChannels; }
-        }
-
-        public int Duration
-        {
-            get { return duration; }
-        }
-
-        public bool Ready
-        {
-            get { return ready; }
-        }
-
         public int SampleRate
         {
             get { return sampleRate; }
@@ -60,7 +28,7 @@ namespace Fingerprinter.Audio
             get { return channels; }
         }
 
-        public abstract void Load(string file);
+        public AudioProperties Format { get; protected set; }
 
         public abstract bool Decode(IAudioConsumer consumer, int maxLength);
 
