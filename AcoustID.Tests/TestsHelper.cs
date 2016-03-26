@@ -18,7 +18,7 @@ namespace AcoustID.Tests
 
         public static string DATA_PATH = @"../../AcoustID.Tests/data/";
 
-        public static short[] LoadAudioFile_(string file)
+        public static short[] LoadAudioFile(string file)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
 
