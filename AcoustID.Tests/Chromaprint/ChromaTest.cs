@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class ChromaTest
     {
-        [TestMethod]
+        [Test]
         public void TestNormalA()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
@@ -29,7 +25,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalGSharp()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
@@ -48,7 +44,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalB()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
@@ -67,7 +63,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestInterpolatedB()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
@@ -87,7 +83,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestInterpolatedA()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
@@ -107,7 +103,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestInterpolatedGSharp()
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();

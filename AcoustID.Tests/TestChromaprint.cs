@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+    using System;
+
     public class TestChromaprint
     {
         static int SAMPLE_RATE = 11025;
@@ -16,7 +13,7 @@ namespace AcoustID.Tests
         static int MIN_FREQ = 28;
         static int MAX_FREQ = 3520;
 
-        [TestMethod]
+        [Test]
         public void TestBasicImage()
         {
             short[] data = TestsHelper.LoadAudioFile("test_stereo_44100.raw");

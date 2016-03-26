@@ -1,16 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+
     public class LloydsTest
     {
-        [TestMethod]
+        [Test]
         public void TestStaticLloyds1()
         {
             double[] data = {
@@ -23,7 +20,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(2.1, table[0], TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticLloyds2()
         {
             double[] data = {
@@ -35,7 +32,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(1.075, table[0], TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticLloyds3()
         {
             double[] data = {
@@ -48,7 +45,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(1.15, table[1], TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticLloyds4()
         {
             double[] data = {

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Util
 {
-    [TestClass]
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class Base64Test
     {
-        [TestMethod]
+        [Test]
         public void TestBase64Encode()
         {
             Assert.AreEqual("eA", Base64.Encode("x"));
@@ -22,7 +18,7 @@ namespace AcoustID.Tests.Util
             Assert.AreEqual("_-4", Base64.Encode("\xff\xee"));
         }
 
-        [TestMethod]
+        [Test]
         public void TestBase64Decode()
         {
             Assert.AreEqual("x", Base64.Decode("eA"));
@@ -34,7 +30,7 @@ namespace AcoustID.Tests.Util
             Assert.AreEqual("\xff\xee", Base64.Decode("_-4"));
         }
 
-        [TestMethod]
+        [Test]
         public void TestBase64EncodeLong()
         {
             byte[] original = {
@@ -49,7 +45,7 @@ namespace AcoustID.Tests.Util
             Assert.AreEqual(encoded, Base64.Encode(Base64.ByteEncoding.GetString(original)));
         }
 
-        [TestMethod]
+        [Test]
         public void TestBase64DecodeLong()
         {
             byte[] original = {

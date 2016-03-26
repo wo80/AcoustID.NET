@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Util
 {
-    [TestClass]
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class HelperTest
     {
-        [TestMethod]
+        [Test]
         public void TestPrepareHammingWindow()
         {
             double[] window_ex = { 0.08, 0.187619556165, 0.460121838273, 0.77, 0.972258605562, 0.972258605562, 0.77, 0.460121838273, 0.187619556165, 0.08 };
@@ -23,7 +19,7 @@ namespace AcoustID.Tests.Util
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestApplyWindow1()
         {
             double[] window_ex = { 0.08, 0.187619556165, 0.460121838273, 0.77, 0.972258605562, 0.972258605562, 0.77, 0.460121838273, 0.187619556165, 0.08 };
@@ -45,7 +41,7 @@ namespace AcoustID.Tests.Util
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestApplyWindow2()
         {
             double[] window = new double[10];
@@ -60,21 +56,21 @@ namespace AcoustID.Tests.Util
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestSum()
         {
             double[] data = { 0.1, 0.2, 0.4, 1.0 };
             Assert.AreEqual(1.7, Helper.Sum(data, 0, 4), TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestEuclideanNorm()
         {
             double[] data = new double[] { 0.1, 0.2, 0.4, 1.0 };
             Assert.AreEqual(1.1, Helper.EuclideanNorm(data), TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalizeVector()
         {
             double[] data = new double[] { 0.1, 0.2, 0.4, 1.0 };
@@ -86,7 +82,7 @@ namespace AcoustID.Tests.Util
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalizeVectorNearZero()
         {
             double[] data = new double[] { 0.0, 0.001, 0.002, 0.003 };
@@ -97,7 +93,7 @@ namespace AcoustID.Tests.Util
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestNormalizeVectorZero()
         {
             double[] data = new double[] { 0.0, 0.0, 0.0, 0.0 };

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class TestChromaContext
     {
-        [TestMethod]
+        [Test]
         public void Test2SilenceFp()
         {
             short[] zeroes = new short[1024];
@@ -33,7 +29,7 @@ namespace AcoustID.Tests
             Assert.AreEqual("AQAAA0mUaEkSRZEGAA", fp);
         }
 
-        [TestMethod]
+        [Test]
         public void Test2SilenceRawFp()
         {
             short[] zeroes = new short[1024];
@@ -55,7 +51,7 @@ namespace AcoustID.Tests
             Assert.AreEqual(627964279, fp[2]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestEncodeFingerprint()
         {
             int[] fingerprint = { 1, 0 };
@@ -71,7 +67,7 @@ namespace AcoustID.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestEncodeFingerprintBase64()
         {
             int[] fingerprint = { 1, 0 };
@@ -87,7 +83,7 @@ namespace AcoustID.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestDecodeFingerprint()
         {
             byte[] data = { 55, 0, 0, 2, 65, 0 };

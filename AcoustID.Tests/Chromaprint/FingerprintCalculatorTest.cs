@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class FingerprintCalculatorTest
     {
-        [TestMethod]
+        [Test]
         public void TestCalculateSubfingerprint()
         {
             Image image = new Image(2, 2);
@@ -29,7 +25,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(TestsHelper.GrayCode(2), calculator.CalculateSubfingerprint(integral_image, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void TestCalculate()
         {
             Image image = new Image(2, 3);

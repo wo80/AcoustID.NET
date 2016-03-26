@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class FingerprintCompressorTest
     {
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBit()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -25,7 +21,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemThreeBits()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -39,7 +35,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBitExcept()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -53,7 +49,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBitExcept2()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -67,7 +63,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoItems()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -81,7 +77,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoItemsNoChange()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();

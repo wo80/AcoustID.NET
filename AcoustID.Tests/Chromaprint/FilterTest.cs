@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class FilterTest
     {
-        [TestMethod]
+        [Test]
         public void TestFilter0()
         {
             Image image = new Image(2, 2);
@@ -25,21 +21,21 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(1.0986123, flt1.Apply(integral_image, 1), TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticCompareSubtract()
         {
             double res = Filter.Subtract(2.0, 1.0);
             Assert.AreEqual(1.0, res, TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticCompareSubtractLog()
         {
             double res = Filter.SubtractLog(2.0, 1.0);
             Assert.AreEqual(0.4054651, res, TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter0()
         {
             double[] data = {
@@ -66,7 +62,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(6.0, res, TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter1()
         {
             double[] data = {
@@ -90,7 +86,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual((2.1 + 4.1 + 7.1) - (1.0 + 3.1 + 6.0), res);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter2()
         {
             double[] data = {
@@ -109,7 +105,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(6.0, res, TestsHelper.EPS); // 3+4+5 - 1+2+3
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter3()
         {
             double[] data = {
@@ -128,7 +124,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(0.3, res, TestsHelper.EPS); // 2.1+5.1 - 3.4+4.1
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter4()
         {
             double[] data = {
@@ -142,7 +138,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(-13.0, res, TestsHelper.EPS); // 2+4+7 - (1+3+6) - (3+5+8)
         }
 
-        [TestMethod]
+        [Test]
         public void TestStaticFilter5()
         {
             double[] data = {

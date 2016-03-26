@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Util
 {
-    [TestClass]
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class BitStringWriterTest
     {
-        [TestMethod]
+        [Test]
         public void TestOneByte()
         {
             BitStringWriter writer = new BitStringWriter();
@@ -26,7 +22,7 @@ namespace AcoustID.Tests.Util
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoBytesIncomplete()
         {
             BitStringWriter writer = new BitStringWriter();
@@ -43,7 +39,7 @@ namespace AcoustID.Tests.Util
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoBytesSplit()
         {
             BitStringWriter writer = new BitStringWriter();

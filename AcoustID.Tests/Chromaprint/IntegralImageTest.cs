@@ -1,13 +1,12 @@
-﻿using System;
-using AcoustID.Chromaprint;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class IntegralImageTest
     {
-        [TestMethod]
+        [Test]
         public void TestBasic2D()
         {
             double[] data = {
@@ -22,7 +21,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(10.0, integral_image[1][1]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestVertical1D()
         {
             double[] data = {
@@ -35,7 +34,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(6.0, integral_image[2][0]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestHorizontal1D()
         {
             double[] data = {
@@ -48,7 +47,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(6.0, integral_image[0][2]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestArea()
         {
             double[] data = {

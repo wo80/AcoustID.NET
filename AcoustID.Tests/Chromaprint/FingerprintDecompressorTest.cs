@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class FingerprintDecompressorTest
     {
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBit()
         {
             int[] expected = { 1 };
@@ -25,7 +21,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemThreeBits()
         {
             int[] expected = { 7 };
@@ -39,7 +35,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBitExcept()
         {
             int[] expected = { 1 << 6 };
@@ -53,7 +49,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestOneItemOneBitExcept2()
         {
             int[] expected = { 1 << 8 };
@@ -67,7 +63,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoItems()
         {
             int[] expected = { 1, 0 };
@@ -81,7 +77,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoItemsNoChange()
         {
             int[] expected = { 1, 1 };
@@ -95,7 +91,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(actual, expected);
         }
 
-        [TestMethod]
+        [Test]
         public void TestInvalid1()
         {
             byte[] data = { 0, 255, 255, 255 };

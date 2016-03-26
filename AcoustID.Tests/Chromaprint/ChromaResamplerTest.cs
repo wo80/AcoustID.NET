@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class ChromaResamplerTest
     {
-        [TestMethod]
+        [Test]
         public void Test1()
         {
             Image image = new Image(12, 0);
@@ -27,7 +23,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(5.5, image.Get(0, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void Test2()
         {
             Image image = new Image(12);

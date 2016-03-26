@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class CombinedBufferTest
     {
-        [TestMethod]
+        [Test]
         public void TestSize()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };
@@ -21,7 +17,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(7, buffer.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void TestAccessElements()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };
@@ -45,7 +41,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestFlush()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };
@@ -72,7 +68,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestFlushAfterShift()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };
@@ -101,7 +97,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestRead()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };
@@ -156,7 +152,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestReadAfterShift()
         {
             short[] buffer1 = { 1, 2, 3, 4, 5 };

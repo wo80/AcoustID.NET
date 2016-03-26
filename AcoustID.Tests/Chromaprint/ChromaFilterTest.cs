@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class ChromaFilterTest
     {
-        [TestMethod]
+        [Test]
         public void TestBlur2()
         {
             double[] coefficients = { 0.5, 0.5 };
@@ -30,7 +26,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(6.5, image.Get(1, 1));
         }
 
-        [TestMethod]
+        [Test]
         public void TestBlur3()
         {
             double[] coefficients = { 0.5, 0.7, 0.5 };
@@ -52,7 +48,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(11.899999999999999, image.Get(1, 1), TestsHelper.EPS);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDiff()
         {
             double[] coefficients = { 1.0, -1.0 };

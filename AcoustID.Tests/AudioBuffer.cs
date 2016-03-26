@@ -1,11 +1,8 @@
 ﻿
 namespace AcoustID.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using AcoustID.Chromaprint;
+    using System;
 
     /// <summary>
     /// Simple audio buffer.

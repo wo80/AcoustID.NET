@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class SilenceRemoverTest
     {
-        [TestMethod]
+        [Test]
         public void TestPassThrough()
         {
             short[] samples = { 1000, 2000, 3000, 4000, 5000, 6000 };
@@ -29,7 +25,7 @@ namespace AcoustID.Tests.Chromaprint
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestRemoveLeadingSilence()
         {
             short[] samples1 = { 0, 60, 0, 1000, 2000, 0, 4000, 5000, 0 };

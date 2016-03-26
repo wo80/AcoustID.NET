@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Util;
-
+﻿
 namespace AcoustID.Tests.Util
 {
-    [TestClass]
+    using AcoustID.Util;
+    using NUnit.Framework;
+
     public class BitStringReaderTest
     {
-        [TestMethod]
+        [Test]
         public void TestOneByte()
         {
             byte[] data = { unchecked((byte)-28) };
@@ -22,7 +18,7 @@ namespace AcoustID.Tests.Util
             Assert.AreEqual((uint)3, reader.Read(2));
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoBytesIncomplete()
         {
             byte[] data = { unchecked((byte)-28), unchecked((byte)1) };
@@ -35,7 +31,7 @@ namespace AcoustID.Tests.Util
             Assert.AreEqual((uint)1, reader.Read(2));
         }
 
-        [TestMethod]
+        [Test]
         public void TestTwoBytesSplit()
         {
             byte[] data = { unchecked((byte)-120), unchecked((byte)6) };
@@ -48,7 +44,7 @@ namespace AcoustID.Tests.Util
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestAvailableBitsAndEOF()
         {
             byte[] data = { unchecked((byte)-120), unchecked((byte)6) };

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AcoustID.Chromaprint;
-
+﻿
 namespace AcoustID.Tests.Chromaprint
 {
-    [TestClass]
+    using AcoustID.Chromaprint;
+    using NUnit.Framework;
+
     public class AudioProcessorTest
     {
-        [TestMethod]
+        [Test]
         public void TestAccessors()
         {
             AudioBuffer buffer = new AudioBuffer();
@@ -27,7 +23,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(buffer2, processor.Consumer);
         }
 
-        [TestMethod]
+        [Test]
         public void TestPassThrough()
         {
             short[] data = TestsHelper.LoadAudioFile("test_mono_44100.raw");
@@ -43,7 +39,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(data, buffer.data);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStereoToMono()
         {
             short[] data1 = TestsHelper.LoadAudioFile("test_stereo_44100.raw");
@@ -61,7 +57,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(data2, buffer.data);
         }
 
-        [TestMethod]
+        [Test]
         public void TestResampleMono()
         {
             short[] data1 = TestsHelper.LoadAudioFile("test_mono_44100.raw");
@@ -79,7 +75,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(data2, buffer.data);
         }
 
-        [TestMethod]
+        [Test]
         public void TestResampleMonoNonInteger()
         {
             short[] data1 = TestsHelper.LoadAudioFile("test_mono_44100.raw");
@@ -97,7 +93,7 @@ namespace AcoustID.Tests.Chromaprint
             CollectionAssert.AreEqual(data2, buffer.data);
         }
 
-        [TestMethod]
+        [Test]
         public void TestStereoToMonoAndResample()
         {
             short[] data1 = TestsHelper.LoadAudioFile("test_stereo_44100.raw");

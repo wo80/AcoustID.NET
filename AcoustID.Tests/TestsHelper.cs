@@ -2,9 +2,6 @@
 namespace AcoustID.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.IO;
 
     /// <summary>
@@ -13,7 +10,7 @@ namespace AcoustID.Tests
     public static class TestsHelper
     {
         public static double EPS = 2e-6;
-        public static string DATA_PATH = @"../../../AcoustId.Tests/data/";
+        public static string DATA_PATH = @"../../AcoustID.Tests/data/";
 
         public static int GrayCode(int i)
         {
@@ -23,7 +20,10 @@ namespace AcoustID.Tests
 
         public static short[] LoadAudioFile(string file)
         {
-            string path = Path.GetFullPath(Path.Combine(DATA_PATH, file));
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+
+            path = Path.Combine(path, DATA_PATH);
+            path = Path.GetFullPath(Path.Combine(path, file));
 
             if (!File.Exists(path))
             {
