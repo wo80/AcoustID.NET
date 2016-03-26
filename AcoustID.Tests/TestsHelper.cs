@@ -10,15 +10,15 @@ namespace AcoustID.Tests
     public static class TestsHelper
     {
         public static double EPS = 2e-6;
+
+#if TEST_LOCAL_FILES
+        // All tests using raw audio data stored locally are disabled by
+        // default. To enable them, define the TEST_LOCAL_FILES constant.
+        // If you get errors, try adjusting the DATA_PATH.
+
         public static string DATA_PATH = @"../../AcoustID.Tests/data/";
 
-        public static int GrayCode(int i)
-        {
-            int[] CODES = { 0, 1, 3, 2 };
-            return CODES[i];
-        }
-
-        public static short[] LoadAudioFile(string file)
+        public static short[] LoadAudioFile_(string file)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -36,6 +36,13 @@ namespace AcoustID.Tests
             Buffer.BlockCopy(bytes, 0, shorts, 0, bytes.Length);
 
             return shorts;
+        }
+#endif
+
+        public static int GrayCode(int i)
+        {
+            int[] CODES = { 0, 1, 3, 2 };
+            return CODES[i];
         }
 
         #region Bit count

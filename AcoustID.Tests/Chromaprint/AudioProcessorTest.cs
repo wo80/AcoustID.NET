@@ -23,6 +23,7 @@ namespace AcoustID.Tests.Chromaprint
             Assert.AreEqual(buffer2, processor.Consumer);
         }
 
+#if TEST_LOCAL_FILES
         [Test]
         public void TestPassThrough()
         {
@@ -110,5 +111,6 @@ namespace AcoustID.Tests.Chromaprint
 
             CollectionAssert.AreEqual(data2, buffer.data);
         }
+#endif
     }
 }
