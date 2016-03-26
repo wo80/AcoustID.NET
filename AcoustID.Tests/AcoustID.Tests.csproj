@@ -64,6 +64,7 @@
     <Compile Include="Util\BitStringReaderTest.cs" />
     <Compile Include="Util\BitStringWriterTest.cs" />
     <Compile Include="Util\HelperTest.cs" />
+    <Compile Include="Util\SimHashTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\test_mono_11025.raw" />

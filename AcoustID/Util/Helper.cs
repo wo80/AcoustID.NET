@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Util.cs" company="">
+// <copyright file="Helper.cs" company="">
 // Original C++ implementation by Lukas Lalinsky, http://acoustid.org/chromaprint
 // </copyright>
 // -----------------------------------------------------------------------

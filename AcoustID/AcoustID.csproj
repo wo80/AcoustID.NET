@@ -76,6 +76,7 @@
     <Compile Include="Util\BitStringWriter.cs" />
     <Compile Include="Util\Chromagram.cs" />
     <Compile Include="Util\Helper.cs" />
+    <Compile Include="Util\SimHash.cs" />
     <Compile Include="Util\Spectrogram.cs" />
     <Compile Include="Web\Artist.cs" />
     <Compile Include="Web\IResponseParser.cs" />

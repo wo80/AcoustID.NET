@@ -37,5 +37,43 @@ namespace AcoustID.Tests
 
             return shorts;
         }
+
+        #region Bit count
+        
+        // Not used anywhere in chromaprint
+
+        public static int HammingDistance(UInt32 a, UInt32 b)
+        {
+            return CountSetBits(a ^ b);
+        }
+
+        public static int HammingDistance(UInt64 a, UInt64 b)
+        {
+            return CountSetBits(a ^ b);
+        }
+
+        public static int CountSetBits(UInt32 v)
+        {
+            const uint N32 = (uint)~0U;
+
+            v = v - ((v >> 1) & N32 / 3);
+            v = (v & N32 / 15 * 3) + ((v >> 2) & N32 / 15 * 3);
+            v = (v + (v >> 4)) & N32 / 255 * 15;
+            
+            return (int)((uint)(v * (N32 / 255)) >> (sizeof(uint) - 1) * 8);
+        }
+
+        public static int CountSetBits(UInt64 v)
+        {
+            const ulong N64 = (ulong)~0UL;
+
+            v = v - ((v >> 1) & N64 / 3);
+            v = (v & N64 / 15 * 3) + ((v >> 2) & N64 / 15 * 3);
+            v = (v + (v >> 4)) & N64 / 255 * 15;
+
+            return (int)((ulong)(v * (N64 / 255)) >> (sizeof(ulong) - 1) * 8);
+        }
+
+        #endregion
     }
 }

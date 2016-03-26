@@ -148,8 +148,8 @@ namespace AcoustID.Web
         private string RequestService(string request)
         {
             WebClient client = new WebClient();
-            client.Headers.Add("User-Agent", "AcoustId.Net/" + ChromaContext.Version);
-            client.Proxy = null;
+            client.Headers.Add("User-Agent", Configuration.UserAgent);
+            client.Proxy = Configuration.Proxy;
 
             // For small data size, gzip will increase number of bytes to send.
             if (this.UseCompression && request.Length > 1800)

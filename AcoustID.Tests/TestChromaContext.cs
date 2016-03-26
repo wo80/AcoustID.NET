@@ -96,5 +96,13 @@ namespace AcoustID.Tests
             Assert.AreEqual(1, fingerprint[0]);
             Assert.AreEqual(0, fingerprint[1]);
         }
+
+        [Test]
+        public void TestHashFingerprint()
+        {
+            int[] fingerprint = { 19681, 22345, 312312, 453425 };
+
+            Assert.AreEqual(17249, SimHash.Compute(fingerprint));
+        }
     }
 }

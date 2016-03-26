@@ -29,11 +29,7 @@ namespace AcoustID.Chromaprint
                 return new int[0];
             }
 
-            // TODO: this is not exactly what the C++ version does
-            if (algorithm <= 0)
-            {
-                algorithm = (int)data[0];
-            }
+            algorithm = (int)data[0];
 
             int length = ((byte)(data[1]) << 16) | ((byte)(data[2]) << 8) | ((byte)(data[3]));
 
