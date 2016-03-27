@@ -5,6 +5,9 @@ AcoustID fingerprinter and webservice access in C#. See http://acoustid.org/ for
 
 The original code for this project can be found at https://bitbucket.org/acoustid.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/acmm1n366k8erqnj?svg=true)](https://ci.appveyor.com/project/wo80/acoustid-net)
+[![Nuget downloads](http://wo80.bplaced.net/php/badges/nuget-acoustid-net.svg)](https://www.nuget.org/packages/AcoustID.NET)
+
 ##Features.
 * AcoustID fingerprint calculation.
 * AcoustID webservice access (request only, submit not implemented)
