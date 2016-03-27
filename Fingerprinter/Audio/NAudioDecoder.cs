@@ -12,7 +12,7 @@ namespace Fingerprinter.Audio
     using NAudio.Wave;
 
     /// <summary>
-    /// Decode using the NAudio library..
+    /// Decode using the NAudio library.
     /// </summary>
     public class NAudioDecoder : AudioDecoder
     {
