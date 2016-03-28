@@ -37,6 +37,21 @@ namespace AcoustID.Tests
 
             return shorts;
         }
+
+        public static string LoadTextFile(string file)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+
+            path = Path.Combine(path, DATA_PATH);
+            path = Path.GetFullPath(Path.Combine(path, file));
+
+            if (!File.Exists(path))
+            {
+                return null;
+            }
+
+            return File.ReadAllText(path);
+        }
 #endif
 
         public static int GrayCode(int i)

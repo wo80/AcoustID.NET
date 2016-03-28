@@ -65,8 +65,13 @@
     <Compile Include="Util\BitStringWriterTest.cs" />
     <Compile Include="Util\HelperTest.cs" />
     <Compile Include="Util\SimHashTest.cs" />
+    <Compile Include="Web\XmlResponseParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\lookup-error.xml" />
+    <None Include="data\lookup-recordings-releasegroups.xml" />
+    <None Include="data\lookup-recordings.xml" />
+    <None Include="data\lookup-simple.xml" />
     <None Include="data\test_mono_11025.raw" />
     <None Include="data\test_mono_44100.raw" />
     <None Include="data\test_mono_8000.raw" />
