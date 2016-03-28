@@ -14,6 +14,11 @@ namespace AcoustID.Web
     /// <summary>
     /// Parses lookup and submit responses from the webservice (XML format).
     /// </summary>
+    /// <remarks>
+    /// The parser will parse lookup responses that were requested using the ["recording"]
+    /// or ["recording", "releasegroup"] metadata parameters. If you need other metadata,
+    /// you will have to implement your own parser.
+    /// </remarks>
     public class XmlResponseParser : IResponseParser
     {
         private static NumberFormatInfo numberFormat = CultureInfo.InvariantCulture.NumberFormat;
