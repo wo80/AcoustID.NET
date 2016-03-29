@@ -8,7 +8,6 @@ namespace AcoustID.Web
 {
     using System;
     using System.IO;
-    using System.IO.Compression;
     using System.Net;
     using System.Text;
     using System.Threading.Tasks;
@@ -40,7 +39,7 @@ namespace AcoustID.Web
         public bool UseCompression { get; set; }
 
         /// <summary>
-        /// Calls the webservice on a worker thread.
+        /// Calls the webservice.
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
@@ -51,47 +50,21 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Calls the webservice on a worker thread.
+        /// Calls the webservice.
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
         /// <param name="meta">Request meta information.</param>
         /// <returns>A task which returns a <see cref="LookupResponse"/>.</returns>
-        public Task<LookupResponse> GetAsync(string fingerprint, int duration, string[] meta)
-        {
-            return Task.Factory.StartNew<LookupResponse>(() =>
-            {
-                return Get(fingerprint, duration, meta);
-            });
-        }
-
-        /// <summary>
-        /// Calls the webservice.
-        /// </summary>
-        /// <param name="fingerprint">The audio fingerprint.</param>
-        /// <param name="duration">The total duration of the audio.</param>
-        /// <returns>A <see cref="LookupResponse"/>.</returns>
-        public LookupResponse Get(string fingerprint, int duration)
-        {
-            return Get(fingerprint, duration, null);
-        }
-
-        /// <summary>
-        /// Calls the webservice.
-        /// </summary>
-        /// <param name="fingerprint">The audio fingerprint.</param>
-        /// <param name="duration">The total duration of the audio.</param>
-        /// <param name="meta">Request meta information.</param>
-        /// <returns>A <see cref="LookupResponse"/>.</returns>
-        public LookupResponse Get(string fingerprint, int duration, string[] meta)
+        public async Task<LookupResponse> GetAsync(string fingerprint, int duration, string[] meta)
         {
             try
             {
-                string request = BuildRequestString(fingerprint, duration, meta);
+                string query = BuildRequestString(fingerprint, duration, meta);
 
                 // If the request contains invalid parameters, the server will return "400 Bad Request" and
                 // we'll end up in the first catch block.
-                string response = RequestService(request);
+                string response = await WebHelper.SendPost(URL, query, UseCompression);
 
                 return parser.ParseLookupResponse(response);
             }
@@ -129,70 +102,20 @@ namespace AcoustID.Web
 
         private string BuildRequestString(string fingerprint, int duration, string[] meta)
         {
-            StringBuilder request = new StringBuilder();
+            StringBuilder query = new StringBuilder();
 
-            request.Append("client=" + Configuration.ApiKey);
+            query.Append("client=" + Configuration.ClientKey);
 
             if (meta != null)
             {
-                request.Append("&meta=" + string.Join("+", meta));
+                query.Append("&meta=" + string.Join("+", meta));
             }
 
-            request.Append("&format=" + parser.Format);
-            request.Append("&duration=" + duration);
-            request.Append("&fingerprint=" + fingerprint);
+            query.Append("&format=" + parser.Format);
+            query.Append("&duration=" + duration);
+            query.Append("&fingerprint=" + fingerprint);
 
-            return request.ToString();
-        }
-
-        private string RequestService(string request)
-        {
-            WebClient client = new WebClient();
-            client.Headers.Add("User-Agent", Configuration.UserAgent);
-            client.Proxy = Configuration.Proxy;
-
-            // For small data size, gzip will increase number of bytes to send.
-            if (this.UseCompression && request.Length > 1800)
-            {
-                // The stream to hold the gzipped bytes.
-                using (var stream = new MemoryStream())
-                {
-                    var encoding = Encoding.UTF8;
-
-                    byte[] data = encoding.GetBytes(request);
-
-                    // Create gzip stream
-                    using (GZipStream gzip = new GZipStream(stream, CompressionMode.Compress))
-                    {
-                        gzip.Write(data, 0, data.Length);
-                        gzip.Close();
-                    }
-
-                    double ratio = 1 / (double)data.Length;
-
-                    data = stream.ToArray();
-
-                    // ratio = (compressed size) / (uncompressed size)
-                    ratio *= data.Length;
-
-                    if (ratio > 0.95)
-                    {
-                        // Use standard get request
-                        return client.DownloadString(URL + "?" + request);
-                    }
-
-                    client.Headers.Add("Content-Encoding", "gzip");
-                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-
-                    data = client.UploadData(URL, data);
-
-                    return encoding.GetString(data);
-                }
-            }
-            else
-            {
-                return client.DownloadString(URL + "?" + request);
-            }
+            return query.ToString();
         }
     }
 }

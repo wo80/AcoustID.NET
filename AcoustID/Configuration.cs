@@ -4,21 +4,23 @@ namespace AcoustID
     using System;
     using System.Net;
 
-    public class Configuration
+    public static class Configuration
     {
         static Configuration()
         {
-            UserAgent = "AcoustId.NET/" + ChromaContext.Version;
+            ClientKey = String.Empty;
+
+            UserAgent = "AcoustID.NET/" + ChromaContext.Version;
             Proxy = null;
         }
 
         /// <summary>
-        /// The API key for using the AcoustID webservice.
+        /// The client API key for using the AcoustID webservice.
         /// </summary>
         /// <remarks>
-        /// Visit https://acoustid.org/ to get an API key for your application.
+        /// Visit https://acoustid.org/new-application to get an API key for your application.
         /// </remarks>
-        public static string ApiKey = String.Empty;
+        public static string ClientKey { get; set; }
 
         /// <summary>
         /// Gets or sets the user-agent string.

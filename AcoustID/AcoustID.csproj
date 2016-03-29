@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -86,9 +87,11 @@
     <Compile Include="Web\LookupService.cs" />
     <Compile Include="Web\Recording.cs" />
     <Compile Include="Web\ReleaseGroup.cs" />
+    <Compile Include="Web\SubmitRequest.cs" />
     <Compile Include="Web\SubmitResponse.cs" />
     <Compile Include="Web\SubmitResult.cs" />
     <Compile Include="Web\SubmitService.cs" />
+    <Compile Include="Web\WebHelper.cs" />
     <Compile Include="Web\XmlResponseParser.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -92,10 +92,10 @@ namespace Fingerprinter
 
         private void btnRequest_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(AcoustID.Configuration.ApiKey))
+            if (String.IsNullOrEmpty(AcoustID.Configuration.ClientKey))
             {
                 // To get your own api key, visit https://acoustid.org/.
-                AcoustID.Configuration.ApiKey = "CImoilnU";
+                AcoustID.Configuration.ClientKey = "CImoilnU";
             }
 
             Lookup(tbFingerprint.Text, int.Parse(lbDuration.Text));

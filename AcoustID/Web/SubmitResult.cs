@@ -11,6 +11,14 @@ namespace AcoustID.Web
     /// </summary>
     public class SubmitResult
     {
+        public SubmitResult(int id, int index, string status, string rid)
+        {
+            this.Id = id;
+            this.Index = index;
+            this.Status = status;
+            this.Result = rid;
+        }
+
         /// <summary>
         /// Gets the id of the submit.
         /// </summary>

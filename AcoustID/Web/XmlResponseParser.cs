@@ -79,10 +79,41 @@ namespace AcoustID.Web
         /// </summary>
         /// <param name="response">The response string.</param>
         /// <returns>List of submit results.</returns>
-        public SubmitResponse ParseSubmitResponse(string response)
+        public SubmitResponse ParseSubmitResponse(string text)
         {
-            // TODO: implement submit response parsing
-            throw new NotImplementedException();
+            try
+            {
+                var root = XDocument.Parse(text).Element("response");
+
+                var status = root.Element("status");
+
+                if (status.Value == "ok")
+                {
+                    var response = new SubmitResponse();
+
+                    var list = root.Element("submissions").Descendants("submission");
+
+                    foreach (var item in list)
+                    {
+                        response.Results.Add(ParseSubmitResult(item));
+                    }
+
+                    return response;
+                }
+
+                if (status.Value == "error")
+                {
+                    var error = root.Element("error");
+
+                    return new SubmitResponse(HttpStatusCode.BadRequest, error.Element("message").Value);
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         #region Lookup response
@@ -244,6 +275,47 @@ namespace AcoustID.Web
             }
 
             return releasegroup;
+        }
+
+        #endregion
+
+        #region Submit response
+
+        private SubmitResult ParseSubmitResult(XElement el)
+        {
+            int id = 0, index = 0;
+
+            XElement element = el.Element("id");
+
+            if (element != null)
+            {
+                id = int.Parse(element.Value);
+            }
+
+            element = el.Element("index");
+
+            if (element != null)
+            {
+                index = int.Parse(element.Value);
+            }
+
+            string status = null, rid = null;
+
+            element = el.Element("status");
+
+            if (element != null)
+            {
+                status = element.Value;
+            }
+
+            element = el.Element("result");
+
+            if (element != null)
+            {
+                rid = element.Element("id").Value;
+            }
+
+            return new SubmitResult(id, index, status, rid);
         }
 
         #endregion
