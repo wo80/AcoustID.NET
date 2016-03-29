@@ -77,7 +77,7 @@ namespace AcoustID.Web
         /// <summary>
         /// Parse the response of a submit request.
         /// </summary>
-        /// <param name="response">The response string.</param>
+        /// <param name="text">The response string.</param>
         /// <returns>List of submit results.</returns>
         public SubmitResponse ParseSubmitResponse(string text)
         {

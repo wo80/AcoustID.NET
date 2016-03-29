@@ -6,8 +6,8 @@
 
 namespace AcoustID.Audio
 {
-    using System;
     using AcoustID.Util;
+    using System;
 
     /// <summary>
     /// FFT implementation by Chris Lomont (http://www.lomont.org/Software/).

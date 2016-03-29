@@ -6,8 +6,8 @@
 
 namespace AcoustID.Chromaprint
 {
-    using System.Collections.Generic;
     using AcoustID.Util;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.

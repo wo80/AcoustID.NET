@@ -6,11 +6,6 @@
 
 namespace AcoustID.Util
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// Read bits from a string.
     /// </summary>

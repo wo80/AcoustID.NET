@@ -6,9 +6,9 @@
 
 namespace AcoustID.Chromaprint
 {
+    using AcoustID.Util;
     using System;
     using System.Collections.Generic;
-    using AcoustID.Util;
 
     /// <summary>
     /// TODO: Update summary.
@@ -22,6 +22,12 @@ namespace AcoustID.Chromaprint
         List<byte> m_result;
         List<byte> m_bits = new List<byte>();
 
+        /// <summary>
+        /// Compress a fingerprint data array.
+        /// </summary>
+        /// <param name="data">The fingerprint (array of 32-bit integers).</param>
+        /// <param name="algorithm">The algorithm used to compute the fingerprint.</param>
+        /// <returns>The compressed fingerprint string.</returns>
         public string Compress(int[] data, int algorithm = 0)
         {
             if (data.Length > 0)

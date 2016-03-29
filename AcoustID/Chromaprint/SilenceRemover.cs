@@ -90,7 +90,6 @@ namespace AcoustID.Chromaprint
             return true;
         }
 
-
         public void Flush()
         {
         }

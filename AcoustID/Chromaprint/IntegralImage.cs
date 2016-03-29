@@ -6,11 +6,6 @@
 
 namespace AcoustID.Chromaprint
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// Image transformation that allows us to quickly calculate the sum of values 
     /// in a rectangular area.

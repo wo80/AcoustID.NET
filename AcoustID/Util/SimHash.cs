@@ -6,6 +6,9 @@
 
 namespace AcoustID.Util
 {
+    /// <summary>
+    /// SimHash implementation.
+    /// </summary>
     public static class SimHash
     {
         /// <summary>

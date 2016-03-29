@@ -13,6 +13,12 @@ namespace AcoustID.Web
     /// </summary>
     public class ReleaseGroup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReleaseGroup" /> class.
+        /// </summary>
+        /// <param name="id">The MusicBrainz ID.</param>
+        /// <param name="title">The title of the release-group.</param>
+        /// <param name="type">The type of the release-group.</param>
         public ReleaseGroup(string id, string title, string type)
         {
             this.Id = id;

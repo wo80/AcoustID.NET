@@ -19,11 +19,17 @@ namespace AcoustID.Chromaprint
         private int m_columns;
         private double[] m_data;
 
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
         public int Columns
         {
             get { return m_columns; }
         }
 
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
         public int Rows
         {
             get { return m_rows; }
@@ -40,18 +46,32 @@ namespace AcoustID.Chromaprint
             get { return m_data; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Image" /> class.
+        /// </summary>
+        /// <param name="columns">The number of columns.</param>
         public Image(int columns)
             : this(columns, 0)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Image" /> class.
+        /// </summary>
+        /// <param name="columns">The number of columns.</param>
+        /// <param name="rows">The number of rows.</param>
         public Image(int columns, int rows)
         {
             m_rows = rows;
             m_columns = columns;
             m_data = new double[Math.Max(columns * rows, BUFFER_BLOCK_SIZE)];
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Image" /> class.
+        /// </summary>
+        /// <param name="columns">The number of columns.</param>
+        /// <param name="data">The image data.</param>
         public Image(int columns, double[] data)
         {
             m_rows = data.Length / columns;

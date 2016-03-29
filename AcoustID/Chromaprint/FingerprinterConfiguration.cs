@@ -50,20 +50,17 @@ namespace AcoustID.Chromaprint
         }
 
 
-        public static FingerprinterConfiguration CreateConfiguration(int algorithm)
+        public static FingerprinterConfiguration CreateConfiguration(ChromaprintAlgorithm algorithm)
         {
-            // TODO: create configuration in a safer way
-
-            // OK, this is bad, but ... whatever ...
             switch (algorithm)
             {
-                case 0: // ChromaprintAlgorithm.TEST1
+                case ChromaprintAlgorithm.TEST1:
                     return new FingerprinterConfigurationTest1();
-                case 1: // ChromaprintAlgorithm.TEST2
+                case ChromaprintAlgorithm.TEST2:
                     return new FingerprinterConfigurationTest2();
-                case 2: // ChromaprintAlgorithm.TEST3
+                case ChromaprintAlgorithm.TEST3:
                     return new FingerprinterConfigurationTest3();
-                case 3: // ChromaprintAlgorithm.TEST4
+                case ChromaprintAlgorithm.TEST4:
                     return new FingerprinterConfigurationTest4();
             }
 

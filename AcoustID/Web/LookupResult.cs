@@ -13,6 +13,11 @@ namespace AcoustID.Web
     /// </summary>
     public class LookupResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupResult" /> class.
+        /// </summary>
+        /// <param name="id">The AcoustID.</param>
+        /// <param name="score">The score (between 0 and 1).</param>
         public LookupResult(string id, double score)
         {
             this.Id = id;

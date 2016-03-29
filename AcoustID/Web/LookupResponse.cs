@@ -14,11 +14,19 @@ namespace AcoustID.Web
     /// </summary>
     public class LookupResponse
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupResponse" /> class.
+        /// </summary>
         public LookupResponse()
             : this(HttpStatusCode.OK, null)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupResponse" /> class.
+        /// </summary>
+        /// <param name="status">The HTTP status code.</param>
+        /// <param name="error">The error message.</param>
         public LookupResponse(HttpStatusCode status, string error)
         {
             this.StatusCode = status;

@@ -14,11 +14,19 @@ namespace AcoustID.Web
     /// </summary>
     public class SubmitResponse
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubmitResponse" /> class.
+        /// </summary>
         public SubmitResponse()
             : this(HttpStatusCode.OK, null)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubmitResponse" /> class.
+        /// </summary>
+        /// <param name="status">The HTTP status code.</param>
+        /// <param name="error">The error message.</param>
         public SubmitResponse(HttpStatusCode status, string error)
         {
             this.StatusCode = status;

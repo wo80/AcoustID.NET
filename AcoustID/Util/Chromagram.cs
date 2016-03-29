@@ -6,12 +6,12 @@
 
 namespace AcoustID.Util
 {
+    // TODO: remove unused Chromagram code.
+
+    /*
     using AcoustID.Audio;
     using AcoustID.Chromaprint;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class Chromagram
     {
         static int SAMPLE_RATE = 11025;
@@ -43,4 +43,5 @@ namespace AcoustID.Util
             return image;
         }
     }
+    //*/
 }

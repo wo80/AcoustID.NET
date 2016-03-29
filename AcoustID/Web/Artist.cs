@@ -11,6 +11,11 @@ namespace AcoustID.Web
     /// </summary>
     public class Artist
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Artist" /> class.
+        /// </summary>
+        /// <param name="id">The MusicBrainz ID.</param>
+        /// <param name="name">The artist name.</param>
         public Artist(string id, string name)
         {
             this.Id = id;

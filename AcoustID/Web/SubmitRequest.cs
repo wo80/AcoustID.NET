@@ -74,6 +74,11 @@ namespace AcoustID.Web
         /// </summary>
         public int DiscNumber { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubmitRequest" /> class.
+        /// </summary>
+        /// <param name="fingerprint">The audio fingerprint.</param>
+        /// <param name="duration">The duration (in seconds).</param>
         public SubmitRequest(string fingerprint, int duration)
         {
             this.Fingerprint = fingerprint;

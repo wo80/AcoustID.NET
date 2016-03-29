@@ -21,11 +21,18 @@ namespace AcoustID.Web
 
         private IResponseParser parser;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupService" /> class.
+        /// </summary>
         public LookupService()
             : this(new XmlResponseParser())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupService" /> class.
+        /// </summary>
+        /// <param name="parser">The <see cref="IResponseParser"/> instance.</param>
         public LookupService(IResponseParser parser)
         {
             this.parser = parser;

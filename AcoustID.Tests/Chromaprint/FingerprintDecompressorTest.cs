@@ -16,7 +16,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -30,7 +30,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -44,7 +44,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -58,7 +58,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -72,7 +72,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -86,7 +86,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(0, algorithm);
             CollectionAssert.AreEqual(actual, expected);
         }
@@ -99,7 +99,7 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
 
             int algorithm = -1;
-            int[] value = decompressor.Decompress(Base64.ByteEncoding.GetString(data), ref algorithm);
+            int[] value = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
             Assert.AreEqual(value.Length, 0);
             Assert.AreEqual(0, algorithm);
         }

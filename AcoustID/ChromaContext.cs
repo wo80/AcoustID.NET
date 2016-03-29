@@ -41,14 +41,21 @@ namespace AcoustID
             get { return fingerprinter; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChromaContext" /> class.
+        /// </summary>
         public ChromaContext()
             : this(ChromaprintAlgorithm.TEST2)
         {
         }
 
-        public ChromaContext(int algorithm)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChromaContext" /> class.
+        /// </summary>
+        /// <param name="algorithm">The algorithm to use, see <see cref="ChromaprintAlgorithm" /> (default = TEST2)</param>
+        public ChromaContext(ChromaprintAlgorithm algorithm)
         {
-            this.algorithm = algorithm;
+            this.algorithm = (int)algorithm;
 
             var config = FingerprinterConfiguration.CreateConfiguration(algorithm);
             this.fingerprinter = new Fingerprinter(config);
@@ -56,16 +63,17 @@ namespace AcoustID
 
         /// <summary>
         /// Set a configuration option for the selected fingerprint algorithm.
-        ///
+        /// </summary>
+        /// <param name="name">option name</param>
+        /// <param name="value">option value</param>
+        /// <returns>False on error, true on success</returns>
+        /// <remarks>
         /// NOTE: DO NOT USE THIS FUNCTION IF YOU ARE PLANNING TO USE
         /// THE GENERATED FINGERPRINTS WITH THE ACOUSTID SERVICE.
         /// 
         /// Possible options:
         ///  - silence_threshold: threshold for detecting silence, 0-32767
-        /// </summary>
-        /// <param name="name">option name</param>
-        /// <param name="value">option value</param>
-        /// <returns>False on error, true on success</returns>
+        /// </remarks>
         public bool SetOption(string name, int value)
         {
             return fingerprinter.SetOption(name, value);
@@ -161,10 +169,8 @@ namespace AcoustID
             string encoded = Base64.ByteEncoding.GetString(encoded_fp);
             string compressed = base64 ? Base64.Decode(encoded) : encoded;
 
-            algorithm = 0;
-
             FingerprintDecompressor decompressor = new FingerprintDecompressor();
-            int[] uncompressed = decompressor.Decompress(compressed, ref algorithm);
+            int[] uncompressed = decompressor.Decompress(compressed, out algorithm);
 
             int size = uncompressed.Length;
             int[] fp = new int[size];

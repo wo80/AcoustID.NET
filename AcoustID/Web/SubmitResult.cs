@@ -11,6 +11,13 @@ namespace AcoustID.Web
     /// </summary>
     public class SubmitResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubmitResult" /> class.
+        /// </summary>
+        /// <param name="id">The id of the submit</param>
+        /// <param name="index">The index of the submit (only for batch submits).</param>
+        /// <param name="status">The status of the submit (pending or imported).</param>
+        /// <param name="rid">The AcoustID assigned of the submit.</param>
         public SubmitResult(int id, int index, string status, string rid)
         {
             this.Id = id;

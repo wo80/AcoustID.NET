@@ -6,9 +6,9 @@
 
 namespace AcoustID.Chromaprint
 {
-    using System;
     using AcoustID.Audio;
     using AcoustID.Util;
+    using System;
 
     /// <summary>
     /// Consumes audio data and passes the FFT of this data on to

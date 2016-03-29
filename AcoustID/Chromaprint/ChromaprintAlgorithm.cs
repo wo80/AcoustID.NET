@@ -6,19 +6,26 @@
 
 namespace AcoustID.Chromaprint
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
-    /// TODO: This should really be an enum
+    /// Chromaprint algorithm enum.
     /// </summary>
-    public static class ChromaprintAlgorithm
+    public enum ChromaprintAlgorithm
     {
-        public static readonly int TEST1 = 0;
-        public static readonly int TEST2 = 1;
-        public static readonly int TEST3 = 2;
-        public static readonly int TEST4 = 3;
+        /// <summary>
+        /// Use fingerprinter configuration 1.
+        /// </summary>
+        TEST1 = 0,
+        /// <summary>
+        /// Use fingerprinter configuration 2.
+        /// </summary>
+        TEST2 = 1,
+        /// <summary>
+        /// Use fingerprinter configuration 3.
+        /// </summary>
+        TEST3 = 2,
+        /// <summary>
+        /// Use fingerprinter configuration 4.
+        /// </summary>
+        TEST4 = 3
     }
 }

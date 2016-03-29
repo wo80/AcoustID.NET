@@ -6,12 +6,9 @@
 
 namespace AcoustID.Chromaprint
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Diagnostics;
     using AcoustID.Audio;
+    using System;
+    using System.Diagnostics;
 
     /// <summary>
     /// Audio processor with multi-channel to mono converting and resampling. Passes

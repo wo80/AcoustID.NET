@@ -6,12 +6,12 @@
 
 namespace AcoustID.Util
 {
+    // TODO: remove unused Spectrogram code.
+
+    /*
     using AcoustID.Audio;
     using AcoustID.Chromaprint;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class Spectrogram
     {
         static int SAMPLE_RATE = 11025;
@@ -40,4 +40,5 @@ namespace AcoustID.Util
             return image;
         }
     }
+    //*/
 }

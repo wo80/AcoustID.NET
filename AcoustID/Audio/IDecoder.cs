@@ -6,7 +6,6 @@
 
 namespace AcoustID.Audio
 {
-    using System;
     using AcoustID.Chromaprint;
 
     /// <summary>

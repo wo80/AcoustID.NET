@@ -13,6 +13,12 @@ namespace AcoustID.Web
     /// </summary>
     public class Recording
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Recording" /> class.
+        /// </summary>
+        /// <param name="duration">The duration (in seconds).</param>
+        /// <param name="id">The MusicBrainz ID.</param>
+        /// <param name="title">The title of the recording.</param>
         public Recording(int duration, string id, string title)
         {
             this.Duration = duration;
