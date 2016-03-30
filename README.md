@@ -10,8 +10,9 @@ The original code for this project can be found at https://bitbucket.org/acousti
 
 ##Features.
 * AcoustID fingerprint calculation.
-* AcoustID webservice access (request only, submit not implemented)
-* *Fingerprinter* example application
+* AcoustID webservice access:
+  Lookup or submit fingerprints using the ```LookupService``` and ```SubmitService``` classes in the ```AcoustID.Web``` namespace.
+* *Fingerprinter* example application.
 
 The example application shows how to decode audio files using [NAudio](https://github.com/naudio/NAudio) or [Bass](http://www.un4seen.com/bass.html).
 
