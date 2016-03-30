@@ -67,13 +67,14 @@ namespace AcoustID.Web
         {
             try
             {
-                string query = BuildRequestString(fingerprint, duration, meta);
+                using (var body = BuildRequestBody(fingerprint, duration, meta))
+                {
+                    // If the request contains invalid parameters, the server will return
+                    // "400 Bad Request" and we'll end up in the first catch block.
+                    string response = await WebHelper.SendPost(URL, body, UseCompression);
 
-                // If the request contains invalid parameters, the server will return "400 Bad Request" and
-                // we'll end up in the first catch block.
-                string response = await WebHelper.SendPost(URL, query, UseCompression);
-
-                return parser.ParseLookupResponse(response);
+                    return parser.ParseLookupResponse(response);
+                }
             }
             catch (WebException e)
             {
@@ -107,22 +108,28 @@ namespace AcoustID.Web
             }
         }
 
-        private string BuildRequestString(string fingerprint, int duration, string[] meta)
+        private Stream BuildRequestBody(string fingerprint, int duration, string[] meta)
         {
-            StringBuilder query = new StringBuilder();
+            var stream = new MemoryStream();
 
-            query.Append("client=" + Configuration.ClientKey);
-
-            if (meta != null)
+            using (var writer = new StreamWriter(stream, Encoding.Default, 1024, true))
             {
-                query.Append("&meta=" + string.Join("+", meta));
+                writer.Write("client=" + Configuration.ClientKey);
+
+                if (meta != null)
+                {
+                    writer.Write("&meta=" + string.Join("+", meta));
+                }
+
+                writer.Write("&format=" + parser.Format);
+                writer.Write("&duration=" + duration);
+                writer.Write("&fingerprint=" + fingerprint);
             }
 
-            query.Append("&format=" + parser.Format);
-            query.Append("&duration=" + duration);
-            query.Append("&fingerprint=" + fingerprint);
+            // Reset stream position.
+            stream.Seek(0L, SeekOrigin.Begin);
 
-            return query.ToString();
+            return stream;
         }
     }
 }

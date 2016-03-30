@@ -5,11 +5,16 @@ namespace AcoustID.Web
     using System.IO.Compression;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
 
     static class WebHelper
     {
+        // For small data sizes, gzip will increase number of bytes to send. We use
+        // a threshold to check, if compression should be done.
+        private const int COMPRESSION_THRESHOLD = 1800;
+
         public static HttpClient CreateHttpClient(bool automaticDecompression = true)
         {
             var proxy = Configuration.Proxy;
@@ -34,47 +39,62 @@ namespace AcoustID.Web
             return client;
         }
 
-        public static async Task<string> SendPost(string url, string body, bool useCompression)
+        public static async Task<string> SendPost(string url, string query, bool useCompression)
+        {
+            using (var body = new MemoryStream(Encoding.Default.GetBytes(query)))
+            {
+                return await WebHelper.SendPost(url, body, useCompression);
+            }
+        }
+
+        public static async Task<string> SendPost(string url, Stream body, bool useCompression)
         {
             var client = WebHelper.CreateHttpClient();
 
-            // The stream to hold the gzipped bytes.
-            using (var stream = new MemoryStream())
+            // The stream to hold the content bytes (gzipped or not).
+            Stream stream;
+
+            int size = (int)body.Length;
+
+            useCompression &= (size > COMPRESSION_THRESHOLD);
+
+            if (useCompression)
             {
-                byte[] data = Encoding.UTF8.GetBytes(body);
+                stream = new MemoryStream();
 
-                // For small data size, gzip will increase number of bytes to send.
-                useCompression &= body.Length > 1800;
-
-                if (useCompression)
+                // Create gzip stream.
+                using (var gzip = new GZipStream(stream, CompressionMode.Compress, true))
                 {
-                    // Create gzip stream
-                    using (var gzip = new GZipStream(stream, CompressionMode.Compress, true))
-                    {
-                        gzip.Write(data, 0, data.Length);
-                        gzip.Close();
-                    }
-                }
-                else
-                {
-                    stream.Write(data, 0, data.Length);
+                    body.CopyTo(gzip);
                 }
 
-                // IMPORTANT: reset stream position.
-                stream.Position = 0;
-
-                var content = new StreamContent(stream);
-
-                if (useCompression)
-                {
-                    content.Headers.Add("Content-Encoding", "gzip");
-                    content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                }
-
-                var response = await client.PostAsync(url, content);
-
-                return await response.Content.ReadAsStringAsync();
+                // Reset stream position.
+                stream.Seek(0L, SeekOrigin.Begin);
             }
+            else
+            {
+                stream = body;
+            }
+
+            var content = new StreamContent(stream);
+
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            content.Headers.ContentLength = stream.Length;
+
+            if (useCompression)
+            {
+                content.Headers.ContentEncoding.Add("gzip");
+            }
+
+            var response = await client.PostAsync(url, content);
+
+            if (useCompression)
+            {
+                // Don't forget to dispose of the memory stream.
+                stream.Dispose();
+            }
+
+            return await response.Content.ReadAsStringAsync();
         }
 
         public static async Task<string> SendGet(string url, string query)

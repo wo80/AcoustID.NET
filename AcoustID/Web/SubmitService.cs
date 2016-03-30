@@ -7,6 +7,7 @@
 namespace AcoustID.Web
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Text;
@@ -24,7 +25,7 @@ namespace AcoustID.Web
         private string userKey;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SubmitService" /> class.
         /// </summary>
         /// <param name="userKey">The user API key.</param>
         /// <remarks>
@@ -36,10 +37,10 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SubmitService" /> class.
         /// </summary>
         /// <param name="userKey">The user API key.</param>
-        /// <param name="parser"></param>
+        /// <param name="parser">The <see cref="IResponseParser"/> instance.</param>
         /// <remarks>
         /// Visit https://acoustid.org/api-key to get a user key.
         /// </remarks>
@@ -56,8 +57,6 @@ namespace AcoustID.Web
         /// </summary>
         public bool UseCompression { get; set; }
 
-        // TODO: add a method to submit multiple fingerprints at once.
-
         /// <summary>
         /// Calls the webservice.
         /// </summary>
@@ -65,15 +64,26 @@ namespace AcoustID.Web
         /// <returns></returns>
         public async Task<SubmitResponse> SubmitAsync(SubmitRequest request)
         {
+            return await SubmitAsync(new List<SubmitRequest>(1) { request });
+        }
+
+        /// <summary>
+        /// Calls the webservice.
+        /// </summary>
+        /// <param name="requests"></param>
+        /// <returns></returns>
+        public async Task<SubmitResponse> SubmitAsync(IEnumerable<SubmitRequest> requests)
+        {
             try
             {
-                string query = BuildRequestString(request);
+                using (var body = BuildRequestBody(requests))
+                {
+                    // If the request contains invalid parameters, the server will return
+                    // "400 Bad Request" and we'll end up in the first catch block.
+                    string response = await WebHelper.SendPost(URL, body, UseCompression);
 
-                // If the request contains invalid parameters, the server will return "400 Bad Request" and
-                // we'll end up in the first catch block.
-                string response = await WebHelper.SendPost(URL, query, UseCompression);
-
-                return parser.ParseSubmitResponse(response);
+                    return parser.ParseSubmitResponse(response);
+                }
             }
             catch (WebException e)
             {
@@ -107,16 +117,30 @@ namespace AcoustID.Web
             }
         }
 
-        private string BuildRequestString(SubmitRequest request)
+        private Stream BuildRequestBody(IEnumerable<SubmitRequest> requests)
         {
-            StringBuilder query = new StringBuilder();
+            var stream = new MemoryStream();
 
-            query.Append("client=" + Configuration.ClientKey);
-            query.Append("&user=" + userKey);
-            query.Append("&" + request.ToQueryString());
-            query.Append("&format=" + parser.Format);
+            int i = 0;
 
-            return query.ToString();
+            using (var writer = new StreamWriter(stream, Encoding.Default, 1024, true))
+            {
+                writer.Write("client=" + Configuration.ClientKey);
+                writer.Write("&user=" + userKey);
+
+                foreach (var request in requests)
+                {
+                    writer.Write("&" + request.ToQueryString(i++));
+                }
+
+                writer.Write("&format=" + parser.Format);
+
+            }
+
+            // Reset stream position.
+            stream.Seek(0L, SeekOrigin.Begin);
+
+            return stream;
         }
     }
 }
