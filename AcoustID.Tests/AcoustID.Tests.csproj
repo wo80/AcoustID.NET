@@ -65,6 +65,7 @@
     <Compile Include="Util\BitStringWriterTest.cs" />
     <Compile Include="Util\HelperTest.cs" />
     <Compile Include="Util\SimHashTest.cs" />
+    <Compile Include="Web\SubmitRequestTest.cs" />
     <Compile Include="Web\XmlResponseParserTest.cs" />
   </ItemGroup>
   <ItemGroup>

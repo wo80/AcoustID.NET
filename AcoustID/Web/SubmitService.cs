@@ -170,7 +170,7 @@ namespace AcoustID.Web
 
                 foreach (var request in requests)
                 {
-                    writer.Write("&" + request.ToQueryString(i++));
+                    request.WriteQueryString(writer, true, i++);
                 }
 
                 writer.Write("&format=" + parser.Format);

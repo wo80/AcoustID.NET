@@ -7,6 +7,7 @@
 namespace AcoustID.Web
 {
     using System;
+    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -86,11 +87,13 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Create a query string for the request.
+        /// Write the query string to given stream writer.
         /// </summary>
+        /// <param name="writer">The stream writer.</param>
+        /// <param name="append">If true, an ampersand will be prepended.</param>
         /// <param name="index">The batch index.</param>
         /// <returns></returns>
-        public string ToQueryString(int index = -1)
+        public void WriteQueryString(StreamWriter writer, bool append = true, int index = -1)
         {
             if (Duration <= 0)
             {
@@ -102,8 +105,6 @@ namespace AcoustID.Web
                 throw new Exception("Missing submit parameter: fingerprint");
             }
 
-            var builder = new StringBuilder();
-
             var batch = string.Empty;
 
             if (index >= 0)
@@ -111,60 +112,63 @@ namespace AcoustID.Web
                 batch = "." + index;
             }
 
-            builder.AppendFormat("duration{0}={1}", batch, Duration);
-            builder.AppendFormat("&fingerprint{0}={1}", batch, Fingerprint);
+            if (append)
+            {
+                writer.Write("&");
+            }
+
+            writer.Write("duration{0}={1}", batch, Duration);
+            writer.Write("&fingerprint{0}={1}", batch, Fingerprint);
 
             if (Bitrate > 0)
             {
-                builder.AppendFormat("&bitrate{0}={1}", batch, Bitrate);
+                writer.Write("&bitrate{0}={1}", batch, Bitrate);
             }
 
             if (!string.IsNullOrWhiteSpace(FileFormat))
             {
-                builder.AppendFormat("&fileformat{0}={1}", batch, FileFormat);
+                writer.Write("&fileformat{0}={1}", batch, FileFormat);
             }
 
             if (!string.IsNullOrWhiteSpace(MBID))
             {
-                builder.AppendFormat("&mbid{0}={1}", batch, MBID);
+                writer.Write("&mbid{0}={1}", batch, MBID);
             }
 
             if (!string.IsNullOrWhiteSpace(Title))
             {
-                builder.AppendFormat("&track{0}={1}", batch, Title);
+                writer.Write("&track{0}={1}", batch, Title);
             }
 
             if (!string.IsNullOrWhiteSpace(Artist))
             {
-                builder.AppendFormat("&artist{0}={1}", batch, Uri.EscapeUriString(Artist));
+                writer.Write("&artist{0}={1}", batch, Uri.EscapeUriString(Artist));
             }
 
             if (!string.IsNullOrWhiteSpace(Album))
             {
-                builder.AppendFormat("&album{0}={1}", batch, Uri.EscapeUriString(Album));
+                writer.Write("&album{0}={1}", batch, Uri.EscapeUriString(Album));
             }
 
             if (!string.IsNullOrWhiteSpace(AlbumArtist))
             {
-                builder.AppendFormat("&albumartist{0}={1}", batch, Uri.EscapeUriString(AlbumArtist));
+                writer.Write("&albumartist{0}={1}", batch, Uri.EscapeUriString(AlbumArtist));
             }
 
             if (Year > 0)
             {
-                builder.AppendFormat("&year{0}={1}", batch, Year);
+                writer.Write("&year{0}={1}", batch, Year);
             }
 
             if (TrackNumber > 0)
             {
-                builder.AppendFormat("&trackno{0}={1}", batch, TrackNumber);
+                writer.Write("&trackno{0}={1}", batch, TrackNumber);
             }
 
             if (DiscNumber > 0)
             {
-                builder.AppendFormat("&discno{0}={1}", batch, DiscNumber);
+                writer.Write("&discno{0}={1}", batch, DiscNumber);
             }
-
-            return builder.ToString();
         }
     }
 }
