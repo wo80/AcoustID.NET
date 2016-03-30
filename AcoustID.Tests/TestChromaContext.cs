@@ -20,13 +20,14 @@ namespace AcoustID.Tests
                 ctx.Feed(zeroes, 1024);
             }
 
-            ;
-
             ctx.Finish();
+
             string fp = ctx.GetFingerprint();
+            int hash = ctx.GetFingerprintHash();
 
             Assert.AreEqual(18, fp.Length);
             Assert.AreEqual("AQAAA0mUaEkSRZEGAA", fp);
+            Assert.AreEqual(627964279, hash);
         }
 
         [Test]
