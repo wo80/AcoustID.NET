@@ -15,15 +15,24 @@ namespace AcoustID.Web
         /// Initializes a new instance of the <see cref="SubmitResult" /> class.
         /// </summary>
         /// <param name="id">The id of the submit</param>
+        public SubmitResult(int id)
+            : this(id, 0, null, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubmitResult" /> class.
+        /// </summary>
+        /// <param name="id">The id of the submit</param>
         /// <param name="index">The index of the submit (only for batch submits).</param>
         /// <param name="status">The status of the submit (pending or imported).</param>
-        /// <param name="rid">The AcoustID assigned of the submit.</param>
-        public SubmitResult(int id, int index, string status, string rid)
+        /// <param name="acoustId">The AcoustID assigned of the submit.</param>
+        public SubmitResult(int id, int index, string status, string acoustId)
         {
             this.Id = id;
             this.Index = index;
             this.Status = status;
-            this.Result = rid;
+            this.AcoustId = acoustId;
         }
 
         /// <summary>
@@ -32,7 +41,7 @@ namespace AcoustID.Web
         public int Id { get; private set; }
 
         /// <summary>
-        /// Gets the index of the submit (only for batch submits).
+        /// Gets the index of the submit (for batch submits).
         /// </summary>
         public int Index { get; private set; }
 
@@ -42,8 +51,8 @@ namespace AcoustID.Web
         public string Status { get; private set; }
 
         /// <summary>
-        /// Gets the assigned AcoustId of the submit (available only if status is "imported").
+        /// Gets the assigned AcoustId of the submit (available if status is "imported").
         /// </summary>
-        public string Result { get; private set; }
+        public string AcoustId { get; private set; }
     }
 }

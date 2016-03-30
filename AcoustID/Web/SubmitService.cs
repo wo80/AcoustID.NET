@@ -20,6 +20,8 @@ namespace AcoustID.Web
     {
         private const string URL = "http://api.acoustid.org/v2/submit";
 
+        private const string STATUS_URL = "http://api.acoustid.org/v2/submission_status";
+
         private IResponseParser parser;
 
         private string userKey;
@@ -58,9 +60,9 @@ namespace AcoustID.Web
         public bool UseCompression { get; set; }
 
         /// <summary>
-        /// Calls the webservice.
+        /// Submit audio data to the AcoustID webservice.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">The submit request data.</param>
         /// <returns></returns>
         public async Task<SubmitResponse> SubmitAsync(SubmitRequest request)
         {
@@ -68,9 +70,9 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Calls the webservice.
+        /// Submit audio data to the AcoustID webservice.
         /// </summary>
-        /// <param name="requests"></param>
+        /// <param name="requests">The submit request data.</param>
         /// <returns></returns>
         public async Task<SubmitResponse> SubmitAsync(IEnumerable<SubmitRequest> requests)
         {
@@ -84,6 +86,44 @@ namespace AcoustID.Web
 
                     return parser.ParseSubmitResponse(response);
                 }
+            }
+            catch (WebException e)
+            {
+                // Handle bad requests gracefully.
+                return CreateErrorResponse(e.Response as HttpWebResponse);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Get the status of a pending submission.
+        /// </summary>
+        /// <param name="submit">The pending submission.</param>
+        /// <returns></returns>
+        public async Task<SubmitResponse> GetSubmitStatusAsync(SubmitResult submit)
+        {
+            return await GetSubmitStatusAsync(new List<SubmitResult>(1) { submit });
+        }
+
+        /// <summary>
+        /// Get the status of a number of pending submissions.
+        /// </summary>
+        /// <param name="submits">The pending submissions.</param>
+        /// <returns></returns>
+        public async Task<SubmitResponse> GetSubmitStatusAsync(IEnumerable<SubmitResult> submits)
+        {
+            try
+            {
+                string query = BuildQueryString(submits);
+
+                // If the request contains invalid parameters, the server will return
+                // "400 Bad Request" and we'll end up in the first catch block.
+                string response = await WebHelper.SendGet(STATUS_URL, query);
+
+                return parser.ParseSubmitResponse(response);
             }
             catch (WebException e)
             {
@@ -134,13 +174,27 @@ namespace AcoustID.Web
                 }
 
                 writer.Write("&format=" + parser.Format);
-
             }
 
             // Reset stream position.
             stream.Seek(0L, SeekOrigin.Begin);
 
             return stream;
+        }
+
+        private string BuildQueryString(IEnumerable<SubmitResult> submits)
+        {
+            var builder = new StringBuilder();
+
+            builder.AppendFormat("client={0}", Configuration.ClientKey);
+            builder.AppendFormat("&format={0}", parser.Format);
+
+            foreach (var submit in submits)
+            {
+                builder.AppendFormat("&id={0}", submit.Id);
+            }
+
+            return builder.ToString();
         }
     }
 }

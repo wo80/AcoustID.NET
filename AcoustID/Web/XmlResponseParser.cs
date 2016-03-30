@@ -299,7 +299,7 @@ namespace AcoustID.Web
                 index = int.Parse(element.Value);
             }
 
-            string status = null, rid = null;
+            string status = null, acoustId = null;
 
             element = el.Element("status");
 
@@ -312,10 +312,10 @@ namespace AcoustID.Web
 
             if (element != null)
             {
-                rid = element.Element("id").Value;
+                acoustId = element.Element("id").Value;
             }
 
-            return new SubmitResult(id, index, status, rid);
+            return new SubmitResult(id, index, status, acoustId);
         }
 
         #endregion
