@@ -11,8 +11,8 @@ namespace Fingerprinter.Audio
     // You will need Bass.Net.dll, bass.dll and bassmix.dll
     // from http://www.un4seen.com/
 
-    using System;
     using AcoustID.Chromaprint;
+    using System;
     using Un4seen.Bass;
     using Un4seen.Bass.AddOn.Mix;
 
@@ -25,64 +25,40 @@ namespace Fingerprinter.Audio
         int bassStream;
         int bassMixer;
 
+        string file;
+
         bool resample;
 
-        public BassDecoder()
-            : this(false)
+        public BassDecoder(string file)
+            : this(file, false)
         {
         }
 
-        public BassDecoder(bool resample)
+        public BassDecoder(string file, bool resample)
         {
+            this.file = file;
             this.resample = resample;
-            
-            // Load BASS.
-            if (!Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero))
+
+            // Open the BASS stream and keep it open until Dispose() is called. This might lock
+            // the file. A better approach would be to open the stream only when needed.
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initialize Bass (call this on program startup).
+        /// </summary>
+        public static void InitializeBass()
+        {
+            BassNet.Registration("your@mail.com", "YOURBASSKEY");
+
+            try
+            {
+                // Load BASS (will throw if anything goes wrong, for example missing dlls).
+                Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+            }
+            catch (Exception)
             {
                 throw new NotSupportedException("BASS init failed.");
-            }
-        }
-
-        public override void Load(string file)
-        {
-            // Dispose on every new load
-            Dispose(false);
-
-            ready = false;
-
-            // Create a stream channel from a file (use BASS_STREAM_PRESCAN for mp3?)
-            bassStream = Bass.BASS_StreamCreateFile(file, 0L, 0L, BASSFlag.BASS_STREAM_DECODE);
-            if (bassStream != 0)
-            {
-                var info = Bass.BASS_ChannelGetInfo(bassStream);
-
-                this.sourceBitDepth = info.Is8bit ? 8 : (info.Is32bit ? 32 : 16);
-                this.sourceSampleRate = info.freq;
-                this.sourceChannels = info.chans;
-
-                this.sampleRate = info.freq;
-                this.channels = info.chans;
-
-                duration = (int)Bass.BASS_ChannelBytes2Seconds(bassStream, Bass.BASS_ChannelGetLength(bassStream));
-
-                if (this.resample)
-                {
-                    this.sampleRate = 11025;
-                    this.channels = 1;
-
-                    // Create resample stream.
-                    bassMixer = BassMix.BASS_Mixer_StreamCreate(this.sampleRate, this.channels,
-                        BASSFlag.BASS_MIXER_END | BASSFlag.BASS_STREAM_DECODE);
-
-                    if (bassMixer == 0)
-                    {
-                        return;
-                    }
-
-                    BassMix.BASS_Mixer_StreamAddChannel(bassMixer, bassStream, 0);
-                }
-
-                ready = (!info.Is8bit && !info.Is32bit);
             }
         }
 
@@ -91,7 +67,7 @@ namespace Fingerprinter.Audio
         /// </summary>
         public override bool Decode(IAudioConsumer consumer, int maxLength)
         {
-            if (!ready)
+            if (bassStream == 0)
             {
                 return false;
             }
@@ -126,7 +102,47 @@ namespace Fingerprinter.Audio
 
             return true;
         }
-        
+
+        private void Initialize()
+        {
+            // Create a stream channel from a file (use BASS_STREAM_PRESCAN for mp3?)
+            bassStream = Bass.BASS_StreamCreateFile(file, 0L, 0L, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_ASYNCFILE);
+
+            if (bassStream != 0)
+            {
+                var info = Bass.BASS_ChannelGetInfo(bassStream);
+
+                this.sampleRate = info.freq;
+                this.channels = info.chans;
+
+                double duration = Bass.BASS_ChannelBytes2Seconds(bassStream, Bass.BASS_ChannelGetLength(bassStream));
+
+                this.Format = new AudioProperties(info.freq, info.Is8bit ? 8 : (info.Is32bit ? 32 : 16),
+                    info.chans, (int)duration);
+
+                if (this.Format.BitDepth != 16)
+                {
+                    Dispose(true);
+                    return;
+                }
+
+                if (this.resample)
+                {
+                    this.sampleRate = 11025;
+                    this.channels = 1;
+
+                    // Create resample stream.
+                    bassMixer = BassMix.BASS_Mixer_StreamCreate(this.sampleRate, this.channels,
+                        BASSFlag.BASS_MIXER_END | BASSFlag.BASS_STREAM_DECODE);
+
+                    if (bassMixer != 0)
+                    {
+                        BassMix.BASS_Mixer_StreamAddChannel(bassMixer, bassStream, 0);
+                    }
+                }
+            }
+        }
+
         #region IDisposable implementation
 
         private bool hasDisposed = false;
@@ -153,9 +169,9 @@ namespace Fingerprinter.Audio
                     Bass.BASS_StreamFree(bassMixer);
                     bassMixer = 0;
                 }
-
-                hasDisposed = disposing;
             }
+
+            hasDisposed = disposing;
         }
 
         ~BassDecoder()

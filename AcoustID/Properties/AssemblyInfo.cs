@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.3")]
-[assembly: AssemblyFileVersion("1.3.1.12")]
+[assembly: AssemblyFileVersion("1.3.1.16")]
 
 [assembly: InternalsVisibleTo("AcoustID.Tests")]

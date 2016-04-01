@@ -6,10 +6,10 @@
 
 namespace Fingerprinter.Audio
 {
-    using System;
-    using System.IO;
     using AcoustID.Chromaprint;
     using NAudio.Wave;
+    using System;
+    using System.IO;
 
     /// <summary>
     /// Decode using the NAudio library.
