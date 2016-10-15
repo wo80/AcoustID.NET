@@ -27,6 +27,7 @@ namespace AcoustID.Web
 
             this.Artists = new List<Artist>();
             this.ReleaseGroups = new List<ReleaseGroup>();
+            this.Releases = new List<Release>();
         }
 
         /// <summary>
@@ -53,6 +54,11 @@ namespace AcoustID.Web
         /// Gets the release groups associated with the recording.
         /// </summary>
         public List<ReleaseGroup> ReleaseGroups { get; private set; }
+
+        /// <summary>
+        /// Gets the releases associated with the recording.
+        /// </summary>
+        public List<Release> Releases { get; private set; }
 
         public override string ToString()
         {

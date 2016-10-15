@@ -85,6 +85,7 @@
     <Compile Include="Web\LookupResult.cs" />
     <Compile Include="Web\LookupService.cs" />
     <Compile Include="Web\Recording.cs" />
+    <Compile Include="Web\Release.cs" />
     <Compile Include="Web\ReleaseGroup.cs" />
     <Compile Include="Web\SubmitRequest.cs" />
     <Compile Include="Web\SubmitResponse.cs" />

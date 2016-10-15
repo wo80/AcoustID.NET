@@ -29,7 +29,7 @@ namespace AcoustID.Web
         {
             get { return format; }
         }
-        
+
         /// <inheritdoc />
         public bool CanParse(string text)
         {
@@ -58,7 +58,7 @@ namespace AcoustID.Web
 
                     return response;
                 }
-                
+
                 if (status.Value == "error")
                 {
                     var error = root.Element("error");
@@ -154,40 +154,22 @@ namespace AcoustID.Web
             return result;
         }
 
-        private Recording ParseRecording(XElement el)
+        private Recording ParseRecording(XElement node)
         {
-            int duration = 0;
-            string id = string.Empty;
-            string title = string.Empty;
+            int duration;
+            string id, title;
 
-            XElement element = el.Element("duration");
-
-            if (element != null)
-            {
-                duration = int.Parse(element.Value);
-            }
-
-            element = el.Element("id");
-
-            if (element != null)
-            {
-                id = element.Value;
-            }
-
-            element = el.Element("title");
-
-            if (element != null)
-            {
-                title = element.Value;
-            }
-
+            TryParseChild(node, "id", out id);
+            TryParseChild(node, "title", out title);
+            TryParseChild(node, "duration", 0, out duration);
+            
             var recording = new Recording(duration, id, title);
 
-            element = el.Element("artists");
+            var e = node.Element("artists");
 
-            if (element != null)
+            if (e != null)
             {
-                var list = element.Elements("artist");
+                var list = e.Elements("artist");
 
                 foreach (var item in list)
                 {
@@ -195,11 +177,11 @@ namespace AcoustID.Web
                 }
             }
 
-            element = el.Element("releasegroups");
+            e = node.Element("releasegroups");
 
-            if (element != null)
+            if (e != null)
             {
-                var list = element.Elements("releasegroup");
+                var list = e.Elements("releasegroup");
 
                 foreach (var item in list)
                 {
@@ -207,66 +189,47 @@ namespace AcoustID.Web
                 }
             }
 
+            e = node.Element("releases");
+
+            if (e != null)
+            {
+                var list = e.Elements("release");
+
+                foreach (var item in list)
+                {
+                    recording.Releases.Add(ParseRelease(item));
+                }
+            }
+
             // TODO: parse more meta
             return recording;
         }
 
-        private Artist ParseArtist(XElement el)
+        private Artist ParseArtist(XElement node)
         {
-            string id = string.Empty;
-            string name = string.Empty;
+            string id, name;
 
-            XElement element = el.Element("name");
-
-            if (element != null)
-            {
-                name = element.Value;
-            }
-
-            element = el.Element("id");
-
-            if (element != null)
-            {
-                id = element.Value;
-            }
-
+            TryParseChild(node, "id", out id);
+            TryParseChild(node, "name", out name);
+            
             return new Artist(id, name);
         }
 
-        private ReleaseGroup ParseReleaseGroup(XElement el)
+        private ReleaseGroup ParseReleaseGroup(XElement node)
         {
-            string id = string.Empty;
-            string title = string.Empty;
-            string type = string.Empty;
+            string id, type, title;
 
-            XElement element = el.Element("id");
-
-            if (element != null)
-            {
-                id = element.Value;
-            }
-
-            element = el.Element("title");
-
-            if (element != null)
-            {
-                title = element.Value;
-            }
-
-            element = el.Element("type");
-
-            if (element != null)
-            {
-                type = element.Value;
-            }
-
+            TryParseChild(node, "id", out id);
+            TryParseChild(node, "type", out type);
+            TryParseChild(node, "title", out title);
+            
             var releasegroup = new ReleaseGroup(id, title, type);
 
-            element = el.Element("artists");
+            var e = node.Element("artists");
 
-            if (element != null)
+            if (e != null)
             {
-                var list = element.Elements("artist");
+                var list = e.Elements("artist");
 
                 foreach (var item in list)
                 {
@@ -275,6 +238,49 @@ namespace AcoustID.Web
             }
 
             return releasegroup;
+        }
+
+
+        private Release ParseRelease(XElement node)
+        {
+            int tracks;
+            string id, title, country;
+
+            TryParseChild(node, "id", out id);
+            TryParseChild(node, "title", out title);
+            TryParseChild(node, "country", out country);
+            TryParseChild(node, "track_count", 0, out tracks);
+            
+            var e = node.Element("date");
+
+            var date = DateTime.MinValue;
+
+            if (e != null)
+            {
+                int year, month, day;
+
+                TryParseChild(e, "year", 1, out year);
+                TryParseChild(e, "month", 1, out month);
+                TryParseChild(e, "day", 1, out day);
+
+                date = new DateTime(year, month, day);
+            }
+
+            var release = new Release(id, title, country, date, tracks);
+
+            e = node.Element("artists");
+
+            if (e != null)
+            {
+                var list = e.Elements("artist");
+
+                foreach (var item in list)
+                {
+                    release.Artists.Add(ParseArtist(item));
+                }
+            }
+
+            return release;
         }
 
         #endregion
@@ -316,6 +322,34 @@ namespace AcoustID.Web
             }
 
             return new SubmitResult(id, index, status, acoustId);
+        }
+
+        #endregion
+        
+        #region Helper
+
+        private void TryParseChild(XElement node, string name, out string value)
+        {
+            value = string.Empty;
+
+            var e = node.Element(name);
+
+            if (e != null)
+            {
+                value = e.Value;
+            }
+        }
+
+        private void TryParseChild(XElement node, string name, int defaultValue, out int value)
+        {
+            value = defaultValue;
+
+            var e = node.Element(name);
+
+            if (e != null)
+            {
+                int.TryParse(e.Value, out value);
+            }
         }
 
         #endregion
