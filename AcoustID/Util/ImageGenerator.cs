@@ -34,7 +34,7 @@ namespace AcoustID.Util
             var chroma_filter = new ChromaFilter(ChromaFilterCoefficients, chroma_normalizer);
             var chroma = new Chroma(MIN_FREQ, MAX_FREQ, FRAME_SIZE, SAMPLE_RATE, chroma_filter);
 
-            var fft = new FFT(FRAME_SIZE, OVERLAP, chroma);
+            var fft = new FFT(FRAME_SIZE, OVERLAP, chroma, new LomontFFTService());
             var processor = new AudioProcessor(SAMPLE_RATE, fft);
 
             processor.Reset(decoder.SampleRate, decoder.Channels);
@@ -58,7 +58,7 @@ namespace AcoustID.Util
 
             var chroma = new Spectrum(numBands, MIN_FREQ, MAX_FREQ, FRAME_SIZE, SAMPLE_RATE, image_builder);
 
-            var fft = new FFT(FRAME_SIZE, OVERLAP, chroma);
+            var fft = new FFT(FRAME_SIZE, OVERLAP, chroma, new LomontFFTService());
             var processor = new AudioProcessor(SAMPLE_RATE, fft);
 
             processor.Reset(decoder.SampleRate, decoder.Channels);

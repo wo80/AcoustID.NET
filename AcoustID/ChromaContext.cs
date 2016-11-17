@@ -6,6 +6,7 @@
 
 namespace AcoustID
 {
+    using AcoustID.Audio;
     using AcoustID.Chromaprint;
     using AcoustID.Util;
     using System;
@@ -18,10 +19,12 @@ namespace AcoustID
         /// <summary>
         /// Return the version number of Chromaprint.
         /// </summary>
-        public static readonly string Version = "1.3.1";
+        public static readonly string Version = "1.3.2";
 
         Fingerprinter fingerprinter;
         int algorithm;
+
+        IFFTService fftService;
 
         int[] fingerprint;
 
@@ -52,13 +55,33 @@ namespace AcoustID
         /// <summary>
         /// Initializes a new instance of the <see cref="ChromaContext" /> class.
         /// </summary>
+        /// <param name="fftService">The FFT service.</param>
+        public ChromaContext(IFFTService fftService)
+            : this(ChromaprintAlgorithm.TEST2, fftService)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChromaContext" /> class.
+        /// </summary>
         /// <param name="algorithm">The algorithm to use, see <see cref="ChromaprintAlgorithm" /> (default = TEST2)</param>
         public ChromaContext(ChromaprintAlgorithm algorithm)
+            : this(ChromaprintAlgorithm.TEST2, new LomontFFTService())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChromaContext" /> class.
+        /// </summary>
+        /// <param name="algorithm">The algorithm to use, see <see cref="ChromaprintAlgorithm" /> (default = TEST2)</param>
+        /// <param name="fftService">The FFT service.</param>
+        public ChromaContext(ChromaprintAlgorithm algorithm, IFFTService fftService)
         {
             this.algorithm = (int)algorithm;
+            this.fftService = fftService;
 
             var config = FingerprinterConfiguration.CreateConfiguration(algorithm);
-            this.fingerprinter = new Fingerprinter(config);
+            this.fingerprinter = new Fingerprinter(config, fftService);
         }
 
         /// <summary>

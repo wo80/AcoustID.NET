@@ -6,6 +6,7 @@
 
 namespace AcoustID.Chromaprint
 {
+    using AcoustID.Audio;
     using System;
 
     /// <summary>
@@ -30,7 +31,7 @@ namespace AcoustID.Chromaprint
         FingerprinterConfiguration m_config;
         SilenceRemover m_silence_remover;
 
-        public Fingerprinter(FingerprinterConfiguration config)
+        public Fingerprinter(FingerprinterConfiguration config, IFFTService fftService)
         {
             m_image = new Image(12);
             if (config == null)
@@ -44,7 +45,7 @@ namespace AcoustID.Chromaprint
             //m_chroma.set_interpolate(true);
 
             // TODO: inject IFFTService
-            m_fft = new FFT(FRAME_SIZE, OVERLAP, m_chroma);
+            m_fft = new FFT(FRAME_SIZE, OVERLAP, m_chroma, fftService);
             if (config.RemoveSilence)
             {
                 m_silence_remover = new SilenceRemover(m_fft);

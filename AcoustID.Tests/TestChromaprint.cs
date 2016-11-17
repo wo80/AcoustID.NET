@@ -1,6 +1,7 @@
 ﻿
 namespace AcoustID.Tests
 {
+    using AcoustID.Audio;
     using AcoustID.Chromaprint;
     using NUnit.Framework;
     using System;
@@ -26,7 +27,7 @@ namespace AcoustID.Tests
             ImageBuilder image_builder = new ImageBuilder(image);
             ChromaNormalizer chroma_normalizer = new ChromaNormalizer(image_builder);
             Chroma chroma = new Chroma(MIN_FREQ, MAX_FREQ, FRAME_SIZE, SAMPLE_RATE, chroma_normalizer);
-            FFT fft = new FFT(FRAME_SIZE, OVERLAP, chroma);
+            FFT fft = new FFT(FRAME_SIZE, OVERLAP, chroma, new LomontFFTService());
             AudioProcessor processor = new AudioProcessor(SAMPLE_RATE, fft);
 
             processor.Reset(44100, 2);
