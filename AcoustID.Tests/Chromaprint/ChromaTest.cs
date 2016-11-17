@@ -11,8 +11,8 @@ namespace AcoustID.Tests.Chromaprint
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[113] = 1.0;
+            double[] frame = new double[128];
+            frame[113] = 1.0;
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
@@ -30,8 +30,8 @@ namespace AcoustID.Tests.Chromaprint
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[112] = 1.0;
+            double[] frame = new double[128];
+            frame[112] = 1.0;
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
@@ -49,8 +49,8 @@ namespace AcoustID.Tests.Chromaprint
         {
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[64] = 1.0; // 250 Hz
+            double[] frame = new double[128];
+            frame[64] = 1.0; // 250 Hz
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
@@ -69,8 +69,8 @@ namespace AcoustID.Tests.Chromaprint
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
             chroma.Interpolate = true;
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[64] = 1.0;
+            double[] frame = new double[128];
+            frame[64] = 1.0;
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
@@ -89,8 +89,8 @@ namespace AcoustID.Tests.Chromaprint
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
             chroma.Interpolate = true;
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[113] = 1.0;
+            double[] frame = new double[128];
+            frame[113] = 1.0;
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
@@ -109,8 +109,8 @@ namespace AcoustID.Tests.Chromaprint
             FeatureVectorBuffer buffer = new FeatureVectorBuffer();
             Chroma chroma = new Chroma(10, 510, 256, 1000, buffer);
             chroma.Interpolate = true;
-            FFTFrame frame = new FFTFrame(128);
-            frame.Data[112] = 1.0;
+            double[] frame = new double[128];
+            frame[112] = 1.0;
             chroma.Consume(frame);
             Assert.AreEqual(12, buffer.features.Length);
             double[] expected_features = {
