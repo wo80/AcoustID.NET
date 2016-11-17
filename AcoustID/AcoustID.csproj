@@ -52,7 +52,6 @@
     <Compile Include="Chromaprint\Classifier.cs" />
     <Compile Include="Chromaprint\CombinedBuffer.cs" />
     <Compile Include="Chromaprint\FFT.cs" />
-    <Compile Include="Chromaprint\FFTFrame.cs" />
     <Compile Include="Chromaprint\Filter.cs" />
     <Compile Include="Chromaprint\FingerprintCalculator.cs" />
     <Compile Include="Chromaprint\FingerprintCompressor.cs" />

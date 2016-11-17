@@ -64,7 +64,7 @@ namespace AcoustID.Chromaprint
         {
         }
 
-        public void Consume(FFTFrame frame)
+        public void Consume(double[] frame)
         {
             // TODO: do we really need to create a new instance here
             m_features = new double[NUM_BANDS];
@@ -80,7 +80,7 @@ namespace AcoustID.Chromaprint
             for (int i = m_min_index; i < m_max_index; i++)
             {
                 int note = m_notes[i];
-                double energy = frame.Energy(i);
+                double energy = frame[i];
                 if (m_interpolate)
                 {
                     int note2 = note;

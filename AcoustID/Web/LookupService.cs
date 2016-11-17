@@ -46,7 +46,7 @@ namespace AcoustID.Web
         public bool UseCompression { get; set; }
 
         /// <summary>
-        /// Calls the webservice.
+        /// Lookup a fingerprint using the AcoustID webservice.
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>
@@ -57,7 +57,7 @@ namespace AcoustID.Web
         }
 
         /// <summary>
-        /// Calls the webservice.
+        /// Lookup a fingerprint using the AcoustID webservice.
         /// </summary>
         /// <param name="fingerprint">The audio fingerprint.</param>
         /// <param name="duration">The total duration of the audio.</param>

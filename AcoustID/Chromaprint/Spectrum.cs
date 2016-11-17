@@ -26,7 +26,7 @@ namespace AcoustID.Chromaprint
             PrepareBands(num_bands, min_freq, max_freq, frame_size, sample_rate);
         }
 
-        public void Consume(FFTFrame frame)
+        public void Consume(double[] frame)
         {
             for (int i = 0; i < NumBands(); i++)
             {
@@ -36,7 +36,7 @@ namespace AcoustID.Chromaprint
                 double denominator = 0.0;
                 for (int j = first; j < last; j++)
                 {
-                    double s = frame.Energy(j);
+                    double s = frame[j];
                     numerator += j * s;
                     denominator += s;
                 }

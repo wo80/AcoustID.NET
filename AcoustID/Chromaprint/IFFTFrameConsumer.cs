@@ -11,6 +11,6 @@ namespace AcoustID.Chromaprint
     /// </summary>
     interface IFFTFrameConsumer
     {
-        void Consume(FFTFrame frame);
+        void Consume(double[] frame);
     }
 }

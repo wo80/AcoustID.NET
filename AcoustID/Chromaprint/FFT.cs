@@ -19,7 +19,7 @@ namespace AcoustID.Chromaprint
         double[] m_window;
         int m_buffer_offset;
         short[] m_buffer;
-        FFTFrame m_frame;
+        double[] m_frame;
         int m_frame_size;
         int m_increment;
         IFFTService m_lib;
@@ -38,7 +38,7 @@ namespace AcoustID.Chromaprint
             m_window = new double[frame_size];
             m_buffer_offset = 0;
             m_buffer = new short[frame_size];
-            m_frame = new FFTFrame(frame_size);
+            m_frame = new double[frame_size];
             m_frame_size = frame_size;
             m_increment = frame_size - overlap;
             m_consumer = consumer;
@@ -76,7 +76,7 @@ namespace AcoustID.Chromaprint
             while (combined_buffer.Size >= m_frame_size)
             {
                 combined_buffer.Read(m_input, 0, m_frame_size);
-                m_lib.ComputeFrame(m_input, m_frame.Data);
+                m_lib.ComputeFrame(m_input, m_frame);
 
                 m_consumer.Consume(m_frame);
                 combined_buffer.Shift(m_increment);
