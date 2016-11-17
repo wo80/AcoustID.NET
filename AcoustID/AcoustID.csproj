@@ -64,7 +64,6 @@
     <Compile Include="Chromaprint\Image.cs" />
     <Compile Include="Chromaprint\ImageBuilder.cs" />
     <Compile Include="Chromaprint\IntegralImage.cs" />
-    <Compile Include="Chromaprint\Lloyds.cs" />
     <Compile Include="Chromaprint\MovingAverage.cs" />
     <Compile Include="Chromaprint\Quantizer.cs" />
     <Compile Include="Chromaprint\SilenceRemover.cs" />

@@ -52,22 +52,20 @@ namespace AcoustID.Chromaprint
 
         public double Apply(IntegralImage image, int x)
         {
-            Func<double, double, double> comparer = SubtractLog;
-
             switch (m_type)
             {
                 case 0:
-                    return Filter0(image, x, m_y, m_width, m_height, comparer);
+                    return Filter0(image, x, m_y, m_width, m_height, SubtractLog);
                 case 1:
-                    return Filter1(image, x, m_y, m_width, m_height, comparer);
+                    return Filter1(image, x, m_y, m_width, m_height, SubtractLog);
                 case 2:
-                    return Filter2(image, x, m_y, m_width, m_height, comparer);
+                    return Filter2(image, x, m_y, m_width, m_height, SubtractLog);
                 case 3:
-                    return Filter3(image, x, m_y, m_width, m_height, comparer);
+                    return Filter3(image, x, m_y, m_width, m_height, SubtractLog);
                 case 4:
-                    return Filter4(image, x, m_y, m_width, m_height, comparer);
+                    return Filter4(image, x, m_y, m_width, m_height, SubtractLog);
                 case 5:
-                    return Filter5(image, x, m_y, m_width, m_height, comparer);
+                    return Filter5(image, x, m_y, m_width, m_height, SubtractLog);
             }
             return 0.0;
         }
@@ -79,11 +77,11 @@ namespace AcoustID.Chromaprint
 
         public static double SubtractLog(double a, double b)
         {
-            double r = Math.Log(1.0 + a) - Math.Log(1.0 + b);
+            double r = Math.Log((1.0 + a) / (1.0 + b));
 
             if (double.IsNaN(r))
             {
-                throw new Exception("NaN");
+                throw new Exception("Filter: SubtractLog = NaN");
             }
 
             return r;
