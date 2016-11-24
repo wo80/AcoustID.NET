@@ -28,12 +28,8 @@ namespace AcoustID.Chromaprint
         // FFT input buffer
         short[] m_input;
 
-        public FFT(int frame_size, int overlap, IFFTFrameConsumer consumer)
-            : this(frame_size, overlap, consumer, new LomontFFTService())
-        {
-        }
-
-        public FFT(int frame_size, int overlap, IFFTFrameConsumer consumer, IFFTService fftService)
+        public FFT(int frame_size, int overlap, IFFTFrameConsumer consumer,
+            IFFTService fftService)
         {
             m_window = new double[frame_size];
             m_buffer_offset = 0;

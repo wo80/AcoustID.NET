@@ -24,8 +24,6 @@ namespace AcoustID
         Fingerprinter fingerprinter;
         int algorithm;
 
-        IFFTService fftService;
-
         int[] fingerprint;
 
         /// <summary>
@@ -78,7 +76,6 @@ namespace AcoustID
         public ChromaContext(ChromaprintAlgorithm algorithm, IFFTService fftService)
         {
             this.algorithm = (int)algorithm;
-            this.fftService = fftService;
 
             var config = FingerprinterConfiguration.CreateConfiguration(algorithm);
             this.fingerprinter = new Fingerprinter(config, fftService);
