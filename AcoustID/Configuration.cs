@@ -13,7 +13,7 @@ namespace AcoustID
         {
             ClientKey = String.Empty;
 
-            UserAgent = "AcoustID.NET/" + ChromaContext.Version;
+            UserAgent = "AcoustID.NET/" + ChromaContext.GetVersion();
             Proxy = null;
         }
 

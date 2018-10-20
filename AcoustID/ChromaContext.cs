@@ -14,26 +14,35 @@ namespace AcoustID
     /// <summary>
     /// The main Chromaprint API.
     /// </summary>
-    public class ChromaContext
+    public class ChromaContext : IChromaContext
     {
         /// <summary>
         /// Return the version number of Chromaprint.
         /// </summary>
-        public static readonly string Version = "1.3.2";
-
-        Fingerprinter fingerprinter;
-        int algorithm;
-
-        int[] fingerprint;
+        public static string GetVersion()
+        {
+            return "1.3.2";
+        }
 
         /// <summary>
         /// Gets the fingerprint algorithm this context is configured to use.
         /// </summary>
-        public int Algorithm
+        public int Algorithm { get; }
+
+        /// <summary>
+        /// Return the version number of Chromaprint.
+        /// </summary>
+        public string Version
         {
-            get { return algorithm; }
+            get { return GetVersion(); }
         }
 
+        Fingerprinter fingerprinter;
+
+        IFFTService fftService;
+
+        int[] fingerprint;
+        
         /// <summary>
         /// Gets the <see cref="IAudioConsumer"/> which consumes the decoded audio.
         /// </summary>
@@ -75,7 +84,8 @@ namespace AcoustID
         /// <param name="fftService">The FFT service.</param>
         public ChromaContext(ChromaprintAlgorithm algorithm, IFFTService fftService)
         {
-            this.algorithm = (int)algorithm;
+            this.Algorithm = (int)algorithm;
+            this.fftService = fftService;
 
             var config = FingerprinterConfiguration.CreateConfiguration(algorithm);
             this.fingerprinter = new Fingerprinter(config, fftService);
@@ -136,7 +146,7 @@ namespace AcoustID
         public string GetFingerprint()
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
-            return Base64.Encode(compressor.Compress(this.fingerprint, algorithm));
+            return Base64.Encode(compressor.Compress(this.fingerprint, Algorithm));
         }
 
         /// <summary>
@@ -156,12 +166,10 @@ namespace AcoustID
         /// <summary>
         /// Compress and optionally base64-encode a raw fingerprint.
         /// </summary>
-        /// <param name="fp">pointer to an array of 32-bit integers representing the raw fingerprint to be encoded</param>
-        /// <param name="algorithm">Chromaprint algorithm version which was used to generate the raw fingerprint</param>
-        /// <param name="base64">Whether to return binary data or base64-encoded ASCII data. The
-        /// compressed fingerprint will be encoded using base64 with the URL-safe scheme if you 
-        /// set this parameter to 1. It will return binary data if it's 0.</param>
-        /// <returns>The encoded fingerprint</returns>
+        /// <param name="fp">Pointer to an array of 32-bit integers representing the raw fingerprint to be encoded.</param>
+        /// <param name="algorithm">Chromaprint algorithm version which was used to generate the raw fingerprint.</param>
+        /// <param name="base64">Whether to return binary data or base64-encoded ASCII data.</param>
+        /// <returns>The encoded fingerprint.</returns>
         public static byte[] EncodeFingerprint(int[] fp, int algorithm, bool base64)
         {
             FingerprintCompressor compressor = new FingerprintCompressor();
@@ -178,12 +186,10 @@ namespace AcoustID
         /// <summary>
         /// Uncompress and optionally base64-decode an encoded fingerprint.
         /// </summary>
-        /// <param name="encoded_fp">Pointer to an encoded fingerprint</param>
-        /// <param name="base64">Whether the encoded_fp parameter contains binary data or base64-encoded
-        /// ASCII data. If 1, it will base64-decode the data before uncompressing the fingerprint.</param>
-        /// <param name="algorithm">Chromaprint algorithm version which was used to generate the raw 
-        /// fingerprint</param>
-        /// <returns>The decoded raw fingerprint (array of 32-bit integers)</returns>
+        /// <param name="encoded_fp">Pointer to an encoded fingerprint.</param>
+        /// <param name="base64">Whether the encoded_fp parameter contains binary data or base64-encoded ASCII data.</param>
+        /// <param name="algorithm">Chromaprint algorithm version which was used to generate the raw fingerprint.</param>
+        /// <returns>The decoded raw fingerprint (array of 32-bit integers).</returns>
         public static int[] DecodeFingerprint(byte[] encoded_fp, bool base64, out int algorithm)
         {
             string encoded = Base64.ByteEncoding.GetString(encoded_fp);
