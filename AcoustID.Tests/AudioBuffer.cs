@@ -1,7 +1,7 @@
 ﻿
 namespace AcoustID.Tests
 {
-    using AcoustID.Chromaprint;
+    using AcoustID.Audio;
     using System;
 
     /// <summary>
