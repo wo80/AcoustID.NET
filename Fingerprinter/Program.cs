@@ -14,9 +14,19 @@ namespace Fingerprinter
         [STAThread]
         static void Main()
         {
+            //Test();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+        }
+
+        static void Test()
+        {
+            Console.WriteLine(AcoustID.Native.NativeChromaContext.GetVersion());
+
+            using (var c = new AcoustID.Native.NativeChromaContext())
+            {
+            }
         }
     }
 }

@@ -29,7 +29,10 @@ namespace AcoustID.Chromaprint
                 m_max_filter_width = Math.Max(m_max_filter_width, classifiers[i].Filter.Width);
             }
 
-            if (m_max_filter_width == 0)
+            //assert(m_max_filter_width > 0);
+            //assert(m_max_filter_width < 256);
+
+            if (!(m_max_filter_width > 0 && m_max_filter_width < 256))
             {
                 throw new Exception("m_max_filter_width");
             }
