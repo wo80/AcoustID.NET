@@ -13,7 +13,7 @@ namespace AcoustID.Native
 
     internal static class NativeMethods
     {
-        const string CHROMAPRINT_DLL = "libchromaprint";
+        const string CHROMAPRINT_DLL = "chromaprint";
         
         /// <summary>
         /// Return the version number of Chromaprint.

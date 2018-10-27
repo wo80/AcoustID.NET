@@ -1,10 +1,12 @@
 ﻿
 namespace AcoustID
 {
+    using AcoustID.Audio;
+
     /// <summary>
     /// The basic Chromaprint interface.
     /// </summary>
-    public interface IChromaContext
+    public interface IChromaContext : IAudioConsumer
     {
         /// <summary>
         /// Gets the fingerprint algorithm the context is configured to use.

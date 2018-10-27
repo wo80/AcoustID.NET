@@ -67,12 +67,26 @@ namespace AcoustID.Native
 
             ctx = NativeMethods.chromaprint_new(this.Algorithm);
         }
-
-
+        
         ~NativeChromaContext()
         {
             Dispose(false);
         }
+
+        #region Audio consumer interface
+
+        /// <summary>
+        /// Send audio data to the fingerprint calculator (alias to Feed() method).
+        /// </summary>
+        /// <param name="data">raw audio data, should point to an array of 16-bit 
+        /// signed integers in native byte-order</param>
+        /// <param name="size">size of the data buffer (in samples)</param>
+        public void Consume(short[] data, int size)
+        {
+            Feed(data, size);
+        }
+
+        #endregion
 
         /// <summary>
         /// Restart the computation of a fingerprint with a new audio stream.
@@ -235,7 +249,7 @@ namespace AcoustID.Native
         /// <summary>
         /// Uncompress and optionally base64-decode an encoded fingerprint.
         /// </summary>
-        /// <param name="encoded_fp">Pointer to an encoded fingerprint.</param>
+        /// <param name="encoded">Pointer to an encoded fingerprint.</param>
         /// <param name="base64">Whether the encoded_fp parameter contains binary data or base64-encoded ASCII data.</param>
         /// <param name="algorithm">Chromaprint algorithm version which was used to generate the raw fingerprint.</param>
         /// <returns>The decoded raw fingerprint (array of 32-bit integers).</returns>
@@ -304,12 +318,18 @@ namespace AcoustID.Native
 
         bool disposed = false;
 
+        /// <summary>
+        /// Free unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Free unmanaged resources.
+        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (disposed) return;

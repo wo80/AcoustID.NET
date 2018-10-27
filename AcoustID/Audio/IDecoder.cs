@@ -6,8 +6,6 @@
 
 namespace AcoustID.Audio
 {
-    using AcoustID.Chromaprint;
-
     /// <summary>
     /// Interface for audio decoders.
     /// </summary>

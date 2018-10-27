@@ -42,14 +42,6 @@ namespace AcoustID
         IFFTService fftService;
 
         int[] fingerprint;
-        
-        /// <summary>
-        /// Gets the <see cref="IAudioConsumer"/> which consumes the decoded audio.
-        /// </summary>
-        public IAudioConsumer Consumer
-        {
-            get { return fingerprinter; }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChromaContext" /> class.
@@ -90,6 +82,21 @@ namespace AcoustID
             var config = FingerprinterConfiguration.CreateConfiguration(algorithm);
             this.fingerprinter = new Fingerprinter(config, fftService);
         }
+
+        #region Audio consumer interface
+
+        /// <summary>
+        /// Send audio data to the fingerprint calculator (alias to Feed() method).
+        /// </summary>
+        /// <param name="data">raw audio data, should point to an array of 16-bit 
+        /// signed integers in native byte-order</param>
+        /// <param name="size">size of the data buffer (in samples)</param>
+        public void Consume(short[] data, int size)
+        {
+            fingerprinter.Consume(data, size);
+        }
+
+        #endregion
 
         /// <summary>
         /// Set a configuration option for the selected fingerprint algorithm.
