@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E9C2022A-759E-48B1-BBFD-E47B2795A1E1}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcoustID", "AcoustID\AcoustID.csproj", "{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F34CC93-7B1A-4530-A52A-172CCBADABB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcoustID.Tests", "AcoustID.Tests\AcoustID.Tests.csproj", "{A509AA0D-E5B7-489B-938A-E483C483BC96}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcoustID.Core", "src\AcoustID.Core\AcoustID.Core.csproj", "{28DA32D2-BD98-45B9-B770-58CDD871FAA1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{A9774FAF-5DFF-474E-A62C-D7734101EDE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcoustID.Core.Tests", "test\AcoustID.Core.Tests\AcoustID.Core.Tests.csproj", "{C161FB34-D38C-4E0E-8138-9775D7582489}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingerprinter", "Fingerprinter\Fingerprinter.csproj", "{84545B94-B55C-49B7-A787-4518447FC495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,23 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C161FB34-D38C-4E0E-8138-9775D7582489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C161FB34-D38C-4E0E-8138-9775D7582489}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C161FB34-D38C-4E0E-8138-9775D7582489}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C161FB34-D38C-4E0E-8138-9775D7582489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A509AA0D-E5B7-489B-938A-E483C483BC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A509AA0D-E5B7-489B-938A-E483C483BC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A509AA0D-E5B7-489B-938A-E483C483BC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A509AA0D-E5B7-489B-938A-E483C483BC96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84545B94-B55C-49B7-A787-4518447FC495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84545B94-B55C-49B7-A787-4518447FC495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84545B94-B55C-49B7-A787-4518447FC495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84545B94-B55C-49B7-A787-4518447FC495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{28DA32D2-BD98-45B9-B770-58CDD871FAA1} = {E9C2022A-759E-48B1-BBFD-E47B2795A1E1}
-		{C161FB34-D38C-4E0E-8138-9775D7582489} = {7F34CC93-7B1A-4530-A52A-172CCBADABB1}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D330BA61-C7CF-46B5-B197-252C6E00A781}
+		{84545B94-B55C-49B7-A787-4518447FC495} = {A9774FAF-5DFF-474E-A62C-D7734101EDE6}
 	EndGlobalSection
 EndGlobal
