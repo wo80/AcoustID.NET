@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{A9774FAF-5DFF-474E-A62C-D7734101EDE6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingerprinter", "Fingerprinter\Fingerprinter.csproj", "{84545B94-B55C-49B7-A787-4518447FC495}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E9C2022A-759E-48B1-BBFD-E47B2795A1E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F34CC93-7B1A-4530-A52A-172CCBADABB1}"
@@ -21,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{84545B94-B55C-49B7-A787-4518447FC495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84545B94-B55C-49B7-A787-4518447FC495}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84545B94-B55C-49B7-A787-4518447FC495}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84545B94-B55C-49B7-A787-4518447FC495}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28DA32D2-BD98-45B9-B770-58CDD871FAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,7 +30,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{84545B94-B55C-49B7-A787-4518447FC495} = {A9774FAF-5DFF-474E-A62C-D7734101EDE6}
 		{28DA32D2-BD98-45B9-B770-58CDD871FAA1} = {E9C2022A-759E-48B1-BBFD-E47B2795A1E1}
 		{C161FB34-D38C-4E0E-8138-9775D7582489} = {7F34CC93-7B1A-4530-A52A-172CCBADABB1}
 	EndGlobalSection
