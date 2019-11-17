@@ -1,107 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6F9960C2-7DB1-48B5-99B3-B7D744FE91D2}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AcoustID</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>AcoustID.NET</PackageId>
+    <Description>AcoustID fingerprinter and webservice access.</Description>
+    <Product>AcoustID</Product>
+    <Copyright>Copyright © Christian Woltering 2016-2019</Copyright>
+    <Authors>Christian Woltering</Authors>
+    <PackageProjectUrl>https://github.com/wo80/AcoustID.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wo80/AcoustID.NET</RepositoryUrl>
+    <AssemblyVersion>1.3.3.0</AssemblyVersion>
+    <FileVersion>1.3.3.0</FileVersion>
+    <PackageTags>music audio fingerprint acoustid chromaprint</PackageTags>
+    <Version>1.3.3</Version>
     <AssemblyName>AcoustID</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>AcoustID</RootNamespace>
+    <Configurations>Debug;Release</Configurations>
+    <PackageLicenseUrl>https://github.com/acoustid/chromaprint/blob/master/LICENSE.md</PackageLicenseUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\bin\Release\AcoustID.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Audio\IAudioConsumer.cs" />
-    <Compile Include="Audio\IDecoder.cs" />
-    <Compile Include="Audio\IFFTService.cs" />
-    <Compile Include="Audio\LomontFFTService.cs" />
-    <Compile Include="Audio\Resampler.cs" />
-    <Compile Include="ChromaContext.cs" />
-    <Compile Include="Chromaprint\AudioProcessor.cs" />
-    <Compile Include="Chromaprint\Chroma.cs" />
-    <Compile Include="Chromaprint\ChromaFilter.cs" />
-    <Compile Include="Chromaprint\ChromaNormalizer.cs" />
-    <Compile Include="Chromaprint\ChromaprintAlgorithm.cs" />
-    <Compile Include="Chromaprint\ChromaResampler.cs" />
-    <Compile Include="Chromaprint\Classifier.cs" />
-    <Compile Include="Chromaprint\CombinedBuffer.cs" />
-    <Compile Include="Chromaprint\FFT.cs" />
-    <Compile Include="Chromaprint\Filter.cs" />
-    <Compile Include="Chromaprint\FingerprintCalculator.cs" />
-    <Compile Include="Chromaprint\FingerprintCompressor.cs" />
-    <Compile Include="Chromaprint\FingerprintDecompressor.cs" />
-    <Compile Include="Chromaprint\Fingerprinter.cs" />
-    <Compile Include="Chromaprint\FingerprinterConfiguration.cs" />
-    <Compile Include="Chromaprint\IFeatureVectorConsumer.cs" />
-    <Compile Include="Chromaprint\IFFTFrameConsumer.cs" />
-    <Compile Include="Chromaprint\Image.cs" />
-    <Compile Include="Chromaprint\ImageBuilder.cs" />
-    <Compile Include="Chromaprint\IntegralImage.cs" />
-    <Compile Include="Chromaprint\MovingAverage.cs" />
-    <Compile Include="Chromaprint\Quantizer.cs" />
-    <Compile Include="Chromaprint\SilenceRemover.cs" />
-    <Compile Include="Chromaprint\SpectralCentroid.cs" />
-    <Compile Include="Chromaprint\Spectrum.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="IChromaContext.cs" />
-    <Compile Include="Native\NativeChromaContext.cs" />
-    <Compile Include="Native\NativeMethods.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\Base64.cs" />
-    <Compile Include="Util\BitStringReader.cs" />
-    <Compile Include="Util\BitStringWriter.cs" />
-    <Compile Include="Util\Helper.cs" />
-    <Compile Include="Util\ImageGenerator.cs" />
-    <Compile Include="Util\SimHash.cs" />
-    <Compile Include="Web\Artist.cs" />
-    <Compile Include="Web\IResponseParser.cs" />
-    <Compile Include="Web\LookupResponse.cs" />
-    <Compile Include="Web\LookupResult.cs" />
-    <Compile Include="Web\LookupService.cs" />
-    <Compile Include="Web\Recording.cs" />
-    <Compile Include="Web\Release.cs" />
-    <Compile Include="Web\ReleaseGroup.cs" />
-    <Compile Include="Web\SubmitRequest.cs" />
-    <Compile Include="Web\SubmitResponse.cs" />
-    <Compile Include="Web\SubmitResult.cs" />
-    <Compile Include="Web\SubmitService.cs" />
-    <Compile Include="Web\WebHelper.cs" />
-    <Compile Include="Web\XmlResponseParser.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

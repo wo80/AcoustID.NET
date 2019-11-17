@@ -27,3 +27,5 @@ logs
 
 *.nupkg
 packages/*/**
+/.vs
+/.vscode
