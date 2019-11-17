@@ -1,7 +1,7 @@
 AcoustID.NET
 ============
 
-AcoustID fingerprinter and webservice access in C#. See https://acoustid.org/ for information about the AcoustID project.
+AcoustID fingerprinter and webservice access available for .NET framework 4.5 and .NET standard 2.0. See https://acoustid.org/ for information about the AcoustID project.
 
 The original code for this project can be found at https://github.com/acoustid/chromaprint.
 
@@ -14,7 +14,7 @@ The original code for this project can be found at https://github.com/acoustid/c
   Lookup or submit fingerprints using the ```LookupService``` and ```SubmitService``` classes in the ```AcoustID.Web``` namespace.
 * *Fingerprinter* example application.
 
-The example application shows how to decode audio files using [NAudio](https://github.com/naudio/NAudio) or [Bass](http://www.un4seen.com/bass.html).
+An example showing how to implement the `IDecoder` audio decoder interface using [NAudio](https://github.com/naudio/NAudio) can be found in the [wiki](https://github.com/wo80/AcoustID.NET/wiki). A simple winforms example application is availble [here](http://wo80.bplaced.net/projects/acoustid).
 
 ## Configuration.
 If you want to use the AcoustID webservice in your application, you need to get an API key from https://acoustid.org/. Once you have the key, register it with AcoustID.NET by setting
