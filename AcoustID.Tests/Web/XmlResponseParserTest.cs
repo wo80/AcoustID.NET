@@ -7,11 +7,10 @@ namespace AcoustID.Tests.Web
 
     public class XmlResponseParserTest
     {
-#if TEST_LOCAL_FILES
         [Test]
         public void TestCanParse()
         {
-            var xml = TestsHelper.LoadTextFile("lookup-simple.xml");
+            var xml = TestsHelper.LoadEmbeddedResource("lookup-simple.xml");
 
             var parser = new XmlResponseParser();
             var response = parser.CanParse(xml);
@@ -22,7 +21,7 @@ namespace AcoustID.Tests.Web
         [Test]
         public void TestParseLookupResponse()
         {
-            var xml = TestsHelper.LoadTextFile("lookup-simple.xml");
+            var xml = TestsHelper.LoadEmbeddedResource("lookup-simple.xml");
 
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
@@ -38,7 +37,7 @@ namespace AcoustID.Tests.Web
         [Test]
         public void TestParseLookupResponseMeta1()
         {
-            var xml = TestsHelper.LoadTextFile("lookup-recordings.xml");
+            var xml = TestsHelper.LoadEmbeddedResource("lookup-recordings.xml");
 
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
@@ -69,7 +68,7 @@ namespace AcoustID.Tests.Web
         [Test]
         public void TestParseLookupResponseMeta2()
         {
-            var xml = TestsHelper.LoadTextFile("lookup-recordings-releasegroups.xml");
+            var xml = TestsHelper.LoadEmbeddedResource("lookup-recordings-releasegroups.xml");
 
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
@@ -94,7 +93,7 @@ namespace AcoustID.Tests.Web
         [Test]
         public void TestParseLookupResponseError()
         {
-            var xml = TestsHelper.LoadTextFile("lookup-error.xml");
+            var xml = TestsHelper.LoadEmbeddedResource("lookup-error.xml");
 
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
@@ -102,6 +101,5 @@ namespace AcoustID.Tests.Web
             Assert.AreEqual(response.StatusCode, HttpStatusCode.BadRequest);
             Assert.IsFalse(string.IsNullOrEmpty(response.ErrorMessage));
         }
-#endif
     }
 }

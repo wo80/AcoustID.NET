@@ -3,6 +3,7 @@ namespace AcoustID.Tests
 {
     using System;
     using System.IO;
+    using System.Reflection;
 
     /// <summary>
     /// Some test helpers.
@@ -37,22 +38,25 @@ namespace AcoustID.Tests
 
             return shorts;
         }
-
-        public static string LoadTextFile(string file)
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-
-            path = Path.Combine(path, DATA_PATH);
-            path = Path.GetFullPath(Path.Combine(path, file));
-
-            if (!File.Exists(path))
-            {
-                return null;
-            }
-
-            return File.ReadAllText(path);
-        }
 #endif
+
+        public static string LoadEmbeddedResource(string file)
+        {
+            string path = "AcoustID.Tests.data." + file;
+
+            try
+            {
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+
+                using var reader = new StreamReader(stream);
+
+                return reader.ReadToEnd();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public static int GrayCode(int i)
         {

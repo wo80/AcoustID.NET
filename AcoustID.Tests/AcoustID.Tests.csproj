@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="data\lookup-error.xml" />
+    <None Remove="data\lookup-recordings-releasegroups.xml" />
+    <None Remove="data\lookup-recordings.xml" />
+    <None Remove="data\lookup-simple.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="data\lookup-error.xml" />
+    <EmbeddedResource Include="data\lookup-recordings-releasegroups.xml" />
+    <EmbeddedResource Include="data\lookup-recordings.xml" />
+    <EmbeddedResource Include="data\lookup-simple.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="nunit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
