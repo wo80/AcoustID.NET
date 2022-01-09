@@ -18,9 +18,8 @@ namespace AcoustID.Web
     /// </summary>
     public class SubmitService
     {
-        private const string URL = "http://api.acoustid.org/v2/submit";
-
-        private const string STATUS_URL = "http://api.acoustid.org/v2/submission_status";
+        private readonly Uri submit_uri = new Uri("https://api.acoustid.org/v2/submit");
+        private readonly Uri status_uri = new Uri("https://api.acoustid.org/v2/submission_status");
 
         private IResponseParser parser;
 
@@ -82,7 +81,7 @@ namespace AcoustID.Web
                 {
                     // If the request contains invalid parameters, the server will return
                     // "400 Bad Request" and we'll end up in the first catch block.
-                    string response = await WebHelper.SendPost(URL, body, UseCompression);
+                    string response = await WebHelper.SendPost(submit_uri, body, UseCompression);
 
                     return parser.ParseSubmitResponse(response);
                 }
@@ -117,11 +116,13 @@ namespace AcoustID.Web
         {
             try
             {
-                string query = BuildQueryString(submits);
+                var builder = new UriBuilder(status_uri);
+
+                builder.Query = BuildQueryString(submits);
 
                 // If the request contains invalid parameters, the server will return
                 // "400 Bad Request" and we'll end up in the first catch block.
-                string response = await WebHelper.SendGet(STATUS_URL, query);
+                string response = await WebHelper.SendGet(builder.Uri);
 
                 return parser.ParseSubmitResponse(response);
             }

@@ -17,7 +17,7 @@ namespace AcoustID.Web
     /// </summary>
     public class LookupService
     {
-        private const string URL = "http://api.acoustid.org/v2/lookup";
+        private readonly Uri lookup_uri;
 
         private IResponseParser parser;
 
@@ -34,8 +34,20 @@ namespace AcoustID.Web
         /// </summary>
         /// <param name="parser">The <see cref="IResponseParser"/> instance.</param>
         public LookupService(IResponseParser parser)
+            : this(parser, "https://api.acoustid.org/v2/lookup")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupService" /> class.
+        /// </summary>
+        /// <param name="parser">The <see cref="IResponseParser"/> instance.</param>
+        /// <param name="url">The lookup service endpoint (default is "https://api.acoustid.org/v2/lookup")</param>
+        public LookupService(IResponseParser parser,string url)
         {
             this.parser = parser;
+
+            lookup_uri = new Uri(url);
 
             UseCompression = true;
         }
@@ -71,7 +83,7 @@ namespace AcoustID.Web
                 {
                     // If the request contains invalid parameters, the server will return
                     // "400 Bad Request" and we'll end up in the first catch block.
-                    string response = await WebHelper.SendPost(URL, body, UseCompression);
+                    string response = await WebHelper.SendPost(lookup_uri, body, UseCompression);
 
                     return parser.ParseLookupResponse(response);
                 }

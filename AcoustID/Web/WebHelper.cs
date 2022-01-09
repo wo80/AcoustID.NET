@@ -1,6 +1,7 @@
 ﻿
 namespace AcoustID.Web
 {
+    using System;
     using System.IO;
     using System.IO.Compression;
     using System.Net;
@@ -39,17 +40,17 @@ namespace AcoustID.Web
             return client;
         }
 
-        public static async Task<string> SendPost(string url, string query, bool useCompression)
+        public static async Task<string> SendPost(Uri uri, string query, bool useCompression)
         {
             using (var body = new MemoryStream(Encoding.Default.GetBytes(query)))
             {
-                return await WebHelper.SendPost(url, body, useCompression);
+                return await SendPost(uri, body, useCompression);
             }
         }
 
-        public static async Task<string> SendPost(string url, Stream body, bool useCompression)
+        public static async Task<string> SendPost(Uri uri, Stream body, bool useCompression)
         {
-            var client = WebHelper.CreateHttpClient();
+            var client = CreateHttpClient();
 
             // The stream to hold the content bytes (gzipped or not).
             Stream stream;
@@ -86,7 +87,7 @@ namespace AcoustID.Web
                 content.Headers.ContentEncoding.Add("gzip");
             }
 
-            var response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(uri, content);
 
             if (useCompression)
             {
@@ -97,11 +98,11 @@ namespace AcoustID.Web
             return await response.Content.ReadAsStringAsync();
         }
 
-        public static async Task<string> SendGet(string url, string query)
+        public static async Task<string> SendGet(Uri uri)
         {
-            var client = WebHelper.CreateHttpClient();
+            var client = CreateHttpClient();
 
-            return await client.GetStringAsync(url + "?" + query);
+            return await client.GetStringAsync(uri);
         }
     }
 }
