@@ -9,25 +9,25 @@ namespace AcoustID.Tests.Util
         [Test]
         public void TestBase64Encode()
         {
-            Assert.AreEqual("eA", Base64.Encode("x"));
-            Assert.AreEqual("eHg", Base64.Encode("xx"));
-            Assert.AreEqual("eHh4", Base64.Encode("xxx"));
-            Assert.AreEqual("eHh4eA", Base64.Encode("xxxx"));
-            Assert.AreEqual("eHh4eHg", Base64.Encode("xxxxx"));
-            Assert.AreEqual("eHh4eHh4", Base64.Encode("xxxxxx"));
-            Assert.AreEqual("_-4", Base64.Encode("\xff\xee"));
+            Assert.That(Base64.Encode("x"), Is.EqualTo("eA"));
+            Assert.That(Base64.Encode("xx"), Is.EqualTo("eHg"));
+            Assert.That(Base64.Encode("xxx"), Is.EqualTo("eHh4"));
+            Assert.That(Base64.Encode("xxxx"), Is.EqualTo("eHh4eA"));
+            Assert.That(Base64.Encode("xxxxx"), Is.EqualTo("eHh4eHg"));
+            Assert.That(Base64.Encode("xxxxxx"), Is.EqualTo("eHh4eHh4"));
+            Assert.That(Base64.Encode("\xff\xee"), Is.EqualTo("_-4"));
         }
 
         [Test]
         public void TestBase64Decode()
         {
-            Assert.AreEqual("x", Base64.Decode("eA"));
-            Assert.AreEqual("xx", Base64.Decode("eHg"));
-            Assert.AreEqual("xxx", Base64.Decode("eHh4"));
-            Assert.AreEqual("xxxx", Base64.Decode("eHh4eA"));
-            Assert.AreEqual("xxxxx", Base64.Decode("eHh4eHg"));
-            Assert.AreEqual("xxxxxx", Base64.Decode("eHh4eHh4"));
-            Assert.AreEqual("\xff\xee", Base64.Decode("_-4"));
+            Assert.That(Base64.Decode("eA"), Is.EqualTo("x"));
+            Assert.That(Base64.Decode("eHg"), Is.EqualTo("xx"));
+            Assert.That(Base64.Decode("eHh4"), Is.EqualTo("xxx"));
+            Assert.That(Base64.Decode("eHh4eA"), Is.EqualTo("xxxx"));
+            Assert.That(Base64.Decode("eHh4eHg"), Is.EqualTo("xxxxx"));
+            Assert.That(Base64.Decode("eHh4eHh4"), Is.EqualTo("xxxxxx"));
+            Assert.That(Base64.Decode("_-4"), Is.EqualTo("\xff\xee"));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace AcoustID.Tests.Util
 		        161, 229, 184, 137, 30, 205, 135, 119, 70, 94, 252, 71, 120, 150
 	        };
             string encoded = "AQABzxG1JBITJUEPH8WVoT8hFjyNG8ojuC_-44eHCzqL0EF_NKfxH2O2GZ9gRkeg-6hLhLlw5sGF_Cp-Qlt5PIdPGLnSHMeF__BxZUPHF-G1oHmMQ3uh5biJHs2Hd0Ze_Ed4lg";
-            Assert.AreEqual(encoded, Base64.Encode(Base64.ByteEncoding.GetString(original)));
+            Assert.That(Base64.Encode(Base64.ByteEncoding.GetString(original)), Is.EqualTo(encoded));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace AcoustID.Tests.Util
 		        161, 229, 184, 137, 30, 205, 135, 119, 70, 94, 252, 71, 120, 150
 	        };
             string encoded = "AQABzxG1JBITJUEPH8WVoT8hFjyNG8ojuC_-44eHCzqL0EF_NKfxH2O2GZ9gRkeg-6hLhLlw5sGF_Cp-Qlt5PIdPGLnSHMeF__BxZUPHF-G1oHmMQ3uh5biJHs2Hd0Ze_Ed4lg";
-            Assert.AreEqual(Base64.ByteEncoding.GetString(original), Base64.Decode(encoded));
+            Assert.That(Base64.Decode(encoded), Is.EqualTo(Base64.ByteEncoding.GetString(original)));
         }
     }
 }

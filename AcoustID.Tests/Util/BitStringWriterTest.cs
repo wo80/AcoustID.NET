@@ -19,7 +19,7 @@ namespace AcoustID.Tests.Util
             byte[] expected = { unchecked((byte)-28) };
             byte[] actual = Base64.ByteEncoding.GetBytes(writer.Value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace AcoustID.Tests.Util
             byte[] expected = { unchecked((byte)-28), unchecked((byte)1) };
             byte[] actual = Base64.ByteEncoding.GetBytes(writer.Value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace AcoustID.Tests.Util
             byte[] expected = { unchecked((byte)-120), unchecked((byte)6) };
             byte[] actual = Base64.ByteEncoding.GetBytes(writer.Value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
     }
 }

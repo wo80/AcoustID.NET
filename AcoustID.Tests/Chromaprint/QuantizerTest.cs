@@ -10,14 +10,14 @@ namespace AcoustID.Tests.Chromaprint
         public void TestQuantize()
         {
             Quantizer q = new Quantizer(0.0, 0.1, 0.3);
-            Assert.AreEqual(0, q.Quantize(-0.1));
-            Assert.AreEqual(1, q.Quantize(0.0));
-            Assert.AreEqual(1, q.Quantize(0.03));
-            Assert.AreEqual(2, q.Quantize(0.1));
-            Assert.AreEqual(2, q.Quantize(0.13));
-            Assert.AreEqual(3, q.Quantize(0.3));
-            Assert.AreEqual(3, q.Quantize(0.33));
-            Assert.AreEqual(3, q.Quantize(1000.0));
+            Assert.That(q.Quantize(-0.1), Is.EqualTo(0));
+            Assert.That(q.Quantize(0.0), Is.EqualTo(1));
+            Assert.That(q.Quantize(0.03), Is.EqualTo(1));
+            Assert.That(q.Quantize(0.1), Is.EqualTo(2));
+            Assert.That(q.Quantize(0.13), Is.EqualTo(2));
+            Assert.That(q.Quantize(0.3), Is.EqualTo(3));
+            Assert.That(q.Quantize(0.33), Is.EqualTo(3));
+            Assert.That(q.Quantize(1000.0), Is.EqualTo(3));
         }
     }
 }

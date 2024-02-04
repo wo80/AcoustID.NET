@@ -15,7 +15,7 @@ namespace AcoustID.Tests.Util
 
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(window_ex[i], window[i], TestsHelper.EPS);
+                Assert.That(window[i], Is.EqualTo(window_ex[i]).Within(TestsHelper.EPS));
             }
         }
 
@@ -37,7 +37,7 @@ namespace AcoustID.Tests.Util
 
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(window_ex[i], inoutput[i], TestsHelper.EPS);
+                Assert.That(inoutput[i], Is.EqualTo(window_ex[i]).Within(TestsHelper.EPS));
             }
         }
 
@@ -52,7 +52,7 @@ namespace AcoustID.Tests.Util
             Helper.ApplyWindow(ref inoutput, window, 10, scale);
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(0.0, inoutput[i], TestsHelper.EPS);
+                Assert.That(inoutput[i], Is.EqualTo(0.0).Within(TestsHelper.EPS));
             }
         }
 
@@ -60,14 +60,14 @@ namespace AcoustID.Tests.Util
         public void TestSum()
         {
             double[] data = { 0.1, 0.2, 0.4, 1.0 };
-            Assert.AreEqual(1.7, Helper.Sum(data, 0, 4), TestsHelper.EPS);
+            Assert.That(Helper.Sum(data, 0, 4), Is.EqualTo(1.7).Within(TestsHelper.EPS));
         }
 
         [Test]
         public void TestEuclideanNorm()
         {
             double[] data = new double[] { 0.1, 0.2, 0.4, 1.0 };
-            Assert.AreEqual(1.1, Helper.EuclideanNorm(data), TestsHelper.EPS);
+            Assert.That(Helper.EuclideanNorm(data), Is.EqualTo(1.1).Within(TestsHelper.EPS));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace AcoustID.Tests.Util
             Helper.NormalizeVector(data, Helper.EuclideanNorm(data), 0.01);
             for (int i = 0; i < 4; i++)
             {
-                Assert.AreEqual(normalized_data[i], data[i], 1e-5); // "Wrong data at index " + i;
+                Assert.That(data[i], Is.EqualTo(normalized_data[i]).Within(1e-5)); // "Wrong data at index " + i;
             }
         }
 
@@ -89,7 +89,7 @@ namespace AcoustID.Tests.Util
             Helper.NormalizeVector(data, Helper.EuclideanNorm(data), 0.01);
             for (int i = 0; i < 4; i++)
             {
-                Assert.AreEqual(0.0, data[i], TestsHelper.EPS); // "Wrong data at index " + i;
+                Assert.That(data[i], Is.EqualTo(0.0).Within(TestsHelper.EPS)); // "Wrong data at index " + i;
             }
         }
 
@@ -100,7 +100,7 @@ namespace AcoustID.Tests.Util
             Helper.NormalizeVector(data, Helper.EuclideanNorm(data), 0.01);
             for (int i = 0; i < 4; i++)
             {
-                Assert.AreEqual(0.0, data[i], TestsHelper.EPS); // "Wrong data at index " + i;
+                Assert.That(data[i], Is.EqualTo(0.0).Within(TestsHelper.EPS)); // "Wrong data at index " + i;
             }
         }
     }

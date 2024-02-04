@@ -15,7 +15,7 @@ namespace AcoustID.Tests.Web
             var parser = new XmlResponseParser();
             var response = parser.CanParse(xml);
 
-            Assert.AreEqual(response, true);
+            Assert.That(true, Is.EqualTo(response));
         }
 
         [Test]
@@ -26,12 +26,12 @@ namespace AcoustID.Tests.Web
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
 
-            Assert.AreEqual(response.Results.Count, 3);
+            Assert.That(3, Is.EqualTo(response.Results.Count));
 
             var result = response.Results[0];
 
-            Assert.IsTrue(result.Score > 0.0);
-            Assert.IsFalse(string.IsNullOrEmpty(result.Id));
+            Assert.That(result.Score, Is.GreaterThan(0.0));
+            Assert.That(string.IsNullOrEmpty(result.Id), Is.False);
         }
 
         [Test]
@@ -42,27 +42,27 @@ namespace AcoustID.Tests.Web
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
 
-            Assert.AreEqual(response.Results.Count, 3);
+            Assert.That(3, Is.EqualTo(response.Results.Count));
 
             var recordings = response.Results[0].Recordings;
 
-            Assert.IsNotNull(recordings);
-            Assert.IsTrue(recordings.Count > 0);
+            Assert.That(recordings, Is.Not.Null);
+            Assert.That(recordings.Count, Is.GreaterThan(0));
 
             var recording = recordings[0];
 
-            Assert.IsNotNull(recording);
-            Assert.IsFalse(string.IsNullOrEmpty(recording.Id));
-            Assert.IsFalse(string.IsNullOrEmpty(recording.Title));
-            Assert.IsTrue(recording.Duration > 0);
+            Assert.That(recording, Is.Not.Null);
+            Assert.That(string.IsNullOrEmpty(recording.Id), Is.False);
+            Assert.That(string.IsNullOrEmpty(recording.Title), Is.False);
+            Assert.That(recording.Duration, Is.GreaterThan(0));
 
-            Assert.IsTrue(recording.Artists.Count > 0);
+            Assert.That(recording.Artists.Count, Is.GreaterThan(0));
 
             var artist = recording.Artists[0];
 
-            Assert.IsNotNull(artist);
-            Assert.IsFalse(string.IsNullOrEmpty(artist.Id));
-            Assert.IsFalse(string.IsNullOrEmpty(artist.Name));
+            Assert.That(artist, Is.Not.Null);
+            Assert.That(string.IsNullOrEmpty(artist.Id), Is.False);
+            Assert.That(string.IsNullOrEmpty(artist.Name), Is.False);
         }
 
         [Test]
@@ -75,19 +75,19 @@ namespace AcoustID.Tests.Web
 
             var recordings = response.Results[0].Recordings;
 
-            Assert.IsNotNull(recordings);
-            Assert.IsTrue(recordings.Count > 0);
+            Assert.That(recordings, Is.Not.Null);
+            Assert.That(recordings.Count, Is.GreaterThan(0));
 
             var recording = recordings[0];
 
-            Assert.IsNotNull(recording);
-            Assert.IsTrue(recording.ReleaseGroups.Count > 0);
+            Assert.That(recording, Is.Not.Null);
+            Assert.That(recording.ReleaseGroups.Count, Is.GreaterThan(0));
 
             var releasegroup = recording.ReleaseGroups[0];
 
-            Assert.IsNotNull(releasegroup);
-            Assert.IsFalse(string.IsNullOrEmpty(releasegroup.Id));
-            Assert.IsFalse(string.IsNullOrEmpty(releasegroup.Title));
+            Assert.That(releasegroup, Is.Not.Null);
+            Assert.That(string.IsNullOrEmpty(releasegroup.Id), Is.False);
+            Assert.That(string.IsNullOrEmpty(releasegroup.Title), Is.False);
         }
 
         [Test]
@@ -98,8 +98,8 @@ namespace AcoustID.Tests.Web
             var parser = new XmlResponseParser();
             var response = parser.ParseLookupResponse(xml);
 
-            Assert.AreEqual(response.StatusCode, HttpStatusCode.BadRequest);
-            Assert.IsFalse(string.IsNullOrEmpty(response.ErrorMessage));
+            Assert.That(HttpStatusCode.BadRequest, Is.EqualTo(response.StatusCode));
+            Assert.That(string.IsNullOrEmpty(response.ErrorMessage), Is.False);
         }
     }
 }

@@ -18,9 +18,9 @@ namespace AcoustID.Tests.Chromaprint
             resampler.Consume(d1);
             resampler.Consume(d2);
             resampler.Consume(d3);
-            Assert.AreEqual(1, image.Rows);
-            Assert.AreEqual(0.5, image.Get(0, 0));
-            Assert.AreEqual(5.5, image.Get(0, 1));
+            Assert.That(image.Rows, Is.EqualTo(1));
+            Assert.That(image.Get(0, 0), Is.EqualTo(0.5));
+            Assert.That(image.Get(0, 1), Is.EqualTo(5.5));
         }
 
         [Test]
@@ -37,11 +37,11 @@ namespace AcoustID.Tests.Chromaprint
             resampler.Consume(d2);
             resampler.Consume(d3);
             resampler.Consume(d4);
-            Assert.AreEqual(2, image.Rows);
-            Assert.AreEqual(0.5, image.Get(0, 0));
-            Assert.AreEqual(5.5, image.Get(0, 1));
-            Assert.AreEqual(2.5, image.Get(1, 0));
-            Assert.AreEqual(7.5, image.Get(1, 1));
+            Assert.That(image.Rows, Is.EqualTo(2));
+            Assert.That(image.Get(0, 0), Is.EqualTo(0.5));
+            Assert.That(image.Get(0, 1), Is.EqualTo(5.5));
+            Assert.That(image.Get(1, 0), Is.EqualTo(2.5));
+            Assert.That(image.Get(1, 1), Is.EqualTo(7.5));
         }
 
     }

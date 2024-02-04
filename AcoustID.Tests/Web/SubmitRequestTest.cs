@@ -36,7 +36,7 @@ namespace AcoustID.Tests.Web
                 {
                     var actual = reader.ReadToEnd();
 
-                    Assert.AreEqual(expected, actual);
+                    Assert.That(actual, Is.EqualTo(expected));
                 }
             }
 
@@ -57,7 +57,7 @@ namespace AcoustID.Tests.Web
                 {
                     var actual = reader.ReadToEnd();
 
-                    Assert.AreEqual(expected, actual);
+                    Assert.That(actual, Is.EqualTo(expected));
                 }
             }
         }

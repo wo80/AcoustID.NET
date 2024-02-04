@@ -12,9 +12,9 @@ namespace AcoustID.Tests.Chromaprint
             short[] buffer1 = { 1, 2, 3, 4, 5 };
             short[] buffer2 = { 6, 7, 8 };
             CombinedBuffer buffer = new CombinedBuffer(buffer1, 5, buffer2, 3);
-            Assert.AreEqual(8, buffer.Size);
+            Assert.That(buffer.Size, Is.EqualTo(8));
             buffer.Shift(1);
-            Assert.AreEqual(7, buffer.Size);
+            Assert.That(buffer.Size, Is.EqualTo(7));
         }
 
         [Test]
@@ -25,19 +25,19 @@ namespace AcoustID.Tests.Chromaprint
             CombinedBuffer buffer = new CombinedBuffer(buffer1, 5, buffer2, 3);
             for (int i = 0; i < 8; i++)
             {
-                Assert.AreEqual(1 + i, buffer[i]);
+                Assert.That(buffer[i], Is.EqualTo(1 + i));
             }
             buffer.Shift(1);
-            Assert.AreEqual(1, buffer.Offset);
+            Assert.That(buffer.Offset, Is.EqualTo(1));
             for (int i = 0; i < 7; i++)
             {
-                Assert.AreEqual(2 + i, buffer[i]);
+                Assert.That(buffer[i], Is.EqualTo(2 + i));
             }
             buffer.Shift(5);
-            Assert.AreEqual(6, buffer.Offset);
+            Assert.That(buffer.Offset, Is.EqualTo(6));
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(7 + i, buffer[i]);
+                Assert.That(buffer[i], Is.EqualTo(7 + i));
             }
         }
 
@@ -52,19 +52,19 @@ namespace AcoustID.Tests.Chromaprint
 
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(0, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(0));
             }
 
             buffer.Flush(tmp);
-            Assert.AreEqual(0, buffer.Offset);
+            Assert.That(buffer.Offset, Is.EqualTo(0));
 
             for (int i = 0; i < 8; i++)
             {
-                Assert.AreEqual(1 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(1 + i));
             }
             for (int i = 8; i < 10; i++)
             {
-                Assert.AreEqual(0, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(0));
             }
         }
 
@@ -80,20 +80,20 @@ namespace AcoustID.Tests.Chromaprint
 
             for (int i = 0; i < 10; i++)
             {
-                
-                Assert.AreEqual(0, tmp[i]);
+
+                Assert.That(tmp[i], Is.EqualTo(0));
             }
 
             buffer.Flush(tmp);
-            Assert.AreEqual(6, buffer.Offset);
+            Assert.That(buffer.Offset, Is.EqualTo(6));
 
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(7 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(7 + i));
             }
             for (int i = 2; i < 10; i++)
             {
-                Assert.AreEqual(0, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(0));
             }
         }
 
@@ -108,47 +108,47 @@ namespace AcoustID.Tests.Chromaprint
 
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(0, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(0));
             }
 
             // Read from first part
             int size = buffer.Read(tmp, 0, 4);
-            Assert.AreEqual(0, buffer.Offset);
-            Assert.AreEqual(4, size);
+            Assert.That(buffer.Offset, Is.EqualTo(0));
+            Assert.That(size, Is.EqualTo(4));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(1 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(1 + i));
             }
 
             // Read from both parts
             size = buffer.Read(tmp, 3, 4);
-            Assert.AreEqual(0, buffer.Offset);
-            Assert.AreEqual(4, size);
+            Assert.That(buffer.Offset, Is.EqualTo(0));
+            Assert.That(size, Is.EqualTo(4));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(4 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(4 + i));
             }
 
             // Read at split point
             size = buffer.Read(tmp, 5, 4);
-            Assert.AreEqual(0, buffer.Offset);
-            Assert.AreEqual(3, size);
+            Assert.That(buffer.Offset, Is.EqualTo(0));
+            Assert.That(size, Is.EqualTo(3));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(6 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(6 + i));
             }
 
             // Read from last parts
             size = buffer.Read(tmp, 6, 4);
-            Assert.AreEqual(0, buffer.Offset);
-            Assert.AreEqual(2, size);
+            Assert.That(buffer.Offset, Is.EqualTo(0));
+            Assert.That(size, Is.EqualTo(2));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(7 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(7 + i));
             }
         }
 
@@ -165,36 +165,36 @@ namespace AcoustID.Tests.Chromaprint
             buffer.Shift(2);
 
             int size = buffer.Read(tmp, 0, 4);
-            Assert.AreEqual(2, buffer.Offset);
-            Assert.AreEqual(4, size);
+            Assert.That(buffer.Offset, Is.EqualTo(2));
+            Assert.That(size, Is.EqualTo(4));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(3 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(3 + i));
             }
 
             // Offset 4
             buffer.Shift(2);
 
             size = buffer.Read(tmp, 0, 4);
-            Assert.AreEqual(4, buffer.Offset);
-            Assert.AreEqual(4, size);
+            Assert.That(buffer.Offset, Is.EqualTo(4));
+            Assert.That(size, Is.EqualTo(4));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(5 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(5 + i));
             }
 
             // Offset 6
             buffer.Shift(2);
 
             size = buffer.Read(tmp, 0, 4);
-            Assert.AreEqual(6, buffer.Offset);
-            Assert.AreEqual(2, size);
+            Assert.That(buffer.Offset, Is.EqualTo(6));
+            Assert.That(size, Is.EqualTo(2));
 
             for (int i = 0; i < size; i++)
             {
-                Assert.AreEqual(7 + i, tmp[i]);
+                Assert.That(tmp[i], Is.EqualTo(7 + i));
             }
         }
     }

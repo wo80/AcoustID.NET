@@ -21,8 +21,8 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintCalculator calculator = new FingerprintCalculator(classifiers);
             
             IntegralImage integral_image = new IntegralImage(image);
-            Assert.AreEqual(TestsHelper.GrayCode(0), calculator.CalculateSubfingerprint(integral_image, 0));
-            Assert.AreEqual(TestsHelper.GrayCode(2), calculator.CalculateSubfingerprint(integral_image, 1));
+            Assert.That(calculator.CalculateSubfingerprint(integral_image, 0), Is.EqualTo(TestsHelper.GrayCode(0)));
+            Assert.That(calculator.CalculateSubfingerprint(integral_image, 1), Is.EqualTo(TestsHelper.GrayCode(2)));
         }
 
         [Test]
@@ -42,10 +42,10 @@ namespace AcoustID.Tests.Chromaprint
             FingerprintCalculator calculator = new FingerprintCalculator(classifiers);
 
             int[] fp = calculator.Calculate(image);
-            Assert.AreEqual(3, fp.Length);
-            Assert.AreEqual(TestsHelper.GrayCode(0), fp[0]);
-            Assert.AreEqual(TestsHelper.GrayCode(2), fp[1]);
-            Assert.AreEqual(TestsHelper.GrayCode(3), fp[2]);
+            Assert.That(fp.Length, Is.EqualTo(3));
+            Assert.That(fp[0], Is.EqualTo(TestsHelper.GrayCode(0)));
+            Assert.That(fp[1], Is.EqualTo(TestsHelper.GrayCode(2)));
+            Assert.That(fp[2], Is.EqualTo(TestsHelper.GrayCode(3)));
         }
     }
 }

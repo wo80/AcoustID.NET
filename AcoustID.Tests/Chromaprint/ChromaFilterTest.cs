@@ -19,11 +19,11 @@ namespace AcoustID.Tests.Chromaprint
             filter.Consume(d1);
             filter.Consume(d2);
             filter.Consume(d3);
-            Assert.AreEqual(2, image.Rows);
-            Assert.AreEqual(0.5, image.Get(0, 0));
-            Assert.AreEqual(1.5, image.Get(1, 0));
-            Assert.AreEqual(5.5, image.Get(0, 1));
-            Assert.AreEqual(6.5, image.Get(1, 1));
+            Assert.That(image.Rows, Is.EqualTo(2));
+            Assert.That(image.Get(0, 0), Is.EqualTo(0.5));
+            Assert.That(image.Get(1, 0), Is.EqualTo(1.5));
+            Assert.That(image.Get(0, 1), Is.EqualTo(5.5));
+            Assert.That(image.Get(1, 1), Is.EqualTo(6.5));
         }
 
         [Test]
@@ -41,11 +41,11 @@ namespace AcoustID.Tests.Chromaprint
             filter.Consume(d2);
             filter.Consume(d3);
             filter.Consume(d4);
-            Assert.AreEqual(2, image.Rows);
-            Assert.AreEqual(1.7, image.Get(0, 0), TestsHelper.EPS);
-            Assert.AreEqual(3.399999999999999, image.Get(1, 0), TestsHelper.EPS);
-            Assert.AreEqual(10.199999999999999, image.Get(0, 1), TestsHelper.EPS);
-            Assert.AreEqual(11.899999999999999, image.Get(1, 1), TestsHelper.EPS);
+            Assert.That(image.Rows, Is.EqualTo(2));
+            Assert.That(image.Get(0, 0), Is.EqualTo(1.7).Within(TestsHelper.EPS));
+            Assert.That(image.Get(1, 0), Is.EqualTo(3.399999999999999).Within(TestsHelper.EPS));
+            Assert.That(image.Get(0, 1), Is.EqualTo(10.199999999999999).Within(TestsHelper.EPS));
+            Assert.That(image.Get(1, 1), Is.EqualTo(11.899999999999999).Within(TestsHelper.EPS));
         }
 
         [Test]
@@ -61,11 +61,11 @@ namespace AcoustID.Tests.Chromaprint
             filter.Consume(d1);
             filter.Consume(d2);
             filter.Consume(d3);
-            Assert.AreEqual(2, image.Rows);
-            Assert.AreEqual(-1.0, image.Get(0, 0));
-            Assert.AreEqual(-1.0, image.Get(1, 0));
-            Assert.AreEqual(-1.0, image.Get(0, 1));
-            Assert.AreEqual(-1.0, image.Get(1, 1));
+            Assert.That(image.Rows, Is.EqualTo(2));
+            Assert.That(image.Get(0, 0), Is.EqualTo(-1.0));
+            Assert.That(image.Get(1, 0), Is.EqualTo(-1.0));
+            Assert.That(image.Get(0, 1), Is.EqualTo(-1.0));
+            Assert.That(image.Get(1, 1), Is.EqualTo(-1.0));
         }
     }
 }

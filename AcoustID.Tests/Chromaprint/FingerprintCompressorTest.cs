@@ -18,7 +18,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 1, 1 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 1, 73, 0 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 1, 7, 0 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 1, 7, 2 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 2, 65, 0 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace AcoustID.Tests.Chromaprint
             byte[] expected = { 0, 0, 0, 2, 1, 0 };
             byte[] actual = Base64.ByteEncoding.GetBytes(value);
 
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
     }
 }

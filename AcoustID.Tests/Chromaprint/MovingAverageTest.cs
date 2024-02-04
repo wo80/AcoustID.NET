@@ -11,19 +11,19 @@ namespace AcoustID.Tests.Chromaprint
         {
             MovingAverage avg = new MovingAverage(2);
 
-            Assert.AreEqual(0, avg.GetAverage());
+            Assert.That(avg.GetAverage(), Is.EqualTo(0));
 
             avg.AddValue(100);
-            Assert.AreEqual(100, avg.GetAverage());
+            Assert.That(avg.GetAverage(), Is.EqualTo(100));
 
             avg.AddValue(50);
-            Assert.AreEqual(75, avg.GetAverage());
+            Assert.That(avg.GetAverage(), Is.EqualTo(75));
 
             avg.AddValue(0);
-            Assert.AreEqual(25, avg.GetAverage());
+            Assert.That(avg.GetAverage(), Is.EqualTo(25));
 
             avg.AddValue(1000);
-            Assert.AreEqual(500, avg.GetAverage());
+            Assert.That(avg.GetAverage(), Is.EqualTo(500));
         }
     }
 }

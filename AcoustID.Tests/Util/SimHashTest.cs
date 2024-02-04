@@ -22,7 +22,7 @@ namespace AcoustID.Tests.Util
         public void TestNormal()
         {
             int hash1 = SimHash.Compute(data);
-            Assert.AreEqual(1961926954, hash1);
+            Assert.That(hash1, Is.EqualTo(1961926954));
         }
 
         [Test]
@@ -32,35 +32,35 @@ namespace AcoustID.Tests.Util
             int hash2 = SimHash.Compute(data, 10, 948 - 10);
             int hash3 = SimHash.Compute(data, 10, 948 - 100);
 
-            Assert.IsTrue(0 <= TestsHelper.HammingDistance((uint)hash1, (uint)hash2));
-            Assert.IsTrue(1 <= TestsHelper.HammingDistance((uint)hash1, (uint)hash3));
+            Assert.That(TestsHelper.HammingDistance((uint)hash1, (uint)hash2), Is.GreaterThanOrEqualTo(0));
+            Assert.That(TestsHelper.HammingDistance((uint)hash1, (uint)hash3), Is.GreaterThanOrEqualTo(1));
         }
 
 
         [Test]
         public void TestCountSetBits32()
         {
-            Assert.AreEqual(0, TestsHelper.CountSetBits(0x00U));
-            Assert.AreEqual(8, TestsHelper.CountSetBits(0xFFU));
-            Assert.AreEqual(16, TestsHelper.CountSetBits(0xFFFFU));
-            Assert.AreEqual(24, TestsHelper.CountSetBits(0xFFFFFFU));
-            Assert.AreEqual(32, TestsHelper.CountSetBits(0xFFFFFFFFU));
-            Assert.AreEqual(4, TestsHelper.CountSetBits(0x01010101U));
+            Assert.That(TestsHelper.CountSetBits(0x00U), Is.EqualTo(0));
+            Assert.That(TestsHelper.CountSetBits(0xFFU), Is.EqualTo(8));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFU), Is.EqualTo(16));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFU), Is.EqualTo(24));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFU), Is.EqualTo(32));
+            Assert.That(TestsHelper.CountSetBits(0x01010101U), Is.EqualTo(4));
         }
 
         [Test]
         public void TestCountSetBits64()
         {
-            Assert.AreEqual(0, TestsHelper.CountSetBits(0x00UL));
-            Assert.AreEqual(8, TestsHelper.CountSetBits(0xFFUL));
-            Assert.AreEqual(16, TestsHelper.CountSetBits(0xFFFFUL));
-            Assert.AreEqual(24, TestsHelper.CountSetBits(0xFFFFFFUL));
-            Assert.AreEqual(32, TestsHelper.CountSetBits(0xFFFFFFFFUL));
-            Assert.AreEqual(40, TestsHelper.CountSetBits(0xFFFFFFFFFFUL));
-            Assert.AreEqual(48, TestsHelper.CountSetBits(0xFFFFFFFFFFFFUL));
-            Assert.AreEqual(56, TestsHelper.CountSetBits(0xFFFFFFFFFFFFFFUL));
-            Assert.AreEqual(64, TestsHelper.CountSetBits(0xFFFFFFFFFFFFFFFFUL));
-            Assert.AreEqual(8, TestsHelper.CountSetBits(0x0101010101010101UL));
+            Assert.That(TestsHelper.CountSetBits(0x00UL), Is.EqualTo(0));
+            Assert.That(TestsHelper.CountSetBits(0xFFUL), Is.EqualTo(8));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFUL), Is.EqualTo(16));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFUL), Is.EqualTo(24));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFUL), Is.EqualTo(32));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFFFUL), Is.EqualTo(40));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFFFFFUL), Is.EqualTo(48));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFFFFFFFUL), Is.EqualTo(56));
+            Assert.That(TestsHelper.CountSetBits(0xFFFFFFFFFFFFFFFFUL), Is.EqualTo(64));
+            Assert.That(TestsHelper.CountSetBits(0x0101010101010101UL), Is.EqualTo(8));
         }
     }
 }

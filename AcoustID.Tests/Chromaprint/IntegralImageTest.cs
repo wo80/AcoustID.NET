@@ -15,10 +15,10 @@ namespace AcoustID.Tests.Chromaprint
 	        };
             Image image = new Image(2, data);
             IntegralImage integral_image = new IntegralImage(image);
-            Assert.AreEqual(1.0, integral_image[0][0]);
-            Assert.AreEqual(3.0, integral_image[0][1]);
-            Assert.AreEqual(4.0, integral_image[1][0]);
-            Assert.AreEqual(10.0, integral_image[1][1]);
+            Assert.That(integral_image[0][0], Is.EqualTo(1.0));
+            Assert.That(integral_image[0][1], Is.EqualTo(3.0));
+            Assert.That(integral_image[1][0], Is.EqualTo(4.0));
+            Assert.That(integral_image[1][1], Is.EqualTo(10.0));
         }
 
         [Test]
@@ -29,9 +29,9 @@ namespace AcoustID.Tests.Chromaprint
 	        };
             Image image = new Image(1, data);
             IntegralImage integral_image = new IntegralImage(image);
-            Assert.AreEqual(1.0, integral_image[0][0]);
-            Assert.AreEqual(3.0, integral_image[1][0]);
-            Assert.AreEqual(6.0, integral_image[2][0]);
+            Assert.That(integral_image[0][0], Is.EqualTo(1.0));
+            Assert.That(integral_image[1][0], Is.EqualTo(3.0));
+            Assert.That(integral_image[2][0], Is.EqualTo(6.0));
         }
 
         [Test]
@@ -42,9 +42,9 @@ namespace AcoustID.Tests.Chromaprint
 	        };
             Image image = new Image(3, data);
             IntegralImage integral_image = new IntegralImage(image);
-            Assert.AreEqual(1.0, integral_image[0][0]);
-            Assert.AreEqual(3.0, integral_image[0][1]);
-            Assert.AreEqual(6.0, integral_image[0][2]);
+            Assert.That(integral_image[0][0], Is.EqualTo(1.0));
+            Assert.That(integral_image[0][1], Is.EqualTo(3.0));
+            Assert.That(integral_image[0][2], Is.EqualTo(6.0));
         }
 
         [Test]
@@ -59,17 +59,17 @@ namespace AcoustID.Tests.Chromaprint
             Image image = new Image(3, data);
             IntegralImage integral_image = new IntegralImage(image);
 
-            Assert.AreEqual((1.0), integral_image.Area(0, 0, 0, 0));
-            Assert.AreEqual((1.0 + 4.0), integral_image.Area(0, 0, 1, 0));
-            Assert.AreEqual((1.0 + 4.0 + 7.0), integral_image.Area(0, 0, 2, 0));
+            Assert.That(integral_image.Area(0, 0, 0, 0), Is.EqualTo((1.0)));
+            Assert.That(integral_image.Area(0, 0, 1, 0), Is.EqualTo((1.0 + 4.0)));
+            Assert.That(integral_image.Area(0, 0, 2, 0), Is.EqualTo((1.0 + 4.0 + 7.0)));
 
-            Assert.AreEqual((1.0) + (2.0), integral_image.Area(0, 0, 0, 1));
-            Assert.AreEqual((1.0 + 4.0) + (2.0 + 5.0), integral_image.Area(0, 0, 1, 1));
-            Assert.AreEqual((1.0 + 4.0 + 7.0) + (2.0 + 5.0 + 8.0), integral_image.Area(0, 0, 2, 1));
+            Assert.That(integral_image.Area(0, 0, 0, 1), Is.EqualTo((1.0) + (2.0)));
+            Assert.That(integral_image.Area(0, 0, 1, 1), Is.EqualTo((1.0 + 4.0) + (2.0 + 5.0)));
+            Assert.That(integral_image.Area(0, 0, 2, 1), Is.EqualTo((1.0 + 4.0 + 7.0) + (2.0 + 5.0 + 8.0)));
 
-            Assert.AreEqual((2.0), integral_image.Area(0, 1, 0, 1));
-            Assert.AreEqual((2.0 + 5.0), integral_image.Area(0, 1, 1, 1));
-            Assert.AreEqual((2.0 + 5.0 + 8.0), integral_image.Area(0, 1, 2, 1));
+            Assert.That(integral_image.Area(0, 1, 0, 1), Is.EqualTo((2.0)));
+            Assert.That(integral_image.Area(0, 1, 1, 1), Is.EqualTo((2.0 + 5.0)));
+            Assert.That(integral_image.Area(0, 1, 2, 1), Is.EqualTo((2.0 + 5.0 + 8.0)));
         }
     }
 }

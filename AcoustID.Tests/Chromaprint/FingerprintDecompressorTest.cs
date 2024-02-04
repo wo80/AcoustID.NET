@@ -17,8 +17,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -31,8 +31,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -45,8 +45,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -59,8 +59,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -73,8 +73,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -87,8 +87,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] actual = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(0, algorithm);
-            CollectionAssert.AreEqual(actual, expected);
+            Assert.That(algorithm, Is.EqualTo(0));
+            Assert.That(expected, Is.EqualTo(actual).AsCollection);
         }
 
         [Test]
@@ -100,8 +100,8 @@ namespace AcoustID.Tests.Chromaprint
 
             int algorithm = -1;
             int[] value = decompressor.Decompress(Base64.ByteEncoding.GetString(data), out algorithm);
-            Assert.AreEqual(value.Length, 0);
-            Assert.AreEqual(0, algorithm);
+            Assert.That(0, Is.EqualTo(value.Length));
+            Assert.That(algorithm, Is.EqualTo(0));
         }
 
         [Test]
@@ -116,8 +116,8 @@ namespace AcoustID.Tests.Chromaprint
             int algorithm = -1;
             int[] value = decompressor.Decompress(data, out algorithm);
 
-            Assert.AreEqual(1, algorithm);
-            CollectionAssert.AreEqual(value, expected);
+            Assert.That(algorithm, Is.EqualTo(1));
+            Assert.That(expected, Is.EqualTo(value).AsCollection);
         }
     }
 }

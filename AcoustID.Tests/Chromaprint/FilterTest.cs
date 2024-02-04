@@ -17,22 +17,22 @@ namespace AcoustID.Tests.Chromaprint
 
             Filter flt1 = new Filter(0, 0, 1, 1);
             IntegralImage integral_image = new IntegralImage(image);
-            Assert.AreEqual(0.0, flt1.Apply(integral_image, 0), TestsHelper.EPS);
-            Assert.AreEqual(1.0986123, flt1.Apply(integral_image, 1), TestsHelper.EPS);
+            Assert.That(flt1.Apply(integral_image, 0), Is.EqualTo(0.0).Within(TestsHelper.EPS));
+            Assert.That(flt1.Apply(integral_image, 1), Is.EqualTo(1.0986123).Within(TestsHelper.EPS));
         }
 
         [Test]
         public void TestStaticCompareSubtract()
         {
             double res = Filter.Subtract(2.0, 1.0);
-            Assert.AreEqual(1.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(1.0).Within(TestsHelper.EPS));
         }
 
         [Test]
         public void TestStaticCompareSubtractLog()
         {
             double res = Filter.SubtractLog(2.0, 1.0);
-            Assert.AreEqual(0.4054651, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(0.4054651).Within(TestsHelper.EPS));
         }
 
         [Test]
@@ -47,19 +47,19 @@ namespace AcoustID.Tests.Chromaprint
             IntegralImage integral_image = new IntegralImage(image);
             double res;
             res = Filter.Filter0(integral_image, 0, 0, 1, 1, Filter.Subtract);
-            Assert.AreEqual(1.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(1.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 0, 0, 2, 2, Filter.Subtract);
-            Assert.AreEqual(12.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(12.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 0, 0, 3, 3, Filter.Subtract);
-            Assert.AreEqual(45.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(45.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 1, 1, 2, 2, Filter.Subtract);
-            Assert.AreEqual(28.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(28.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 2, 2, 1, 1, Filter.Subtract);
-            Assert.AreEqual(9.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(9.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 0, 0, 3, 1, Filter.Subtract);
-            Assert.AreEqual(12.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(12.0).Within(TestsHelper.EPS));
             res = Filter.Filter0(integral_image, 0, 0, 1, 3, Filter.Subtract);
-            Assert.AreEqual(6.0, res, TestsHelper.EPS);
+            Assert.That(res, Is.EqualTo(6.0).Within(TestsHelper.EPS));
         }
 
         [Test]
@@ -75,15 +75,15 @@ namespace AcoustID.Tests.Chromaprint
             double res;
 
             res = Filter.Filter1(integral_image, 0, 0, 1, 1, Filter.Subtract);
-            Assert.AreEqual(1.0 - 0.0, res);
+            Assert.That(res, Is.EqualTo(1.0 - 0.0));
             res = Filter.Filter1(integral_image, 1, 1, 1, 1, Filter.Subtract);
-            Assert.AreEqual(4.1 - 0.0, res);
+            Assert.That(res, Is.EqualTo(4.1 - 0.0));
             res = Filter.Filter1(integral_image, 0, 0, 1, 2, Filter.Subtract);
-            Assert.AreEqual(2.1 - 1.0, res);
+            Assert.That(res, Is.EqualTo(2.1 - 1.0));
             res = Filter.Filter1(integral_image, 0, 0, 2, 2, Filter.Subtract);
-            Assert.AreEqual((2.1 + 4.1) - (1.0 + 3.1), res);
+            Assert.That(res, Is.EqualTo((2.1 + 4.1) - (1.0 + 3.1)));
             res = Filter.Filter1(integral_image, 0, 0, 3, 2, Filter.Subtract);
-            Assert.AreEqual((2.1 + 4.1 + 7.1) - (1.0 + 3.1 + 6.0), res);
+            Assert.That(res, Is.EqualTo((2.1 + 4.1 + 7.1) - (1.0 + 3.1 + 6.0)));
         }
 
         [Test]
@@ -98,11 +98,11 @@ namespace AcoustID.Tests.Chromaprint
             IntegralImage integral_image = new IntegralImage(image);
             double res;
             res = Filter.Filter2(integral_image, 0, 0, 2, 1, Filter.Subtract);
-            Assert.AreEqual(2.0, res, TestsHelper.EPS); // 3 - 1
+            Assert.That(res, Is.EqualTo(2.0).Within(TestsHelper.EPS)); // 3 - 1
             res = Filter.Filter2(integral_image, 0, 0, 2, 2, Filter.Subtract);
-            Assert.AreEqual(4.0, res, TestsHelper.EPS); // 3+4 - 1+2
+            Assert.That(res, Is.EqualTo(4.0).Within(TestsHelper.EPS)); // 3+4 - 1+2
             res = Filter.Filter2(integral_image, 0, 0, 2, 3, Filter.Subtract);
-            Assert.AreEqual(6.0, res, TestsHelper.EPS); // 3+4+5 - 1+2+3
+            Assert.That(res, Is.EqualTo(6.0).Within(TestsHelper.EPS)); // 3+4+5 - 1+2+3
         }
 
         [Test]
@@ -117,11 +117,11 @@ namespace AcoustID.Tests.Chromaprint
             IntegralImage integral_image = new IntegralImage(image);
             double res;
             res = Filter.Filter3(integral_image, 0, 0, 2, 2, Filter.Subtract);
-            Assert.AreEqual(0.1, res, TestsHelper.EPS); // 2.1+3.1 - 1+4.1
+            Assert.That(res, Is.EqualTo(0.1).Within(TestsHelper.EPS)); // 2.1+3.1 - 1+4.1
             res = Filter.Filter3(integral_image, 1, 1, 2, 2, Filter.Subtract);
-            Assert.AreEqual(0.1, res, TestsHelper.EPS); // 4+8 - 5+7
+            Assert.That(res, Is.EqualTo(0.1).Within(TestsHelper.EPS)); // 4+8 - 5+7
             res = Filter.Filter3(integral_image, 0, 1, 2, 2, Filter.Subtract);
-            Assert.AreEqual(0.3, res, TestsHelper.EPS); // 2.1+5.1 - 3.4+4.1
+            Assert.That(res, Is.EqualTo(0.3).Within(TestsHelper.EPS)); // 2.1+5.1 - 3.4+4.1
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace AcoustID.Tests.Chromaprint
             Image image = new Image(3, data);
             IntegralImage integral_image = new IntegralImage(image);
             double res = Filter.Filter4(integral_image, 0, 0, 3, 3, Filter.Subtract);
-            Assert.AreEqual(-13.0, res, TestsHelper.EPS); // 2+4+7 - (1+3+6) - (3+5+8)
+            Assert.That(res, Is.EqualTo(-13.0).Within(TestsHelper.EPS)); // 2+4+7 - (1+3+6) - (3+5+8)
         }
 
         [Test]
@@ -149,7 +149,7 @@ namespace AcoustID.Tests.Chromaprint
             Image image = new Image(3, data);
             IntegralImage integral_image = new IntegralImage(image);
             double res = Filter.Filter5(integral_image, 0, 0, 3, 3, Filter.Subtract);
-            Assert.AreEqual(-15.0, res, TestsHelper.EPS); // 3+4+5 - (1+2+3) - (6+7+8)
+            Assert.That(res, Is.EqualTo(-15.0).Within(TestsHelper.EPS)); // 3+4+5 - (1+2+3) - (6+7+8)
         }
     }
 }

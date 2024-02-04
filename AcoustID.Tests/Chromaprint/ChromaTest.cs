@@ -14,14 +14,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[113] = 1.0;
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
 
@@ -33,14 +33,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[112] = 1.0;
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
 
@@ -52,14 +52,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[64] = 1.0; // 250 Hz
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
 
@@ -72,14 +72,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[64] = 1.0;
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        0.0, 0.286905, 0.713095, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
 
@@ -92,14 +92,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[113] = 1.0;
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        0.555242, 0.0, 0.0, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.444758,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
 
@@ -112,14 +112,14 @@ namespace AcoustID.Tests.Chromaprint
             double[] frame = new double[128];
             frame[112] = 1.0;
             chroma.Consume(frame);
-            Assert.AreEqual(12, buffer.features.Length);
+            Assert.That(buffer.features.Length, Is.EqualTo(12));
             double[] expected_features = {
 		        0.401354, 0.0, 0.0, 0.0, 0.0, 0.0,
 		        0.0, 0.0, 0.0, 0.0, 0.0, 0.598646,
 	        };
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual(expected_features[i], buffer.features[i], 0.0001);
+                Assert.That(buffer.features[i], Is.EqualTo(expected_features[i]).Within(0.0001));
             }
         }
     }

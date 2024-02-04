@@ -8,8 +8,8 @@ namespace AcoustID.Tests
 
     public class TestChromaprint
     {
-        static int FRAME_SIZE = 4096;
-        static int OVERLAP = FRAME_SIZE - FRAME_SIZE / 3;// 2720;
+        static readonly int FRAME_SIZE = 4096;
+        static readonly int OVERLAP = FRAME_SIZE - FRAME_SIZE / 3;// 2720;
 
 #if TEST_LOCAL_FILES
         static int SAMPLE_RATE = 11025;

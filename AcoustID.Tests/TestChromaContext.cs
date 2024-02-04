@@ -25,9 +25,9 @@ namespace AcoustID.Tests
             string fp = ctx.GetFingerprint();
             int hash = ctx.GetFingerprintHash();
 
-            Assert.AreEqual(18, fp.Length);
-            Assert.AreEqual("AQAAA0mUaEkSRZEGAA", fp);
-            Assert.AreEqual(627964279, hash);
+            Assert.That(fp.Length, Is.EqualTo(18));
+            Assert.That(fp, Is.EqualTo("AQAAA0mUaEkSRZEGAA"));
+            Assert.That(hash, Is.EqualTo(627964279));
         }
 
         [Test]
@@ -46,10 +46,10 @@ namespace AcoustID.Tests
             ctx.Finish();
             int[] fp = ctx.GetRawFingerprint();
 
-            Assert.AreEqual(3, fp.Length);
-            Assert.AreEqual(627964279, fp[0]);
-            Assert.AreEqual(627964279, fp[1]);
-            Assert.AreEqual(627964279, fp[2]);
+            Assert.That(fp.Length, Is.EqualTo(3));
+            Assert.That(fp[0], Is.EqualTo(627964279));
+            Assert.That(fp[1], Is.EqualTo(627964279));
+            Assert.That(fp[2], Is.EqualTo(627964279));
         }
 
         [Test]
@@ -61,10 +61,10 @@ namespace AcoustID.Tests
 
             byte[] encoded = ChromaContext.EncodeFingerprint(fingerprint, 55, false);
 
-            Assert.AreEqual(6, encoded.Length);
+            Assert.That(encoded.Length, Is.EqualTo(6));
             for (int i = 0; i < encoded.Length; i++)
             {
-                Assert.AreEqual(expected[i], encoded[i]);// << "Different at " << i;
+                Assert.That(encoded[i], Is.EqualTo(expected[i]));// << "Different at " << i;
             }
         }
 
@@ -77,10 +77,10 @@ namespace AcoustID.Tests
 
             byte[] encoded = ChromaContext.EncodeFingerprint(fingerprint, 55, true);
 
-            Assert.AreEqual(8, encoded.Length);
+            Assert.That(encoded.Length, Is.EqualTo(8));
             for (int i = 0; i < encoded.Length; i++)
             {
-                Assert.AreEqual(expected[i], encoded[i]);
+                Assert.That(encoded[i], Is.EqualTo(expected[i]));
             }
         }
 
@@ -89,13 +89,12 @@ namespace AcoustID.Tests
         {
             byte[] data = { 55, 0, 0, 2, 65, 0 };
 
-            int algorithm;
-            int[] fingerprint = ChromaContext.DecodeFingerprint(data, false, out algorithm);
+            int[] fingerprint = ChromaContext.DecodeFingerprint(data, false, out int algorithm);
 
-            Assert.AreEqual(2, fingerprint.Length);
-            Assert.AreEqual(55, algorithm);
-            Assert.AreEqual(1, fingerprint[0]);
-            Assert.AreEqual(0, fingerprint[1]);
+            Assert.That(fingerprint.Length, Is.EqualTo(2));
+            Assert.That(algorithm, Is.EqualTo(55));
+            Assert.That(fingerprint[0], Is.EqualTo(1));
+            Assert.That(fingerprint[1], Is.EqualTo(0));
         }
 
         [Test]
@@ -103,7 +102,7 @@ namespace AcoustID.Tests
         {
             int[] fingerprint = { 19681, 22345, 312312, 453425 };
 
-            Assert.AreEqual(17249, SimHash.Compute(fingerprint));
+            Assert.That(SimHash.Compute(fingerprint), Is.EqualTo(17249));
         }
     }
 }

@@ -13,14 +13,14 @@ namespace AcoustID.Tests.Chromaprint
             AudioBuffer buffer2 = new AudioBuffer();
             AudioProcessor processor = new AudioProcessor(44100, buffer);
 
-            Assert.AreEqual(44100, processor.TargetSampleRate);
-            Assert.AreEqual(buffer, processor.Consumer);
+            Assert.That(processor.TargetSampleRate, Is.EqualTo(44100));
+            Assert.That(processor.Consumer, Is.EqualTo(buffer));
 
             processor.TargetSampleRate = 11025;
-            Assert.AreEqual(11025, processor.TargetSampleRate);
+            Assert.That(processor.TargetSampleRate, Is.EqualTo(11025));
 
             processor.Consumer = buffer2;
-            Assert.AreEqual(buffer2, processor.Consumer);
+            Assert.That(processor.Consumer, Is.EqualTo(buffer2));
         }
 
 #if TEST_LOCAL_FILES

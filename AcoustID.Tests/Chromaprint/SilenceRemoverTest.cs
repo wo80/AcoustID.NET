@@ -18,10 +18,10 @@ namespace AcoustID.Tests.Chromaprint
             processor.Consume(data, data.Length);
             processor.Flush();
 
-            Assert.AreEqual(data.Length, buffer.data.Length);
+            Assert.That(buffer.data.Length, Is.EqualTo(data.Length));
             for (int i = 0; i < data.Length; i++)
             {
-                Assert.AreEqual(data[i], buffer.data[i]); // << "Signals differ at index " << i;
+                Assert.That(buffer.data[i], Is.EqualTo(data[i])); // << "Signals differ at index " << i;
             }
         }
 
@@ -40,10 +40,10 @@ namespace AcoustID.Tests.Chromaprint
             processor.Consume(data1, data1.Length);
             processor.Flush();
 
-            Assert.AreEqual(data2.Length, buffer.data.Length);
+            Assert.That(buffer.data.Length, Is.EqualTo(data2.Length));
             for (int i = 0; i < data2.Length; i++)
             {
-                Assert.AreEqual(data2[i], buffer.data[i]); // << "Signals differ at index " << i;
+                Assert.That(buffer.data[i], Is.EqualTo(data2[i])); // << "Signals differ at index " << i;
             }
         }
     }
